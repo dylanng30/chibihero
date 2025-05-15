@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Ground
+  - Enemy
+  - RedPawn
+  - Spawn
+  - RedArcher
+  - RedWarrior
+  - MainTopDown
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - tree
+  - Water
+  - UI
+  - bridge
+  - grass
+  - Ground
+  - Enemy
+  - Player
+  - Projectile
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: bridge
+    uniqueID: 259596529
+    locked: 0
+  - name: ground
+    uniqueID: 2539035477
+    locked: 0
