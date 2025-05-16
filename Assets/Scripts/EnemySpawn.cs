@@ -1,60 +1,26 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class EnemySpawn : MonoBehaviour
 {
     [SerializeField] GameObject[] Prefabs;
     private GameObject[] SpawnPoints;
-    private string currentSceneName;
 
-    void Start()
+    public void Spawn()
     {
-        /*currentSceneName = SceneManager.GetActiveScene().name;
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        GameObject sceneRoot = GameObject.Find(currentSceneName);
+        if (sceneRoot == null) return;
 
-        bool hasEnemy = false;
-        foreach (Transform child in GameObject.Find(currentSceneName).transform)
-        {
-            if (child.GetComponent<Enemy>() != null)
-            {
-                hasEnemy = true;
-                break;
-            }
-        }
+        // Chỉ spawn nếu chưa có enemy nào là con của sceneRoot
+        if (sceneRoot.transform.childCount > 0) return;
 
-        if (!hasEnemy)
-        {
-            SpawnPoints = GameObject.FindGameObjectsWithTag("Spawn");
-            Spawn();
-        }*/
-    }
-    public void ForceSpawn()
-    {
-        currentSceneName = SceneManager.GetActiveScene().name;
-
-        bool hasEnemy = false;
-        foreach (Transform child in GameObject.Find(currentSceneName).transform)
-        {
-            if (child.GetComponent<Enemy>() != null)
-            {
-                hasEnemy = true;
-                break;
-            }
-        }
-
-        if (!hasEnemy)
-        {
-            SpawnPoints = GameObject.FindGameObjectsWithTag("Spawn");
-            Spawn();
-        }
-    }
-
-    private void Spawn()
-    {
+        SpawnPoints = GameObject.FindGameObjectsWithTag("Spawn");
         for (int i = 0; i < SpawnPoints.Length; i++)
         {
             int randomIndex = Random.Range(0, Prefabs.Length);
             GameObject e = Instantiate(Prefabs[randomIndex], SpawnPoints[i].transform.position, Quaternion.identity);
-            e.transform.SetParent(GameObject.Find(currentSceneName).transform);
+            e.transform.SetParent(sceneRoot.transform);
             EnemyManager.Instance.RegisterEnemy(e);
         }
     }

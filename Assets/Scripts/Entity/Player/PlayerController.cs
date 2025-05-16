@@ -5,6 +5,7 @@ public class PlayerController : Entity
 {
     [SerializeField] Transform ATKPoint;
     [SerializeField] float PSpeed;
+    [SerializeField] GameObject prefab;
 
     private IdleState idleState;
     private RunState runState;
@@ -20,18 +21,19 @@ public class PlayerController : Entity
         _speed = PSpeed;
         idleState = new IdleState(this);
         runState = new RunState(this);
-        normalATKState = new NormalATKState(this);        
+        normalATKState = new NormalATKState(this);
+        skillState = new SkillState(this);
         this.GetStateManager().ChangeState(idleState);    
     }
 
     public void Update()
     {
         this.Flip();
-        if(Skill1Locked == false)
+/*        if(Skill1Locked == false)
         {
-            skillState = new SkillState(this);
+            
             Debug.Log("da mo khoa skill1");
-        }
+        }*/
     }
     private void FixedUpdate()
     {
@@ -58,6 +60,10 @@ public class PlayerController : Entity
         {
             Debug.LogError("ATKPoint kco");
         }
+    }
+    public void Skill1()
+    {
+        
     }
 
     public IdleState GetIdleState()

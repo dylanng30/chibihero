@@ -90,6 +90,7 @@ public abstract class Enemy : Entity
     public void Die()
     {
         this.gameObject.SetActive(false);
+        ResetStat();
     }
 
 }

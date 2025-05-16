@@ -101,12 +101,13 @@ public class SkillState : IState
     }
     public void Execute()
     {
-        
-
+        AnimatorStateInfo stateInfo = _player.GetAnim().GetCurrentAnimatorStateInfo(0);
+        if (stateInfo.IsName("Skill1") && stateInfo.normalizedTime >= 1f)
+            _player.GetStateManager().ChangeState(_player.GetIdleState());
     }
     public void Exit()
     {
-
+        _player.Skill1();
     }
 }
 

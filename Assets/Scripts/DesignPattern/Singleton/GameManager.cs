@@ -6,7 +6,6 @@ public enum GameState { Exploring, Fighting }
 public class GameManager : Singleton<GameManager>
 {
     public GameObject currentPos;
-    private bool IsCompleted = false;
     public GameObject mainTDPool, redArcherPool, redPawnPool;
     public GameState currentState { get; private set; }
     protected override void Awake()
@@ -17,81 +16,25 @@ public class GameManager : Singleton<GameManager>
     }
     private void Start()
     {
-        LoadPool();
         StartCoroutine(LoadMapCoroutine("MainTopDown"));
-    }
-
-    public void ChangeState(GameState state)
-    {
-
     }
     public void LoadMap(string mapName)
     {
+        if (mapName == SceneManager.GetActiveScene().name)
+            return;
         StartCoroutine(LoadMapCoroutine(mapName));
     }
     public IEnumerator LoadMapCoroutine(string mapName)
     {
-        Debug.Log("đã tới");
+        Debug.Log("Đang load map: " + mapName);
         SceneManager.LoadScene(mapName);
+
         yield return null;
-
-        DeactiveAllScene();
-        ActiveCurrentScene(mapName);
         yield return StartCoroutine(WaitAndUpdatePosition());
-
-        EnemySpawn spawner = GameObject.FindObjectOfType<EnemySpawn>();
-        if (spawner != null)
-            spawner.ForceSpawn();
-
-        EnemyManager.Instance.ActiveEnemy();
-    }
-    private void LoadPool()
-    {
-        mainTDPool = GameObject.Find("MainTopDown");
-        redArcherPool = GameObject.Find("RedArcher");
-        redPawnPool = GameObject.Find("RedPawn");
-    }
-
-    private void DeactiveAllScene()
-    {
-        mainTDPool.SetActive(false);
-        redArcherPool.SetActive(false);
-        redPawnPool.SetActive(false);
-    }
-    private void ActiveCurrentScene(string sceneName)
-    {
-        switch (sceneName)
-        {
-            case "MainTopDown":
-                mainTDPool.SetActive(true);
-                break;
-            case "RedArcher":
-                redArcherPool.SetActive(true);
-                break;
-            case "RedPawn":
-                redPawnPool.SetActive(true);
-                break;
-        }
-
-    }
-
-    public void CheckEnemiesLeft()
-    {
-        bool activeEnemy = EnemyManager.Instance.CheckEnemiesAndReturnToTopDown();
-        Debug.Log(activeEnemy);        
-
-        if (activeEnemy)
-        {
-            //EnemyManager.Instance.ActiveEnemy();
-            IsCompleted = true;
-            LoadMap("MainTopDown");
-            return;
-        }
-        IsCompleted = false;
-    }
-    public bool isCompleted()
-    {
-        return IsCompleted;
+        EnemySpawn enemySpawn = GameObject.FindObjectOfType<EnemySpawn>();
+        if (enemySpawn != null)
+            enemySpawn.Spawn(); // Chỉ spawn nếu chưa có enemy
+        EnemyManager.Instance.ActivatePool(); // Luôn active/deactive đúng enemy
     }
 
     public GameState GetGameState()
@@ -106,9 +49,5 @@ public class GameManager : Singleton<GameManager>
         {
             PlayerModeManager.Instance.transform.position = spawnPoint.transform.position;
         }
-    }
-    private void UpdatePosition()
-    {
-        PlayerModeManager.Instance.transform.position = GameObject.Find("PlayerSpawn").transform.position;
     }
 }

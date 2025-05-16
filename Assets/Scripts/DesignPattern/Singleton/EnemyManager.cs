@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,34 +20,48 @@ public class EnemyManager : Singleton<EnemyManager>
         Debug.Log("Activate enemy pool");
         isCompleted = false; // Reset trạng thái hoàn thành map
 
-        string sceneName = enemy.scene.name;
-        if (!sceneEnemies.ContainsKey(sceneName))
-            sceneEnemies[sceneName] = new List<GameObject>();
-
-        if (!sceneEnemies[sceneName].Contains(enemy))
-            sceneEnemies[sceneName].Add(enemy);
-    }
-
-    public void UnregisterEnemy(GameObject enemy)
-    {
-        //enemies.Remove(enemy);
-        GameManager.Instance.CheckEnemiesLeft();
-    }
-
-    public void ActiveEnemy()
-    {
-        string currentScene = SceneManager.GetActiveScene().name;
-
-        if (sceneEnemies.ContainsKey(currentScene))
+        string sceneName = SceneManager.GetActiveScene().name;
+        Transform pool = GameObject.Find(sceneName)?.transform;
+        if (pool == null) return;
+        List<GameObject> enemiesActive = new List<GameObject>(ActiveEnemies);
+        foreach (GameObject e in enemiesActive)
         {
-            foreach (GameObject e in sceneEnemies[currentScene])
-            {
-                if (e != null)
-                {
-                    e.GetComponent<Enemy>().ResetStat();
-                    e.SetActive(true);
-                }
-            }
+            if (e != null && (e.transform.parent == null || e.transform.parent.name != sceneName))
+                UnregisterEnemy(e, false); // Không kiểm tra hoàn thành khi chuyển scene
+        }
+
+        // Active lại các enemy thuộc scene hiện tại
+        List<GameObject> enemiesInactive = new List<GameObject>(InactiveEnemies);
+        foreach (GameObject e in enemiesInactive)
+        {
+            if (e != null && e.transform.parent != null && e.transform.parent.name == sceneName)
+                RegisterEnemy(e);
+        }        
+    }
+    public void DeactivatePool()
+    {
+        Debug.Log("Deactivate enemy pool");
+        isCompleted = false; // Reset trạng thái hoàn thành map
+        string sceneName = SceneManager.GetActiveScene().name;
+        Transform pool = GameObject.Find(sceneName)?.transform;
+        if (pool == null) return;
+        // Deactive các enemy thuộc scene hiện tại
+        List<GameObject> enemiesActive = new List<GameObject>(ActiveEnemies);
+        foreach (GameObject e in enemiesActive)
+        {
+            if (e != null && e.transform.parent != null && e.transform.parent.name == sceneName)
+                UnregisterEnemy(e, false); // Không kiểm tra hoàn thành khi chuyển scene
+        }
+    }
+
+    public void RegisterEnemy(GameObject enemy)
+    {
+        if (!ActiveEnemies.Contains(enemy))
+        {
+            enemy.SetActive(true);
+            ActiveEnemies.Add(enemy);
+            if (InactiveEnemies.Contains(enemy))
+                InactiveEnemies.Remove(enemy);
         }
     }
 

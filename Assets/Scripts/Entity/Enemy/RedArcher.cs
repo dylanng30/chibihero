@@ -6,11 +6,9 @@ public class RedArcher : LowEnemy
 {
     [SerializeField]
     GameObject prefab;
-    private float Angle;
 
     private void Start()
     {
-        Angle = 50;
         this.InitTarget();
         this.SetComponents();
         this.InitState();
@@ -29,7 +27,7 @@ public class RedArcher : LowEnemy
     public override void NormalATK()
     {
         GameObject bullet = Instantiate(prefab, this.transform.position, Quaternion.identity);
-        Vector2 Force = bullet.GetComponent<ProjectileBase>().InitVelo(_Damage, Angle, this._currentTarget.transform, this.transform);
+        Vector2 Force = bullet.GetComponent<ProjectileBase>().InitVelo(_Damage, this._currentTarget.transform, this.transform);
         bullet.GetComponent<Rigidbody2D>().AddForce(Force);
     }
 }
