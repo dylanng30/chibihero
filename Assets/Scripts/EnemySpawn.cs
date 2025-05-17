@@ -6,13 +6,17 @@ public class EnemySpawn : MonoBehaviour
     [SerializeField] GameObject[] Prefabs;
     private GameObject[] SpawnPoints;
 
+    private void Start()
+    {
+        Spawn();
+    }
+
     public void Spawn()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
         GameObject sceneRoot = GameObject.Find(currentSceneName);
         if (sceneRoot == null) return;
 
-        // Chỉ spawn nếu chưa có enemy nào là con của sceneRoot
         if (sceneRoot.transform.childCount > 0) return;
 
         SpawnPoints = GameObject.FindGameObjectsWithTag("Spawn");

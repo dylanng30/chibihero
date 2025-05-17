@@ -21,10 +21,18 @@ public class PhysicsPlayer : MonoBehaviour
         if(rb != null) return;
         rb = GetComponent<Rigidbody2D>();
         this.SetRigidBody2D();
-        Debug.Log("Add Rigidbody2D to " + gameObject);
+        //Debug.Log("Add Rigidbody2D to " + gameObject);
     } 
 
     protected void SetRigidBody2D()
+    {
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+        rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
+        SetGravity();
+    }
+
+    public void SetGravity()
     {
         string scene = SceneManager.GetActiveScene().name;
         if (scene.Contains("TopDown"))

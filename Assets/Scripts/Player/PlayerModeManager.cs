@@ -14,7 +14,7 @@ public class PlayerModeManager : Singleton<PlayerModeManager>
     {
         base.Awake();
         DontDestroyOnLoad(gameObject);
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponentInChildren<Rigidbody2D>();
         topDownController = GetComponent<ControllerTopDown>();
         platformerController = GetComponent<PlayerController>();
         stateManager = GetComponent<StateManager>();

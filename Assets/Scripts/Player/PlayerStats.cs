@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
     [SerializeField] private PlayerType playerType;
     [SerializeField] protected ScriptablePlayer player;
-    // Start is called before the first frame update
+
+
     private int currentHealth;
     private int attackPower;
     private int armor;
@@ -25,7 +25,6 @@ public class PlayerStats : MonoBehaviour
     }
     protected virtual void LoadPlayerStats()
     {
-        //player = ResourceSystem.Instance.GetPlayer(playerType);
         player = Systems.Instance.ResourceSystem.GetPlayer(playerType);
         if (player == null)
         {

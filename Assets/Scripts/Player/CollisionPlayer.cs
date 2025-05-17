@@ -20,14 +20,14 @@ public class CollisionPlayer : MonoBehaviour
     {
         if (playerController != null) return;
         playerController = GetComponentInParent<PlayerController>();
-        Debug.Log("Add PlayerController to: " + gameObject);
+        //Debug.Log("Add PlayerController to: " + gameObject);
     }
 
     protected void LoadBoxCollider2D()
     {
         if (hitbox != null) return;
         hitbox = GetComponent<BoxCollider2D>();
-        Debug.Log("Add BoxCollider2D to: " + gameObject);
+       // Debug.Log("Add BoxCollider2D to: " + gameObject);
 
     }
 }

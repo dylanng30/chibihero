@@ -24,9 +24,9 @@ public abstract class Entity : MonoBehaviour
 
     protected void SetComponents()
     {
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
-        hitbox = GetComponent<BoxCollider2D>();
+        rb = GetComponentInChildren<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
+        hitbox = GetComponentInChildren<BoxCollider2D>();
         stateManager = GetComponent<StateManager>();
         groundLayer = LayerMask.GetMask("Ground");
     }

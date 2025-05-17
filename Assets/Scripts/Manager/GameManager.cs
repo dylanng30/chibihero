@@ -8,9 +8,7 @@ public class GameManager : Singleton<GameManager>
     public GameState currentState { get; private set; }
     protected override void Awake()
     {
-        base.Awake();
-        DontDestroyOnLoad(gameObject);
-        
+        base.Awake();        
     }
     private void Start()
     {

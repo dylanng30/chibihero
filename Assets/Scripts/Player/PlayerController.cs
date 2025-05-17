@@ -7,7 +7,7 @@ public class PlayerController : Entity
     [SerializeField] PhysicsPlayer physicsPlayer;
     [SerializeField] CollisionPlayer collisionPlayer;
     [SerializeField] AnimationPlayer animationPlayer;
-    //[SerializeField] PlayerStat playerStat;
+    [SerializeField] PlayerStats playerStats;
 
     [SerializeField] Transform ATKPoint;
     [SerializeField] float PSpeed;
@@ -22,7 +22,7 @@ public class PlayerController : Entity
     
     void Start()
     {
-        this.LoadComponent();
+        //this.LoadComponent();
         this.BackUp();      
     }
     private void BackUp()
@@ -51,6 +51,7 @@ public class PlayerController : Entity
         LoadPhysicsPlayer();
         LoadCollisionPlayer();
         LoadAnimationPlayer();
+        LoadPlayerStat();
 
     }
     protected virtual void LoadPhysicsPlayer()
@@ -65,13 +66,13 @@ public class PlayerController : Entity
     }
     protected virtual void LoadAnimationPlayer()
     {
-        if (this.collisionPlayer != null) return;
+        if (this.animationPlayer != null) return;
         this.animationPlayer = this.GetComponentInChildren<AnimationPlayer>();
     }
     protected virtual void LoadPlayerStat()
     {
-        if (this.collisionPlayer != null) return;
-        this.collisionPlayer = this.GetComponentInChildren<CollisionPlayer>();
+        if (this.playerStats != null) return;
+        this.playerStats = this.GetComponentInChildren<PlayerStats>();
     }
 
     public PhysicsPlayer PhysicsPlayer
@@ -82,6 +83,15 @@ public class PlayerController : Entity
     {
         get { return collisionPlayer; }
     }
+    public AnimationPlayer AnimationPlayer
+    {
+        get { return animationPlayer; }
+    }
+    public PlayerStats PlayerStats
+    {
+        get { return playerStats; }
+    }
+
 
 
     public void Move(float leftRight)

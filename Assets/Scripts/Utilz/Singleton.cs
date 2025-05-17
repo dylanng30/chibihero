@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class StaticInstance<T> : MonoBehaviour where T : MonoBehaviour
 {
@@ -12,15 +12,15 @@ public abstract class StaticInstance<T> : MonoBehaviour where T : MonoBehaviour
     }
 
 }
-public class Singleton<T> : StaticInstance<T> where T : MonoBehaviour
+public abstract class Singleton<T> : StaticInstance<T> where T : MonoBehaviour
 {
     protected override void Awake()
     {
-        if (Instance != null)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
-            return; 
-        }            
+            return;
+        }
         base.Awake();
     }
 }
@@ -29,24 +29,7 @@ public abstract class PersistentSingleton<T> : Singleton<T> where T : MonoBehavi
     protected override void Awake()
     {
         base.Awake();
-        DontDestroyOnLoad(gameObject);
+        if(Instance == this)
+            DontDestroyOnLoad(gameObject);
     }
 }
-
-/*private static T _instance;
-    public static T Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = (T)FindObjectOfType(typeof(T));
-                if (_instance == null)
-                {
-                    GameObject singleton = new GameObject(typeof(T).Name);
-                    _instance = singleton.AddComponent<T>();
-                }
-            }
-            return _instance;
-        }
-    }*/
