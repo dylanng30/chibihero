@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class ProjTNT : ProjectileBase
 {
@@ -9,27 +10,22 @@ public class ProjTNT : ProjectileBase
     {
         rotationSpeed = new Vector3(0, 0, -360);
         this.Init();
+        this.ChangeState("PreFly", this.gameObject);
     }
 
     private void FixedUpdate()
     {
-        if (!collision)
+        if (!this.collision)
             this.Action();
         else
             this.GetRb().velocity = Vector2.zero;
-
-        AnimatorStateInfo stateInfo = this.GetAnim().GetCurrentAnimatorStateInfo(0);
-        if (stateInfo.IsName("PreFly") && stateInfo.normalizedTime >= 1f)
-            this.GetAnim().Play("Fly");
-        if (stateInfo.IsName("Explosion") && stateInfo.normalizedTime >= 1f)
-            Destroy(this.gameObject);
-
     }
 
-    public override Vector2 InitVelo(int dmg, Transform target, Transform origin)
+    public override Vector2 InitVelo(int dmg, GameObject entity)
     {
         this.dmg = dmg;
-        Vector3 dir = target.position - origin.position;
+        Transform target = GameObject.FindObjectOfType<PlayerController>().transform;
+        Vector3 dir = target.position - entity.transform.position;
         float AngleR = 0;
         if (dir.x < 0)
             AngleR = -Mathf.Abs(Angle) * Mathf.Deg2Rad;
@@ -55,11 +51,11 @@ public class ProjTNT : ProjectileBase
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.GetComponent<PlayerController>().TakeDamage(dmg, this.transform);
-            Explosion();
+            this.ChangeState("Explosion", this.gameObject);
         }
         else if (collision.gameObject.CompareTag("Ground"))
         {
-            Explosion();
+            this.ChangeState("Explosion", this.gameObject);
         }
     }
 }

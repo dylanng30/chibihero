@@ -6,6 +6,7 @@ public class ProjArrow : ProjectileBase
     void Awake()
     {
         this.Init();
+        this.ChangeState("PreFly", this.gameObject);
     }
 
     private void FixedUpdate()
@@ -14,13 +15,6 @@ public class ProjArrow : ProjectileBase
             this.Action();
         else
             this.GetRb().velocity = Vector2.zero;
-
-        AnimatorStateInfo stateInfo = this.GetAnim().GetCurrentAnimatorStateInfo(0);
-        if (stateInfo.IsName("PreFly") && stateInfo.normalizedTime >= 1f)
-            this.GetAnim().Play("Fly");
-        if (stateInfo.IsName("Explosion") && stateInfo.normalizedTime >= 1f)
-            Destroy(this.gameObject);
-
     }
     public override void Action()
     {
@@ -30,10 +24,11 @@ public class ProjArrow : ProjectileBase
             transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
     }
-    public override Vector2 InitVelo(int dmg, Transform target, Transform origin)
+    public override Vector2 InitVelo(int dmg, GameObject entity)
     {
         this.dmg = dmg;
-        Vector3 dir = target.position - origin.position;
+        Transform target = GameObject.FindObjectOfType<PlayerController>().transform;
+        Vector3 dir = target.position - entity.transform.position;
         float AngleR = 0;
         if (dir.x < 0)
             AngleR = -Mathf.Abs(Angle) * Mathf.Deg2Rad;
@@ -54,11 +49,11 @@ public class ProjArrow : ProjectileBase
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.GetComponent<PlayerController>().TakeDamage(dmg, this.transform);
-            Destroy(this.gameObject);
+            this.ChangeState("Explosion", this.gameObject);
         }
         else if (collision.gameObject.CompareTag("Ground"))
         {
-            Explosion();
+            this.ChangeState("Explosion", this.gameObject);
         }
     }
 }

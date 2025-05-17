@@ -69,6 +69,10 @@ public abstract class Entity : MonoBehaviour
         dir.y = 0.3f;
         this.rb.AddForce(dir.normalized * 100);
     }
+    public int GetDamage()
+    {
+        return _Damage;
+    }
     public Rigidbody2D GetRb()
     {
         return rb;

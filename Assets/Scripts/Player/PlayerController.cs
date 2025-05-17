@@ -1,8 +1,14 @@
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 [RequireComponent(typeof(StateManager))]
 public class PlayerController : Entity
 {
+    [SerializeField] PhysicsPlayer physicsPlayer;
+    [SerializeField] CollisionPlayer collisionPlayer;
+    [SerializeField] AnimationPlayer animationPlayer;
+    //[SerializeField] PlayerStat playerStat;
+
     [SerializeField] Transform ATKPoint;
     [SerializeField] float PSpeed;
     [SerializeField] GameObject prefab;
@@ -16,6 +22,11 @@ public class PlayerController : Entity
     
     void Start()
     {
+        this.LoadComponent();
+        this.BackUp();      
+    }
+    private void BackUp()
+    {
         targetLayer = LayerMask.GetMask("Enemy");
         this.SetComponents();
         _speed = PSpeed;
@@ -23,23 +34,56 @@ public class PlayerController : Entity
         runState = new RunState(this);
         normalATKState = new NormalATKState(this);
         skillState = new SkillState(this);
-        this.GetStateManager().ChangeState(idleState);    
+        this.GetStateManager().ChangeState(idleState);
     }
 
     public void Update()
     {
         this.Flip();
-/*        if(Skill1Locked == false)
-        {
-            
-            Debug.Log("da mo khoa skill1");
-        }*/
     }
     private void FixedUpdate()
     {
 
     }
-    
+
+    private void LoadComponent()
+    {
+        LoadPhysicsPlayer();
+        LoadCollisionPlayer();
+        LoadAnimationPlayer();
+
+    }
+    protected virtual void LoadPhysicsPlayer()
+    {
+        if (this.physicsPlayer != null) return;
+        this.physicsPlayer = this.GetComponentInChildren<PhysicsPlayer>();
+    }
+    protected virtual void LoadCollisionPlayer()
+    {
+        if (this.collisionPlayer != null) return;
+        this.collisionPlayer = this.GetComponentInChildren<CollisionPlayer>();
+    }
+    protected virtual void LoadAnimationPlayer()
+    {
+        if (this.collisionPlayer != null) return;
+        this.animationPlayer = this.GetComponentInChildren<AnimationPlayer>();
+    }
+    protected virtual void LoadPlayerStat()
+    {
+        if (this.collisionPlayer != null) return;
+        this.collisionPlayer = this.GetComponentInChildren<CollisionPlayer>();
+    }
+
+    public PhysicsPlayer PhysicsPlayer
+    {
+        get { return physicsPlayer; }
+    }
+    public CollisionPlayer CollisionPlayer
+    {
+        get { return collisionPlayer; }
+    }
+
+
     public void Move(float leftRight)
     {
         GetRb().velocity = new Vector2(leftRight * _speed, GetRb().velocity.y);

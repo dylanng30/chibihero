@@ -2,7 +2,6 @@
 
 public abstract class ProjectileBase : MonoBehaviour
 {
-    private Vector2 dir;
     protected int dmg;
     private Animator anim;
     private Rigidbody2D rb;
@@ -14,17 +13,30 @@ public abstract class ProjectileBase : MonoBehaviour
         collision = false;
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        this.anim.Play("PreFly");
+    }
+    protected void ChangeState(string state, GameObject projectile)
+    {
+        this.anim.Play(state);
+        AnimatorStateInfo stateInfo = this.GetAnim().GetCurrentAnimatorStateInfo(0);
+        switch (state)
+        {
+            case "PreFly":
+                if (stateInfo.normalizedTime >= 1f)
+                    this.ChangeState("Fly", projectile);
+                break;
+            case "Fly":
+                Debug.Log(projectile + "đang bay");
+                break;
+            case "Explosion":
+                if (stateInfo.normalizedTime >= 1f)
+                    Destroy(projectile);
+                break;
+        }
     }
     
     public abstract void Action();
-    public abstract Vector2 InitVelo(int dmg, Transform target, Transform origin);
+    public abstract Vector2 InitVelo(int dmg, GameObject entity);
 
-    protected void Explosion()
-    {
-        this.collision = true;
-        this.anim.Play("Explosion"); 
-    }
     public Rigidbody2D GetRb()
     {
         return rb;

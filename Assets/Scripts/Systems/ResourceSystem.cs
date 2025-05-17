@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ResourceSystem : Singleton<ResourceSystem>
+public class ResourceSystem : MonoBehaviour
 {
     public List<ScriptablePlayer> Players { get; private set; }
     private Dictionary<PlayerType, ScriptablePlayer> playerDictionary;
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
+        //base.Awake();
         AssembleResource();
     }
 
     private void AssembleResource()
     {
         Players = Resources.LoadAll<ScriptablePlayer>("Players").ToList();
-        playerDictionary = Players.ToDictionary(player => player._playerType, player => player);
+        playerDictionary = Players.ToDictionary(player => player.PlayerType, player => player);
     }
 
     public ScriptablePlayer GetPlayer(PlayerType playerType)

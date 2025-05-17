@@ -5,6 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Player", menuName = "Scriptable/Player")]
 public class ScriptablePlayer : ScriptableUnitBase
 {
-    public PlayerType _playerType;
-
+    public PlayerType PlayerType;
 }

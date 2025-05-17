@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public abstract class LowEnemy : Enemy
@@ -13,11 +12,6 @@ public abstract class LowEnemy : Enemy
         runState = new ERunState(this);
         normalATKState = new ENormalATKState(this);
         this.GetStateManager().ChangeState(runState);
-    }
-    public void ResetHealth()
-    {
-        _currentHealth = _maxHealth; // Reset health to max
-        // Reset any other state needed
     }
     public abstract void NormalATK();
 
