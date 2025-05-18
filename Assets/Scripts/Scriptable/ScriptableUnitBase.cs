@@ -9,8 +9,8 @@ public abstract class ScriptableUnitBase : ScriptableObject
 
     public Stats _stats;
 
-    public string Description;
-    public Sprite MenuSprite;
+    //public string Description;
+    //public Sprite MenuSprite;
 
     public Stats BaseStats => _stats;
 }

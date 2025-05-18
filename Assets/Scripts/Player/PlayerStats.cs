@@ -7,12 +7,12 @@ public class PlayerStats : MonoBehaviour
 {
     [SerializeField] private PlayerType playerType;
     [SerializeField] protected ScriptablePlayer player;
+    [SerializeField] protected PlayerController playerController;
 
-
-    private int currentHealth;
-    private int attackPower;
-    private int armor;
-    private float moveSpeed;
+    protected int maxHP;
+    protected int attackPower;
+    protected int armor;
+    protected int moveSpeed;
 
     void Start()
     {
@@ -21,23 +21,55 @@ public class PlayerStats : MonoBehaviour
 
     protected void LoadComponent()
     {
+        LoadPlayerController();
         LoadPlayerStats();
     }
+
     protected virtual void LoadPlayerStats()
     {
         player = Systems.Instance.ResourceSystem.GetPlayer(playerType);
-        if (player == null)
-        {
-            Debug.LogError($"Không tìm thấy ScriptablePlayer với loại {playerType}");
-            return;
-        }
 
-        currentHealth = player._stats.Health;
+        maxHP = player._stats.Health;
         attackPower = player._stats.Attack;
         armor = player._stats.Armor;
         moveSpeed = player._stats.Speed;
 
-        Debug.Log($"Đã load stats cho {playerType} - HP: {currentHealth}, ATK: {attackPower}, Armor: {armor}, Speed: {moveSpeed}");
+        Debug.Log($"Đã load stats cho {playerType} - HP: {maxHP}, ATK: {attackPower}, Armor: {armor}, Speed: {moveSpeed}");
+    }
+
+    protected virtual void LoadPlayerController()
+    {
+        if (this.playerController != null)
+            return;
+        this.playerController = transform.GetComponentInParent<PlayerController>();
+    }
+    public int MaxHP
+    {
+        get
+        {
+            return maxHP;
+        }
+    }
+    public int AttackPower
+    {
+        get
+        {
+            return attackPower;
+        }
+    }
+    public int Armor
+    {
+        get
+        {
+            return armor;
+        }
+    }
+    public int MoveSpeed
+    {
+        get
+        {
+            return moveSpeed;
+        }
     }
 
 }

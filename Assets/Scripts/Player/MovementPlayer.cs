@@ -12,7 +12,8 @@ public class MovementPlayer : MonoBehaviour
     private Action GetDirectionMove;
     void Start()
     {
-        GetDirectionMove += GetDirection;
+        LoadComponent();
+        GetDirectionMove += GetDirection;        
     }
 
     void FixedUpdate()
@@ -47,7 +48,7 @@ public class MovementPlayer : MonoBehaviour
         }
         //playerController.AnimationPlayer.SetAnimationRuning(true);
         direction = direction.normalized;
-        int speed = 0; // playerController.PlayerStat.Speed;
+        int speed = playerController.PlayerStats.MoveSpeed;
         playerController.PhysicsPlayer.Rigidbody2D.velocity = new Vector2(direction.x * speed, direction.y * speed);
     }
 

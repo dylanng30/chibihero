@@ -8,6 +8,8 @@ public class PlayerController : Entity
     [SerializeField] CollisionPlayer collisionPlayer;
     [SerializeField] AnimationPlayer animationPlayer;
     [SerializeField] PlayerStats playerStats;
+    [SerializeField] DamageManagerPlayer damageManager;
+    [SerializeField] MovementPlayer movementPlayer;
 
     [SerializeField] Transform ATKPoint;
     [SerializeField] float PSpeed;
@@ -22,8 +24,8 @@ public class PlayerController : Entity
     
     void Start()
     {
-        //this.LoadComponent();
-        this.BackUp();      
+        this.LoadComponent();
+        //this.BackUp();      
     }
     private void BackUp()
     {
@@ -39,7 +41,7 @@ public class PlayerController : Entity
 
     public void Update()
     {
-        this.Flip();
+        //this.Flip();
     }
     private void FixedUpdate()
     {
@@ -52,6 +54,8 @@ public class PlayerController : Entity
         LoadCollisionPlayer();
         LoadAnimationPlayer();
         LoadPlayerStat();
+        LoadDamageManagerPlayer();
+        LoadMovementPlayer();
 
     }
     protected virtual void LoadPhysicsPlayer()
@@ -74,6 +78,16 @@ public class PlayerController : Entity
         if (this.playerStats != null) return;
         this.playerStats = this.GetComponentInChildren<PlayerStats>();
     }
+    protected virtual void LoadDamageManagerPlayer()
+    {
+        if (this.damageManager != null) return;
+        this.damageManager = this.GetComponentInChildren<DamageManagerPlayer>();
+    }
+    protected virtual void LoadMovementPlayer()
+    {
+        if (this.movementPlayer != null) return;
+        this.movementPlayer = this.GetComponentInChildren<MovementPlayer>();
+    }
 
     public PhysicsPlayer PhysicsPlayer
     {
@@ -90,6 +104,14 @@ public class PlayerController : Entity
     public PlayerStats PlayerStats
     {
         get { return playerStats; }
+    }
+    public DamageManagerPlayer DamageManager
+    {
+        get { return damageManager; }
+    }
+    public MovementPlayer MovementPlayer
+    {
+        get { return movementPlayer; }
     }
 
 

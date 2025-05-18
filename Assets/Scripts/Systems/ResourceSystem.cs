@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,22 +6,33 @@ using UnityEngine;
 public class ResourceSystem : MonoBehaviour
 {
     public List<ScriptablePlayer> Players { get; private set; }
-    private Dictionary<PlayerType, ScriptablePlayer> playerDictionary;
+    private ScriptablePlayer player;
 
     protected void Awake()
     {
-        //base.Awake();
         AssembleResource();
     }
 
     private void AssembleResource()
     {
         Players = Resources.LoadAll<ScriptablePlayer>("Players").ToList();
-        playerDictionary = Players.ToDictionary(player => player.PlayerType, player => player);
     }
 
     public ScriptablePlayer GetPlayer(PlayerType playerType)
-        => playerDictionary[playerType];
+    {
+        switch(playerType)
+        {
+            case PlayerType.BlueWarrior:
+                player = Players.FirstOrDefault(p => p.PlayerType == PlayerType.BlueWarrior);
+                break;
+
+            default:
+                Debug.LogError($"Player type {playerType} not found");
+                break;
+        }
+
+        return player;
+    }
     public ScriptablePlayer GetRandomPlayer()
         => Players[Random.Range(0, Players.Count)];
 }
