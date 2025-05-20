@@ -28,6 +28,10 @@ public class CollisionPlayer : MonoBehaviour
         if (hitbox != null) return;
         hitbox = GetComponent<BoxCollider2D>();
        // Debug.Log("Add BoxCollider2D to: " + gameObject);
+    }
 
+    public BoxCollider2D Hitbox
+    {
+        get { return hitbox; }
     }
 }

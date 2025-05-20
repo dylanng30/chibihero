@@ -33,7 +33,6 @@ public class ProjectileFactory : MonoBehaviour
             int dmg = entity.GetComponent<Entity>().GetDamage();
             Debug.Log(dmg);
             Vector2 dir = p.InitVelo(dmg, entity);
-            Debug.Log(dir);
             p.GetRb().AddForce(dir);
         }
     }

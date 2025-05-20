@@ -20,7 +20,7 @@ public class AnimationPlayer : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    protected virtual void SetAnimation(string animName)
+    public void SetAnimation(string animName)
     {
         switch (animName)
         {
@@ -34,7 +34,7 @@ public class AnimationPlayer : MonoBehaviour
                 animator.Play("NormalATK");
                 break;
             case "Skil1":
-                animator.Play("Skil1");
+                animator.Play("Skil1l");
                 break;
         }
     }

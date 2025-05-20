@@ -13,7 +13,6 @@ public class RedArcher : LowEnemy
         this.SetComponents();
         this.InitState();
         projectileFactory = GameObject.FindObjectOfType<ProjectileFactory>().GetComponent<ProjectileFactory>();
-        Debug.Log(projectileFactory);
     }
 
     void Update()

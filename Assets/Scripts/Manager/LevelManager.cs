@@ -1,11 +1,11 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LevelManager : PersistentSingleton<LevelManager>
+public class LevelManager : Singleton<LevelManager>
 {
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] private Image loadingBar;
@@ -18,7 +18,7 @@ public class LevelManager : PersistentSingleton<LevelManager>
     }
     private void Update()
     {
-        loadingBar.fillAmount = Mathf.MoveTowards(loadingBar.fillAmount, target, Time.deltaTime * 2f);
+        loadingBar.fillAmount = Mathf.MoveTowards(loadingBar.fillAmount, target, Time.deltaTime);
     }
     public async void LoadScene(string sceneName)
     {
@@ -36,10 +36,21 @@ public class LevelManager : PersistentSingleton<LevelManager>
             target = scene.progress;
         } while (scene.progress < 0.9f);
 
-        await Task.Delay(1000);
-
         scene.allowSceneActivation = true;
-        loadingScreen.SetActive(false);
 
+        await OnScenePreActivate(sceneName);
+
+        await Task.Delay(100);
+        loadingScreen.SetActive(false);
+    }
+
+    private async Task OnScenePreActivate(string sceneName)
+    {
+        Scene loadedScene = SceneManager.GetSceneByName(sceneName);
+        while (!loadedScene.isLoaded)
+            await Task.Delay(100);
+
+        GameObject spawnPoint = GameObject.Find("PlayerSpawn");
+        Player.Instance.transform.position = spawnPoint.transform.position;
     }
 }

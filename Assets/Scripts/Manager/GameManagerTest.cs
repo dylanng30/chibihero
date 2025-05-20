@@ -1,18 +1,23 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManagerTest : Singleton<GameManagerTest>
+public class GameManagerTest : PersistentSingleton<GameManagerTest>
 {
+    private GameObject currentEnemy;
     public static event Action<GameState> OnBeforeStateChanged;
     public static event Action<GameState> OnAfterStateChanged;
 
     public GameState CurrentState { get; private set; }
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
     void Start()
     {
-        ChangeState(GameState.Exploring);
+        HandleStartingState();
     }
 
     public void ChangeState(GameState newState)
@@ -26,12 +31,6 @@ public class GameManagerTest : Singleton<GameManagerTest>
         {
             case GameState.Starting:
                 HandleStartingState();
-                break;
-            case GameState.SpawningPlayer:
-                HandleSpawningPlayerState();
-                break;
-            case GameState.SpawningEnemies:
-                HandleSpawningEnemiesState();
                 break;
             case GameState.Exploring:
                 HandleExploringState();
@@ -58,30 +57,21 @@ public class GameManagerTest : Singleton<GameManagerTest>
     {
         // Logic for starting state
         //Set up environment, initialize variables, etc.
-
-        ChangeState(GameState.SpawningPlayer);
+        UIManager.Instance.ShowMenu();
     }
-    private void HandleSpawningPlayerState()
-    {
-        // Logic for spawning player state
-
-        //UnitManager.Instance.SpawnPlayer();
-
-        ChangeState(GameState.SpawningEnemies);
-    }
-    private void HandleSpawningEnemiesState()
-    {
-        // Logic for spawning enemies state
-    }
-
     private void HandleExploringState()
     {
         // Logic for exploring state
+        LevelManager.Instance.LoadScene("MainTopDown");
+        EnemyManager.Instance.ActivatePool();
+        UIManager.Instance.DeactivateAllUIs();        
     }
     private void HandleFightingState()
     {
         // Logic for fighting state
+        EnemyManager.Instance.DeactivatePool();
     }
+        
     private void HandleGameOverState()
     {
         // Logic for game over state
@@ -89,6 +79,34 @@ public class GameManagerTest : Singleton<GameManagerTest>
     private void HandlePausedState()
     {
         // Logic for paused state
+    }
+
+    public void LoadEntitiesInScene(string sceneName)
+    {
+        EnemySpawn enemySpawn = GameObject.FindObjectOfType<EnemySpawn>();
+        if (enemySpawn != null)
+            enemySpawn.Spawn();
+        if (sceneName.Contains("MainTopDown"))
+            ChangeState(GameState.Exploring);
+        else
+            ChangeState(GameState.Fighting);
+    }
+    public void NextScene(string nextScene, GameObject currentEnemy)
+    {
+        this.currentEnemy = currentEnemy;
+        LevelManager.Instance.LoadScene(nextScene);
+        LoadEntitiesInScene(nextScene);
+    }
+
+    public void CompleteMap(bool CheckedComplete)
+    {
+        if (CheckedComplete)
+        {
+            EnemyManager.Instance.UnregisterEnemy(this.currentEnemy);
+            ChangeState(GameState.Exploring);
+        }
+        else
+            ChangeState(GameState.GameOver);
     }
 
 

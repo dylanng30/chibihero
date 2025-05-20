@@ -48,7 +48,8 @@ public class ProjArrow : ProjectileBase
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerController>().TakeDamage(dmg, this.transform);
+            PlayerController p = collision.GetComponentInParent<PlayerController>();
+            p.DamageManager.TakeDamage(dmg);
             this.ChangeState("Explosion", this.gameObject);
         }
         else if (collision.gameObject.CompareTag("Ground"))

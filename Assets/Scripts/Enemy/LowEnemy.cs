@@ -14,6 +14,10 @@ public abstract class LowEnemy : Enemy
         this.GetStateManager().ChangeState(runState);
     }
     public abstract void NormalATK();
+    public void ResetHealth()
+    {
+        this._currentHealth = this._maxHealth;
+    }
 
     public EIdleState GetIdleState()
     {

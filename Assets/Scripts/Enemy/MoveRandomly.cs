@@ -77,7 +77,8 @@ public class MoveRandomly : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Player Entered the trigger");
-            LevelManager.Instance.LoadScene(nextScene);
+            GameManagerTest.Instance.NextScene(nextScene, gameObject);
+            
         }
             
     }

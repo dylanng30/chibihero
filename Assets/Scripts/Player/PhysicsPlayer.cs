@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class PhysicsPlayer : MonoBehaviour
 {
     [SerializeField] protected Rigidbody2D rb;
+    [SerializeField] protected PlayerController playerController;
     void Start()
     {
         LoadComponent();
@@ -15,6 +16,7 @@ public class PhysicsPlayer : MonoBehaviour
     protected void LoadComponent()
     {
         LoadRigidBody2D();
+        LoadPlayerController();
     }
     public void LoadRigidBody2D()
     {
@@ -22,13 +24,20 @@ public class PhysicsPlayer : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         this.SetRigidBody2D();
         //Debug.Log("Add Rigidbody2D to " + gameObject);
-    } 
+    }
+    protected void LoadPlayerController()
+    {
+        if (playerController != null) return;
+        playerController = GetComponent<PlayerController>();
+        //Debug.Log("Add PlayerController to: " + gameObject);
+    }
 
-    protected void SetRigidBody2D()
+    public void SetRigidBody2D()
     {
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
         rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         SetGravity();
     }
 
@@ -52,5 +61,6 @@ public class PhysicsPlayer : MonoBehaviour
     {
         get { return rb; }
     }
+
 
 }

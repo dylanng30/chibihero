@@ -4,12 +4,12 @@ using UnityEngine;
 [RequireComponent(typeof(StateManager))]
 public class PlayerController : Entity
 {
-    [SerializeField] PhysicsPlayer physicsPlayer;
-    [SerializeField] CollisionPlayer collisionPlayer;
-    [SerializeField] AnimationPlayer animationPlayer;
-    [SerializeField] PlayerStats playerStats;
-    [SerializeField] DamageManagerPlayer damageManager;
-    [SerializeField] MovementPlayer movementPlayer;
+    [SerializeField] protected PhysicsPlayer physicsPlayer;
+    [SerializeField] protected CollisionPlayer collisionPlayer;
+    [SerializeField] protected AnimationPlayer animationPlayer;
+    [SerializeField] protected PlayerStats playerStats;
+    [SerializeField] protected DamageManagerPlayer damageManager;
+    [SerializeField] protected MovementPlayer movementPlayer;
 
     [SerializeField] Transform ATKPoint;
     [SerializeField] float PSpeed;
@@ -26,26 +26,6 @@ public class PlayerController : Entity
     {
         this.LoadComponent();
         //this.BackUp();      
-    }
-    private void BackUp()
-    {
-        targetLayer = LayerMask.GetMask("Enemy");
-        this.SetComponents();
-        _speed = PSpeed;
-        idleState = new IdleState(this);
-        runState = new RunState(this);
-        normalATKState = new NormalATKState(this);
-        skillState = new SkillState(this);
-        this.GetStateManager().ChangeState(idleState);
-    }
-
-    public void Update()
-    {
-        //this.Flip();
-    }
-    private void FixedUpdate()
-    {
-
     }
 
     private void LoadComponent()
@@ -113,6 +93,29 @@ public class PlayerController : Entity
     {
         get { return movementPlayer; }
     }
+    private void BackUp()
+    {
+        targetLayer = LayerMask.GetMask("Enemy");
+        this.SetComponents();
+        _speed = PSpeed;
+        idleState = new IdleState(this);
+        runState = new RunState(this);
+        normalATKState = new NormalATKState(this);
+        skillState = new SkillState(this);
+        this.GetStateManager().ChangeState(idleState);
+    }
+
+
+    public void Update()
+    {
+        //this.Flip();
+    }
+    private void FixedUpdate()
+    {
+
+    }
+
+    
 
 
 

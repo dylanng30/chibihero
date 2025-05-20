@@ -17,8 +17,6 @@ MonoBehaviour:
     Health: 10
     Attack: 11
     Armor: 12
-    Speed: 13
+    Speed: 10
     ATKRange: 14
-  Description: 
-  MenuSprite: {fileID: 0}
   PlayerType: 0

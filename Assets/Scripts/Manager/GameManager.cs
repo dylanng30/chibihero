@@ -41,9 +41,9 @@ public class GameManager : Singleton<GameManager>
     {
         yield return null;
         GameObject spawnPoint = GameObject.Find("PlayerSpawn");
-        if (spawnPoint != null)
+        /*if (spawnPoint != null)
         {
             PlayerModeManager.Instance.transform.position = spawnPoint.transform.position;
-        }
+        }*/
     }
 }
