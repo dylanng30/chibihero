@@ -27,11 +27,8 @@ public class ProjectileFactory : MonoBehaviour
         if (projectilePrefab != null)
         {
             GameObject projectileObject = Instantiate(projectilePrefab, entity.transform.position, Quaternion.identity);
-            Debug.Log("da sinh proj");
             ProjectileBase p = projectileObject.GetComponent<ProjectileBase>();
-            Debug.Log(p);
             int dmg = entity.GetComponent<Entity>().GetDamage();
-            Debug.Log(dmg);
             Vector2 dir = p.InitVelo(dmg, entity);
             p.GetRb().AddForce(dir);
         }

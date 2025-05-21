@@ -8,17 +8,29 @@ public class MovementPlayer : MonoBehaviour
     [SerializeField] protected PlayerController playerController;
 
     [SerializeField] protected Vector2 direction;
+    [SerializeField] protected bool jumpPressed;
+    [SerializeField] protected bool atkTrigger;
 
     private Action GetDirectionMove;
+    private Action GetJumpingMove;
+    private Action GetATKTrigger;
     void Start()
     {
         LoadComponent();
-        GetDirectionMove += GetDirection;        
+        GetDirectionMove += GetDirection;
+        GetJumpingMove += GetJumping;
     }
 
     void FixedUpdate()
     {
         Moving();
+
+        GetJumpingMove?.Invoke();
+        if (jumpPressed && playerController.CollisionPlayer.IsGrounded())
+        {
+            Jumping();
+            jumpPressed = false;
+        }
         Flip();
     }
     protected void LoadComponent()
@@ -37,20 +49,41 @@ public class MovementPlayer : MonoBehaviour
         direction.x = InputManager.Instance.KeyHorizontal;
         direction.y = InputManager.Instance.KeyVertical;
     }
+    protected void GetJumping()
+    {
+        jumpPressed = InputManager.Instance.JumpPressed;
+        Debug.Log("Jump Pressed: " + jumpPressed);
+    }
+    public Vector2 DirectionMove
+    {
+        get
+        {
+            return direction;
+        }
+    }    
+    public bool JumpPressed
+    {
+        get
+        {
+            return jumpPressed;
+        }
+    }    
 
-    protected virtual void Moving()
+    public virtual void Moving()
     {
         GetDirectionMove?.Invoke();
-        if (direction == Vector2.zero)
-        {
-            playerController.AnimationPlayer.SetAnimation("Idle");
-            playerController.PhysicsPlayer.Rigidbody2D.velocity = Vector2.zero;
-            return;
-        }
-        playerController.AnimationPlayer.SetAnimation("Run");
-        direction = direction.normalized;
+
         int speed = playerController.PlayerStats.MoveSpeed;
-        playerController.PhysicsPlayer.Rigidbody2D.velocity = new Vector2(direction.x * speed, direction.y * speed);
+        if (playerController.PhysicsPlayer.Mode == PlayerMode.TopDown)
+            playerController.PhysicsPlayer.Rigidbody2D.velocity = new Vector2(direction.normalized.x * speed, direction.normalized.y * speed);
+        else
+            playerController.PhysicsPlayer.Rigidbody2D.velocity = new Vector2(direction.normalized.x * speed, playerController.PhysicsPlayer.Rigidbody2D.velocity.y);
+    }
+
+    public virtual void Jumping()
+    {
+        GetJumpingMove?.Invoke();
+        playerController.PhysicsPlayer.Rigidbody2D.velocity = new Vector2(playerController.PhysicsPlayer.Rigidbody2D.velocity.y, playerController.PlayerStats.JumpPower);
     }
 
     protected virtual void Flip()

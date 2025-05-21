@@ -50,6 +50,7 @@ public abstract class Entity : MonoBehaviour
     
     public void TakeDamage(int dmg, Transform dir)
     {
+        Debug.Log(gameObject + "take Damage: " + dmg);
         int value = dmg - _Armor;
         _currentHealth -= value;
         _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);

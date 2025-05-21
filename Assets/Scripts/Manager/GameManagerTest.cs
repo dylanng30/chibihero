@@ -17,6 +17,7 @@ public class GameManagerTest : PersistentSingleton<GameManagerTest>
     }
     void Start()
     {
+        CurrentState = GameState.Starting;
         HandleStartingState();
     }
 
@@ -64,12 +65,15 @@ public class GameManagerTest : PersistentSingleton<GameManagerTest>
         // Logic for exploring state
         LevelManager.Instance.LoadScene("MainTopDown");
         EnemyManager.Instance.ActivatePool();
-        UIManager.Instance.DeactivateAllUIs();        
+        UIManager.Instance.DeactivateAllUIs();
+        PlayerController.Instance.PhysicsPlayer.SetMode(PlayerMode.TopDown);
+
     }
     private void HandleFightingState()
     {
         // Logic for fighting state
         EnemyManager.Instance.DeactivatePool();
+        PlayerController.Instance.PhysicsPlayer.SetMode(PlayerMode.Platform);
     }
         
     private void HandleGameOverState()

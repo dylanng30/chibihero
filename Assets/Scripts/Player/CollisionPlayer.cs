@@ -30,6 +30,11 @@ public class CollisionPlayer : MonoBehaviour
        // Debug.Log("Add BoxCollider2D to: " + gameObject);
     }
 
+    public bool IsGrounded()
+    {
+        return hitbox.IsTouchingLayers(LayerMask.GetMask("Ground"));
+    }
+
     public BoxCollider2D Hitbox
     {
         get { return hitbox; }

@@ -35,9 +35,10 @@ public class DamageManagerPlayer : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHP -= damage;
-        if (currentHP <= 0)
-            currentHP = 0;
+        /*if (currentHP <= 0)
+            currentHP = 0;*/
         CheckPlayerDied();
+        /*Debug.Log($"Player took {damage} damage. Current HP: {currentHP}");*/
     }
     private void CheckPlayerDied()
     {
@@ -46,7 +47,7 @@ public class DamageManagerPlayer : MonoBehaviour
         else
         {
             isDead = true;
-            Debug.Log("Player is dead");
+            //Debug.Log("Player is dead");
             //playerController.GetStateManager().ChangeState(playerController.GetDeathState());
         }
     }

@@ -1,8 +1,9 @@
 using System.Runtime.InteropServices;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 [RequireComponent(typeof(StateManager))]
-public class PlayerController : Entity
+public class PlayerController : PersistentSingleton<PlayerController>
 {
     [SerializeField] protected PhysicsPlayer physicsPlayer;
     [SerializeField] protected CollisionPlayer collisionPlayer;
@@ -10,6 +11,7 @@ public class PlayerController : Entity
     [SerializeField] protected PlayerStats playerStats;
     [SerializeField] protected DamageManagerPlayer damageManager;
     [SerializeField] protected MovementPlayer movementPlayer;
+    [SerializeField] protected AbilityNormalATK abilityNormalATK;
 
     [SerializeField] Transform ATKPoint;
     [SerializeField] float PSpeed;
@@ -19,13 +21,45 @@ public class PlayerController : Entity
     private RunState runState;
     private NormalATKState normalATKState;
     private SkillState skillState;
+    private StateManager stateManager;
 
     private bool Skill1Locked = true;
     
     void Start()
     {
         this.LoadComponent();
+        this.LoadState();
         //this.BackUp();      
+    }
+    protected void LoadState()
+    {
+        stateManager = this.GetComponent<StateManager>();
+        idleState = new IdleState(this);
+        runState = new RunState(this);
+        normalATKState = new NormalATKState(this);
+        skillState = new SkillState(this);
+        this.stateManager.ChangeState(idleState);
+    }
+
+    public StateManager StateManager
+    {
+        get { return stateManager; }
+    }
+    public IdleState IdleState
+    {
+        get { return idleState; }
+    }
+    public RunState RunState
+    {
+        get { return runState; }
+    }
+    public NormalATKState NormalATKState
+    {
+        get { return normalATKState; }
+    }
+    public SkillState SkillState
+    {
+        get { return skillState; }
     }
 
     private void LoadComponent()
@@ -36,7 +70,7 @@ public class PlayerController : Entity
         LoadPlayerStat();
         LoadDamageManagerPlayer();
         LoadMovementPlayer();
-
+        LoadAbilityNormalATK();
     }
     protected virtual void LoadPhysicsPlayer()
     {
@@ -68,6 +102,11 @@ public class PlayerController : Entity
         if (this.movementPlayer != null) return;
         this.movementPlayer = this.GetComponentInChildren<MovementPlayer>();
     }
+    protected virtual void LoadAbilityNormalATK()
+    {
+        if (this.abilityNormalATK != null) return;
+        this.abilityNormalATK = this.GetComponentInChildren<AbilityNormalATK>();
+    }
 
     public PhysicsPlayer PhysicsPlayer
     {
@@ -93,7 +132,11 @@ public class PlayerController : Entity
     {
         get { return movementPlayer; }
     }
-    private void BackUp()
+    public AbilityNormalATK AbilityNormalATK
+    {
+        get { return abilityNormalATK; }
+    }
+    /*private void BackUp()
     {
         targetLayer = LayerMask.GetMask("Enemy");
         this.SetComponents();
@@ -166,5 +209,5 @@ public class PlayerController : Entity
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(ATKPoint.position, ATKRange);
-    }
+    }*/
 }

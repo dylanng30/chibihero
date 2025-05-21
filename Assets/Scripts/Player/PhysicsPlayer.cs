@@ -9,6 +9,8 @@ public class PhysicsPlayer : MonoBehaviour
 {
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected PlayerController playerController;
+
+    private PlayerMode currentMode;
     void Start()
     {
         LoadComponent();
@@ -38,23 +40,22 @@ public class PhysicsPlayer : MonoBehaviour
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
         rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        SetGravity();
+        SetMode(PlayerMode.TopDown);
     }
-
-    public void SetGravity()
+    public void SetMode(PlayerMode mode)
     {
-        string scene = SceneManager.GetActiveScene().name;
-        if (scene.Contains("TopDown"))
-            SetMode(PlayerMode.TopDown);
-        else
-            SetMode(PlayerMode.Platform);
-    }
-    protected void SetMode(PlayerMode mode)
-    {
+        this.currentMode = mode;
         if (mode == PlayerMode.TopDown)
             rb.gravityScale = 0;
-        if (mode == PlayerMode.Platform)
+        else if (mode == PlayerMode.Platform)
             rb.gravityScale = 1;
+
+        /*Debug.Log("Set Gravity to " + mode);*/
+    }
+
+    public PlayerMode Mode
+    {
+        get { return currentMode; }
     }
 
     public Rigidbody2D Rigidbody2D

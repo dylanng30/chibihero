@@ -76,11 +76,9 @@ public class MoveRandomly : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player Entered the trigger");
-            GameManagerTest.Instance.NextScene(nextScene, gameObject);
-            
-        }
-            
+            GameManagerTest.Instance.ChangeState(GameState.Fighting);
+            GameManagerTest.Instance.NextScene(nextScene, gameObject);            
+        }            
     }
 
     void OnDrawGizmosSelected()

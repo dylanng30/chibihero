@@ -52,11 +52,11 @@ public class InputManager : Singleton<InputManager>
     }
     private void InputJump()
     {
-        jumpPressed = Input.GetKeyDown(KeyCode.Space);
+        jumpPressed = Input.GetKey(KeyCode.Space);
     }
     private void InputATK()
     {
-        attackPressed = Input.GetMouseButtonDown(0);
+        attackPressed = Input.GetMouseButton(0);
     }
 
 }

@@ -51,6 +51,6 @@ public class LevelManager : Singleton<LevelManager>
             await Task.Delay(100);
 
         GameObject spawnPoint = GameObject.Find("PlayerSpawn");
-        Player.Instance.transform.position = spawnPoint.transform.position;
+        PlayerController.Instance.transform.position = spawnPoint.transform.position;
     }
 }

@@ -6,6 +6,8 @@ using UnityEngine;
 public class AnimationPlayer : MonoBehaviour
 {
     [SerializeField] protected Animator animator;
+
+    private string animName;
     void Start()
     {
         LoadComponent();
@@ -22,20 +24,19 @@ public class AnimationPlayer : MonoBehaviour
 
     public void SetAnimation(string animName)
     {
-        switch (animName)
-        {
-            case "Idle":
-                animator.Play("Idle");
-                break;
-            case "Run":
-                animator.Play("Run");
-                break;
-            case "NormalATK":
-                animator.Play("NormalATK");
-                break;
-            case "Skil1":
-                animator.Play("Skil1l");
-                break;
-        }
+        this.animName = animName;
+        animator.Play(animName);
+    }
+
+    public bool IsAnimation(string animName)
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        return stateInfo.IsName(animName);
+    }
+
+    public bool FininshAnimation(string animName)
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        return stateInfo.IsName(animName) && stateInfo.normalizedTime >= 1f;
     }
 }

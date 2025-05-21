@@ -27,10 +27,6 @@ public class RedArcher : LowEnemy
 
     public override void NormalATK()
     {
-        Debug.Log(projectileType);
         projectileFactory.CreateProjectile(projectileType, this.gameObject);
-        /*GameObject bullet = Instantiate(prefab, this.transform.position, Quaternion.identity);
-        Vector2 Force = bullet.GetComponent<ProjectileBase>().InitVelo(_Damage, this._currentTarget.transform, this.transform);
-        bullet.GetComponent<Rigidbody2D>().AddForce(Force);*/
     }
 }

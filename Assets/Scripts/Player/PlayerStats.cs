@@ -13,6 +13,7 @@ public class PlayerStats : MonoBehaviour
     protected int attackPower;
     protected int armor;
     protected int moveSpeed;
+    protected int jumpPower;
 
     void Start()
     {
@@ -33,6 +34,7 @@ public class PlayerStats : MonoBehaviour
         attackPower = player._stats.Attack;
         armor = player._stats.Armor;
         moveSpeed = player._stats.Speed;
+        jumpPower = player._stats.JumpPower;
 
         Debug.Log($"Đã load stats cho {playerType} - HP: {maxHP}, ATK: {attackPower}, Armor: {armor}, Speed: {moveSpeed}");
     }
@@ -69,6 +71,13 @@ public class PlayerStats : MonoBehaviour
         get
         {
             return moveSpeed;
+        }
+    }
+    public int JumpPower
+    {
+        get
+        {
+            return jumpPower;
         }
     }
 

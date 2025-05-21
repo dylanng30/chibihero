@@ -19,4 +19,5 @@ MonoBehaviour:
     Armor: 12
     Speed: 10
     ATKRange: 14
+    JumpPower: 7
   PlayerType: 0
