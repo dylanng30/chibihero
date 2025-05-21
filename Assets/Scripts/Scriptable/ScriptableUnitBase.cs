@@ -21,6 +21,6 @@ public struct Stats
     public int Attack;
     public int Armor;
     public int Speed;
-    public int ATKRange;
+    public float ATKRange;
     public int JumpPower;
 }

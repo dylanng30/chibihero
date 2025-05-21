@@ -7,7 +7,7 @@ public class LowEnemyController : MonoBehaviour
     [SerializeField] protected PhysicsEnemy physicsEnemy;
     [SerializeField] protected CollisionEnemy collisionEnemy;
     [SerializeField] protected DamageManagerEnemy damageManager;
-
+    [SerializeField] protected EnemyStats enemyStats;
     /*[SerializeField] protected AnimationPlayer animationPlayer;
     [SerializeField] protected PlayerStats playerStats;    
     [SerializeField] protected MovementPlayer movementPlayer;
@@ -120,4 +120,9 @@ public class LowEnemyController : MonoBehaviour
     {
         get { return abilitySkill; }
     }*/
+
+    public GameObject Target
+    {
+        get { return GameObject.FindGameObjectWithTag("Player"); }
+    }
 }
