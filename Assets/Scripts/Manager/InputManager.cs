@@ -8,6 +8,7 @@ public class InputManager : Singleton<InputManager>
     [SerializeField] private float keyVertical;
     [SerializeField] private bool jumpPressed;
     [SerializeField] private bool attackPressed;
+    [SerializeField] private bool skillPressed;
 
     public float KeyHorizontal
     {
@@ -37,12 +38,20 @@ public class InputManager : Singleton<InputManager>
             return attackPressed;
         }
     }
+    public bool SkillPressed
+    {
+        get
+        {
+            return skillPressed;
+        }
+    }
 
     void Update()
     {
         this.InputHorizontalAndVertical();
         this.InputJump();
         this.InputATK();
+        this.InputSkill();
     }
 
     private void InputHorizontalAndVertical()
@@ -57,6 +66,10 @@ public class InputManager : Singleton<InputManager>
     private void InputATK()
     {
         attackPressed = Input.GetMouseButton(0);
+    }
+    private void InputSkill()
+    {
+        skillPressed = Input.GetMouseButton(1);
     }
 
 }

@@ -52,7 +52,7 @@ public class MovementPlayer : MonoBehaviour
     protected void GetJumping()
     {
         jumpPressed = InputManager.Instance.JumpPressed;
-        Debug.Log("Jump Pressed: " + jumpPressed);
+        //Debug.Log("Jump Pressed: " + jumpPressed);
     }
     public Vector2 DirectionMove
     {

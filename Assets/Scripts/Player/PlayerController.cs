@@ -12,6 +12,7 @@ public class PlayerController : PersistentSingleton<PlayerController>
     [SerializeField] protected DamageManagerPlayer damageManager;
     [SerializeField] protected MovementPlayer movementPlayer;
     [SerializeField] protected AbilityNormalATK abilityNormalATK;
+    [SerializeField] protected AbilitySkill abilitySkill;
 
     [SerializeField] Transform ATKPoint;
     [SerializeField] float PSpeed;
@@ -28,8 +29,7 @@ public class PlayerController : PersistentSingleton<PlayerController>
     void Start()
     {
         this.LoadComponent();
-        this.LoadState();
-        //this.BackUp();      
+        this.LoadState();    
     }
     protected void LoadState()
     {
@@ -39,27 +39,6 @@ public class PlayerController : PersistentSingleton<PlayerController>
         normalATKState = new NormalATKState(this);
         skillState = new SkillState(this);
         this.stateManager.ChangeState(idleState);
-    }
-
-    public StateManager StateManager
-    {
-        get { return stateManager; }
-    }
-    public IdleState IdleState
-    {
-        get { return idleState; }
-    }
-    public RunState RunState
-    {
-        get { return runState; }
-    }
-    public NormalATKState NormalATKState
-    {
-        get { return normalATKState; }
-    }
-    public SkillState SkillState
-    {
-        get { return skillState; }
     }
 
     private void LoadComponent()
@@ -72,6 +51,8 @@ public class PlayerController : PersistentSingleton<PlayerController>
         LoadMovementPlayer();
         LoadAbilityNormalATK();
     }
+
+    //Load Component
     protected virtual void LoadPhysicsPlayer()
     {
         if (this.physicsPlayer != null) return;
@@ -107,7 +88,14 @@ public class PlayerController : PersistentSingleton<PlayerController>
         if (this.abilityNormalATK != null) return;
         this.abilityNormalATK = this.GetComponentInChildren<AbilityNormalATK>();
     }
+    protected virtual void LoadAbilitySkill()
+    {
+        if (this.abilitySkill != null) return;
+        this.abilitySkill = this.GetComponentInChildren<AbilitySkill>();
+    }
 
+
+    //Components
     public PhysicsPlayer PhysicsPlayer
     {
         get { return physicsPlayer; }
@@ -136,78 +124,30 @@ public class PlayerController : PersistentSingleton<PlayerController>
     {
         get { return abilityNormalATK; }
     }
-    /*private void BackUp()
+    public AbilitySkill AbilitySkill
     {
-        targetLayer = LayerMask.GetMask("Enemy");
-        this.SetComponents();
-        _speed = PSpeed;
-        idleState = new IdleState(this);
-        runState = new RunState(this);
-        normalATKState = new NormalATKState(this);
-        skillState = new SkillState(this);
-        this.GetStateManager().ChangeState(idleState);
+        get { return abilitySkill; }
     }
 
-
-    public void Update()
+    //State
+    public StateManager StateManager
     {
-        //this.Flip();
+        get { return stateManager; }
     }
-    private void FixedUpdate()
+    public IdleState IdleState
     {
-
+        get { return idleState; }
     }
-
-    
-
-
-
-    public void Move(float leftRight)
+    public RunState RunState
     {
-        GetRb().velocity = new Vector2(leftRight * _speed, GetRb().velocity.y);
-    }    
-
-    public void NormalATK()
-    {
-        if (ATKPoint != null)
-        {
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(ATKPoint.position, ATKRange, targetLayer);
-            foreach (Collider2D enemy in hitEnemies)
-            {
-                Enemy e = enemy.GetComponent<Enemy>();
-                e.TakeDamage(_Damage, this.transform);
-            }
-        }
-        else
-        {
-            Debug.LogError("ATKPoint kco");
-        }
+        get { return runState; }
     }
-    public void Skill1()
+    public NormalATKState NormalATKState
     {
-        
+        get { return normalATKState; }
     }
-
-    public IdleState GetIdleState()
+    public SkillState SkillState
     {
-        return idleState;
+        get { return skillState; }
     }
-    public RunState GetRunState()
-    {
-        return runState;
-    }
-    public NormalATKState GetNormalATKState()
-    {
-        return normalATKState;
-    }
-    public SkillState GetSkill1State()
-    {
-        return skillState;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(ATKPoint.position, ATKRange);
-    }*/
 }

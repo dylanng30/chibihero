@@ -32,11 +32,12 @@ public class DamageManagerPlayer : MonoBehaviour
         this.playerController = transform.GetComponentInParent<PlayerController>();
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, GameObject enemy)
     {
         currentHP -= damage;
         /*if (currentHP <= 0)
             currentHP = 0;*/
+        playerController.PhysicsPlayer.KnockBack(enemy);
         CheckPlayerDied();
         /*Debug.Log($"Player took {damage} damage. Current HP: {currentHP}");*/
     }

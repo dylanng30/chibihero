@@ -20,7 +20,8 @@ public class RedTorch : LowEnemy
         Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(this.transform.position, ATKRange, targetLayer);
         foreach (Collider2D player in hitPlayers)
         {
-            player.GetComponentInParent<PlayerController>().DamageManager.TakeDamage(_Damage);
+            PlayerController p = player.GetComponentInParent<PlayerController>();
+            p.DamageManager.TakeDamage(_Damage, this.gameObject);
         }
     }
 

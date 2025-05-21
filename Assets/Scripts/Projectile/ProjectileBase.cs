@@ -35,7 +35,7 @@ public abstract class ProjectileBase : MonoBehaviour
     }
     
     public abstract void Action();
-    public abstract Vector2 InitVelo(int dmg, GameObject entity);
+    public abstract Vector2 InitVelo(int dmg, GameObject entity, Transform dir);
 
     public Rigidbody2D GetRb()
     {

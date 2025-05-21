@@ -49,8 +49,14 @@ public class PhysicsPlayer : MonoBehaviour
             rb.gravityScale = 0;
         else if (mode == PlayerMode.Platform)
             rb.gravityScale = 1;
+    }
 
-        /*Debug.Log("Set Gravity to " + mode);*/
+    public void KnockBack(GameObject enemy)
+    {
+        Debug.Log("KnockBack");
+        Vector2 direction = enemy.transform.position - playerController.gameObject.transform.position;
+        direction.y = 0.3f;
+        rb.AddForce(direction * 200);
     }
 
     public PlayerMode Mode

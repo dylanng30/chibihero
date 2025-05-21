@@ -27,9 +27,6 @@ public class RedTNT : LowEnemy
 
     public override void NormalATK()
     {
-        projectileFactory.CreateProjectile(projectileType, this.gameObject);
-        /*GameObject bullet = Instantiate(prefab, this.transform.position, Quaternion.identity);
-        Vector2 Force = bullet.GetComponent<ProjectileBase>().InitVelo(_Damage,thi);
-        bullet.GetComponent<Rigidbody2D>().AddForce(Force);*/
+        projectileFactory.CreateProjectile(projectileType, this.gameObject, this.transform);
     }
 }

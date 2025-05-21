@@ -24,24 +24,24 @@ public class ProjArrow : ProjectileBase
             transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
     }
-    public override Vector2 InitVelo(int dmg, GameObject entity)
+    public override Vector2 InitVelo(int dmg, GameObject entity, Transform dir)
     {
         this.dmg = dmg;
         Transform target = GameObject.FindObjectOfType<PlayerController>().transform;
-        Vector3 dir = target.position - entity.transform.position;
+        Vector3 direction = target.position - entity.transform.position;
         float AngleR = 0;
-        if (dir.x < 0)
+        if (direction.x < 0)
             AngleR = -Mathf.Abs(Angle) * Mathf.Deg2Rad;
         else
             AngleR = Mathf.Abs(Angle) * Mathf.Deg2Rad;
 
-        float v2 = (10 / ((Mathf.Tan(AngleR) * dir.x - dir.y) / (dir.x * dir.x)) / (2 * Mathf.Cos(AngleR) * Mathf.Cos(AngleR)));
+        float v2 = (10 / ((Mathf.Tan(AngleR) * direction.x - direction.y) / (direction.x * direction.x)) / (2 * Mathf.Cos(AngleR) * Mathf.Cos(AngleR)));
         v2 = Mathf.Abs(v2);
         float V = Mathf.Sqrt(v2);
         Vector2 Force = Vector2.zero;
         Force.x = V * Mathf.Cos(AngleR);
         Force.y = V * Mathf.Sin(AngleR);
-        return Force * 50 * dir.normalized.x;
+        return Force * 50 * direction.normalized.x;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -49,7 +49,7 @@ public class ProjArrow : ProjectileBase
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerController p = collision.GetComponentInParent<PlayerController>();
-            p.DamageManager.TakeDamage(dmg);
+            p.DamageManager.TakeDamage(dmg, this.gameObject);
             this.ChangeState("Explosion", this.gameObject);
         }
         else if (collision.gameObject.CompareTag("Ground"))

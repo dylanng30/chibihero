@@ -11,6 +11,11 @@ public class AbilityNormalATK : MonoBehaviour
     private Action GetATKTrigger;
     private bool atkTrigger;
 
+    protected void GetATKing()
+    {
+        atkTrigger = InputManager.Instance.AttackPressed;
+        //Debug.Log("ATK Trigger: " + atkTrigger);
+    }
 
     void Start()
     {
@@ -20,18 +25,6 @@ public class AbilityNormalATK : MonoBehaviour
     void Update()
     {
         GetATKTrigger?.Invoke();
-    }
-    protected void GetATKing()
-    {
-        atkTrigger = InputManager.Instance.AttackPressed;
-        Debug.Log("ATK Trigger: " + atkTrigger);
-    }
-    public bool ATKTrigger
-    {
-        get
-        {
-            return atkTrigger;
-        }
     }
 
     protected void LoadComponent()
@@ -60,6 +53,14 @@ public class AbilityNormalATK : MonoBehaviour
         else
         {
             Debug.LogError("ATKPoint kco");
+        }
+    }
+
+    public bool ATKTrigger
+    {
+        get
+        {
+            return atkTrigger;
         }
     }
 

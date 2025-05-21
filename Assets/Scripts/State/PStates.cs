@@ -11,7 +11,7 @@ public class IdleState : IState
     }
     public void Enter()
     {
-        Debug.Log("Idle");
+        //Debug.Log("Idle");
         _player.AnimationPlayer.SetAnimation(currentAnimation);
     }
     public void Execute()
@@ -22,7 +22,6 @@ public class IdleState : IState
             _player.StateManager.ChangeState(_player.SkillState);
         else if (_player.MovementPlayer.DirectionMove != Vector2.zero)
             _player.StateManager.ChangeState(_player.RunState);
-
     }
     public void Exit()
     {
@@ -41,7 +40,7 @@ public class RunState : IState
     public void Enter()
     {
         _player.AnimationPlayer.SetAnimation(currentAnimation);
-        Debug.Log("Run");
+       // Debug.Log("Run");
     }
     public void Execute()
     {
@@ -68,7 +67,7 @@ public class NormalATKState : IState
     public void Enter()
     {
         _player.AnimationPlayer.SetAnimation(currentAnimation);
-        Debug.Log("NormalATK");
+        //Debug.Log("NormalATK");
     }
     public void Execute()
     {
@@ -90,7 +89,7 @@ public class SkillState : IState
     }
     public void Enter()
     {
-        Debug.Log("Skill1");
+        //Debug.Log("Skill1");
         _player.AnimationPlayer.SetAnimation(currentAnimation);
     }
     public void Execute()
@@ -100,7 +99,7 @@ public class SkillState : IState
     }
     public void Exit()
     {
-        //_player.Skill1();
+        //_player.AbilitySkill.Skill();
     }
 }
 
