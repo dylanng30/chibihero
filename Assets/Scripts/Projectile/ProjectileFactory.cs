@@ -9,7 +9,7 @@ public class ProjectileFactory : MonoBehaviour
     public GameObject tntPrefab;
     public GameObject swordSlashPrefab;
 
-    public void CreateProjectile(ProjectileType type, GameObject entity, Transform dir)
+    public void CreateProjectile(ProjectileType type,int dmg, GameObject entity, Transform dir)
     {
         GameObject projectilePrefab = null;
         switch (type)
@@ -28,7 +28,7 @@ public class ProjectileFactory : MonoBehaviour
         {
             GameObject projectileObject = Instantiate(projectilePrefab, entity.transform.position, Quaternion.identity);
             ProjectileBase p = projectileObject.GetComponent<ProjectileBase>();
-            int dmg = entity.GetComponent<Entity>().GetDamage();
+            Debug.Log(p);
             Vector2 direction = p.InitVelo(dmg, entity, dir);
             p.GetRb().AddForce(direction);
         }

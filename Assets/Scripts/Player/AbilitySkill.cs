@@ -46,7 +46,8 @@ public class AbilitySkill : MonoBehaviour
         GetSkillTrigger?.Invoke();
         if (ATKPoint != null)
         {
-            projectileFactory.CreateProjectile(projectileType, ATKPoint, playerController.transform);
+            int dmg = playerController.PlayerStats.AttackPower;
+            projectileFactory.CreateProjectile(projectileType,dmg ,ATKPoint, playerController.transform);
         }
         else
         {

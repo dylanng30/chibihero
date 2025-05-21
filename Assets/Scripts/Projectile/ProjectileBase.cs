@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public abstract class ProjectileBase : MonoBehaviour
 {
@@ -6,34 +7,39 @@ public abstract class ProjectileBase : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
 
-    protected bool collision;
+    protected bool collision = false;
 
     protected void Init()
     {
-        collision = false;
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
-    protected void ChangeState(string state, GameObject projectile)
+    protected IEnumerator ChangeStateCoroutine(string state, GameObject projectile)
     {
-        this.anim.Play(state);
-        AnimatorStateInfo stateInfo = this.GetAnim().GetCurrentAnimatorStateInfo(0);
+        anim.Play(state);
+
+        // Wait for current animation to finish
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+
         switch (state)
         {
             case "PreFly":
-                if (stateInfo.normalizedTime >= 1f)
-                    this.ChangeState("Fly", projectile);
+                StartCoroutine(ChangeStateCoroutine("Fly", projectile));
                 break;
             case "Fly":
-                Debug.Log(projectile + "đang bay");
+                Debug.Log(projectile + " đang bay");
                 break;
             case "Explosion":
-                if (stateInfo.normalizedTime >= 1f)
-                    Destroy(projectile);
+                Destroy(projectile);
                 break;
         }
     }
-    
+
+    public void ChangeState(string state, GameObject projectile)
+    {
+        StartCoroutine(ChangeStateCoroutine(state, projectile));
+    }
+
     public abstract void Action();
     public abstract Vector2 InitVelo(int dmg, GameObject entity, Transform dir);
 

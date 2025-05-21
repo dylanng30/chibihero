@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 376103268909676553}
   - component: {fileID: 8315598136873292293}
   - component: {fileID: 7121844030558455064}
-  - component: {fileID: -659257732988146128}
+  - component: {fileID: 1821560676491987967}
+  - component: {fileID: 7944442006334900624}
   m_Layer: 0
-  m_Name: Sword Effect
+  m_Name: SwordSlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,7 +124,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -131,12 +132,24 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!61 &-659257732988146128
-BoxCollider2D:
+  m_Interpolate: 1
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!114 &1821560676491987967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911914180328527165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f4813e7f33c34340b7f13c4413609fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!68 &7944442006334900624
+EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -168,15 +181,16 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.4375, y: 0.265625}
-    newSize: {x: 0.22, y: 0.26}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.4375, y: 0.265625}
   m_EdgeRadius: 0
+  m_Points:
+  - {x: 0.3165779, y: 0.13170058}
+  - {x: -0.028342724, y: 0.52675706}
+  - {x: 0.12287855, y: 0.5353192}
+  - {x: 0.719471, y: 0.13470078}
+  - {x: -0.07367039, y: -0.540161}
+  - {x: -0.20861626, y: -0.53485954}
+  - {x: 0.31684017, y: 0.12542927}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0

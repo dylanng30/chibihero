@@ -246,6 +246,7 @@ MonoBehaviour:
   damageManager: {fileID: 0}
   movementPlayer: {fileID: 0}
   abilityNormalATK: {fileID: 0}
+  abilitySkill: {fileID: 0}
   ATKPoint: {fileID: 2520803847989927779}
   PSpeed: 5
   prefab: {fileID: 0}
@@ -355,7 +356,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0082829, y: -0.06626427}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -366,7 +367,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5030179, y: 0.86747146}
   m_EdgeRadius: 0
 --- !u!114 &3799469069412779763
 MonoBehaviour:
@@ -428,6 +429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
   ATKPoint: {fileID: 115336976200172904}
+  projectileFactory: {fileID: 0}
   projectileType: 2
 --- !u!1 &5613326357927193543
 GameObject:

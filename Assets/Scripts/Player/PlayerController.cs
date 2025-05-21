@@ -50,6 +50,7 @@ public class PlayerController : PersistentSingleton<PlayerController>
         LoadDamageManagerPlayer();
         LoadMovementPlayer();
         LoadAbilityNormalATK();
+        LoadAbilitySkill();
     }
 
     //Load Component

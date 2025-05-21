@@ -17,27 +17,32 @@ public class ProjSwordSlash : ProjectileBase
         else
             this.GetRb().velocity = Vector2.zero;
     }
+    private void Update()
+    {
+        
+    }
     public override void Action()
     {
-
+        if(this.GetRb().velocity.x > 0)
+            this.transform.localScale = new Vector3(1 , 1, 1);
+        else
+            this.transform.localScale = new Vector3(-1, 1, 1);
     }
     public override Vector2 InitVelo(int dmg, GameObject entity, Transform dir)
     {
         this.dmg = dmg;
         Vector2 Force = new Vector2(dir.localScale.x, 0);
-        return Force * 10;
+        return Force * 200;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if(this.collision)
+            return;
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            PlayerController p = collision.GetComponentInParent<PlayerController>();
-            p.DamageManager.TakeDamage(dmg, this.gameObject);
-            this.ChangeState("Explosion", this.gameObject);
-        }
-        else if (collision.gameObject.CompareTag("Ground"))
-        {
+            this.collision = true;
+            collision.gameObject.GetComponent<Entity>().TakeDamage(dmg, this.gameObject.transform);
             this.ChangeState("Explosion", this.gameObject);
         }
     }

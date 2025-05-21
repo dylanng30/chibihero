@@ -48,14 +48,18 @@ public class ProjTNT : ProjectileBase
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (this.collision)
+            return;
         if (collision.gameObject.CompareTag("Player"))
         {
+            this.collision = true;
             PlayerController p = collision.GetComponentInParent<PlayerController>();
             p.DamageManager.TakeDamage(dmg, this.gameObject);
             this.ChangeState("Explosion", this.gameObject);
         }
         else if (collision.gameObject.CompareTag("Ground"))
         {
+            this.collision = true;
             this.ChangeState("Explosion", this.gameObject);
         }
     }

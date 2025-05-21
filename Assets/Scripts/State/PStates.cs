@@ -99,7 +99,8 @@ public class SkillState : IState
     }
     public void Exit()
     {
-        //_player.AbilitySkill.Skill();
+        Debug.Log(_player.AbilitySkill);
+        _player.AbilitySkill.Skill();
     }
 }
 
