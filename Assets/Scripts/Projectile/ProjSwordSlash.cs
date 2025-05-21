@@ -43,7 +43,7 @@ public class ProjSwordSlash : ProjectileBase
         {
             this.collision = true;
             collision.gameObject.GetComponent<Entity>().TakeDamage(dmg, this.gameObject.transform);
-            this.ChangeState("Explosion", this.gameObject);
+            Destroy(this.gameObject);
         }
     }
 }

@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [RequireComponent(typeof(BoxCollider2D))]
-public class CollisionPlayer : CollisionBase
+public class CollisionEnemy : CollisionBase
 {
-    [SerializeField] protected PlayerController playerController;
+    [SerializeField] protected LowEnemyController lowEnemyController;
+
     protected override void Start()
     {
         base.Start();
@@ -14,15 +16,13 @@ public class CollisionPlayer : CollisionBase
     {
         base.LoadComponent();
     }
-
-    public override void LoadController()
-    {
-        if (playerController != null) return;
-        playerController = GetComponentInParent<PlayerController>();
-    }
     public override void LoadHitBox()
     {
         base.LoadHitBox();
     }
-
+    public override void LoadController()
+    {
+        if (lowEnemyController != null) return;
+        lowEnemyController = GetComponentInParent<LowEnemyController>();
+    }
 }

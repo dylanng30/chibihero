@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageManagerPlayer : DamageBase
+public class DamageManagerEnemy : DamageBase
 {
-    [SerializeField] protected PlayerController playerController;
-    
+    [SerializeField] protected LowEnemyController lowEnemyController;
+
     protected override void Start()
     {
         base.Start();
-               
+
     }
     public override void LoadComponent()
     {
@@ -18,21 +18,20 @@ public class DamageManagerPlayer : DamageBase
     protected override void LoadController()
     {
         base.LoadController();
-        if (this.playerController != null)
+        if (this.lowEnemyController != null)
             return;
-        this.playerController = transform.GetComponentInParent<PlayerController>();
+        this.lowEnemyController = transform.GetComponentInParent<LowEnemyController>();
     }
 
     public override void TakeDamage(int damage, GameObject enemy)
     {
         base.TakeDamage(damage, enemy);
-        playerController.PhysicsPlayer.KnockBack(enemy);
-        CheckPlayerDied();
+        //lowEnemyController.PhysicsLowEnemy.KnockBack(enemy);
         //Debug.Log($"Player took {damage} damage. Current HP: {currentHP}");
     }
     private void CheckPlayerDied()
     {
-        if(currentHP > 0)
+        if (currentHP > 0)
             isDead = false;
         else
         {
@@ -48,9 +47,8 @@ public class DamageManagerPlayer : DamageBase
     public override void Reset()
     {
         base.Reset();
-        maxHP = playerController.PlayerStats.MaxHP;
+        //maxHP = lowEnemyController.PlayerStats.MaxHP;
         currentHP = maxHP;
         isDead = false;
     }
-    
 }

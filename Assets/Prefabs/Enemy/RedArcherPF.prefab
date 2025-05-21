@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 2989134412702064883}
   m_Layer: 9
   m_Name: RedArcherPF
-  m_TagString: RedArcher
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -278,4 +278,5 @@ MonoBehaviour:
   jumpPower: 5
   groundCheck: {fileID: 2846213650664079145}
   ESpeed: 4
-  prefab: {fileID: 8381611178671580109, guid: 0f168e269d5771e4d97470a41d530bd5, type: 3}
+  projectileFactory: {fileID: 0}
+  projectileType: 0

@@ -227,7 +227,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7ee42d6582939439a49cfb7f6144eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHealth: 0
+  _currentHealth: 0
   _Damage: 0
+  _Armor: 0
   ATKRange: 0.8
   jumpPower: 5
   groundCheck: {fileID: 4239472395409646493}

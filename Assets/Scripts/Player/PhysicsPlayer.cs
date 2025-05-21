@@ -1,37 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 
-public class PhysicsPlayer : MonoBehaviour
+public class PhysicsPlayer : PhysicsBase
 {
-    [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected PlayerController playerController;
 
     private PlayerMode currentMode;
-    void Start()
+    protected override void Start()
     {
-        LoadComponent();
+        base.Start();
     }
-    protected void LoadComponent()
+    public override void LoadComponent()
     {
-        LoadRigidBody2D();
-        LoadPlayerController();
+        base.LoadComponent();
     }
-    public void LoadRigidBody2D()
+    public override void LoadRigidBody2D()
     {
-        if(rb != null) return;
-        rb = GetComponent<Rigidbody2D>();
+        base.LoadRigidBody2D();
         this.SetRigidBody2D();
-        //Debug.Log("Add Rigidbody2D to " + gameObject);
     }
-    protected void LoadPlayerController()
+    public override void LoadController()
     {
         if (playerController != null) return;
         playerController = GetComponent<PlayerController>();
-        //Debug.Log("Add PlayerController to: " + gameObject);
     }
 
     public void SetRigidBody2D()
@@ -62,11 +54,6 @@ public class PhysicsPlayer : MonoBehaviour
     public PlayerMode Mode
     {
         get { return currentMode; }
-    }
-
-    public Rigidbody2D Rigidbody2D
-    {
-        get { return rb; }
     }
 
 
