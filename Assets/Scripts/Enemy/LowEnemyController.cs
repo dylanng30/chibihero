@@ -8,13 +8,14 @@ public class LowEnemyController : MonoBehaviour
     [SerializeField] protected CollisionEnemy collisionEnemy;
     [SerializeField] protected DamageManagerEnemy damageManager;
     [SerializeField] protected EnemyStats enemyStats;
+    [SerializeField] protected MovementEnemy movementEnemy;
     /*[SerializeField] protected AnimationPlayer animationPlayer;
     [SerializeField] protected PlayerStats playerStats;    
     [SerializeField] protected MovementPlayer movementPlayer;
     [SerializeField] protected AbilityNormalATK abilityNormalATK;
     [SerializeField] protected AbilitySkill abilitySkill;*/
 
-    void Start()
+    void Awake()
     {
         this.LoadComponent();
         //this.LoadState();
@@ -33,10 +34,11 @@ public class LowEnemyController : MonoBehaviour
     {
         LoadPhysicsEnemy();
         LoadCollisionEnemy();
-        LoadDamageManagerEnemy();
+        LoadEnemyStats();
+        LoadDamageManagerEnemy();        
+        LoadMovementEnemy();
         /*LoadAnimationPlayer();
-        LoadPlayerStat();
-        
+        LoadPlayerStat();        
         LoadMovementPlayer();
         LoadAbilityNormalATK();
         LoadAbilitySkill();*/
@@ -46,7 +48,7 @@ public class LowEnemyController : MonoBehaviour
     protected virtual void LoadPhysicsEnemy()
     {
         if (this.physicsEnemy != null) return;
-        this.physicsEnemy = this.GetComponentInChildren<PhysicsEnemy>();
+        this.physicsEnemy = this.GetComponent<PhysicsEnemy>();
     }
     protected virtual void LoadCollisionEnemy()
     {
@@ -58,15 +60,20 @@ public class LowEnemyController : MonoBehaviour
         if (this.damageManager != null) return;
         this.damageManager = this.GetComponentInChildren<DamageManagerEnemy>();
     }
+    protected virtual void LoadEnemyStats()
+    {
+        if (this.enemyStats != null) return;
+        this.enemyStats = this.GetComponentInChildren<EnemyStats>();
+    }
+    protected virtual void LoadMovementEnemy()
+    {
+        if (this.movementEnemy != null) return;
+        this.movementEnemy = this.GetComponentInChildren<MovementEnemy>();
+    }
     /*protected virtual void LoadAnimationEnemy()
     {
         if (this.animationPlayer != null) return;
         this.collisionEnemy = this.GetComponentInChildren<CollisionEnemy>();
-    }
-    protected virtual void LoadPlayerStat()
-    {
-        if (this.playerStats != null) return;
-        this.playerStats = this.GetComponentInChildren<PlayerStats>();
     }
     
     protected virtual void LoadMovementPlayer()
@@ -99,13 +106,18 @@ public class LowEnemyController : MonoBehaviour
     {
         get { return damageManager; }
     }
+    public EnemyStats EnemyStats
+    {
+        get { return enemyStats; }
+    }
+    public MovementEnemy MovementEnemy
+    {
+        get { return movementEnemy; }
+    }
+
     /*public AnimationEnemy AnimationPlayer
     {
         get { return animationPlayer; }
-    }
-    public EnemyStats PlayerStats
-    {
-        get { return playerStats; }
     }
     
     public EnemyPlayer MovementPlayer

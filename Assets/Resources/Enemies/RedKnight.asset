@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b7c88123a6ed741a7f2a08b8cc4271, type: 3}
   m_Name: RedKnight
   m_EditorClassIdentifier: 
-  _faction: 0
+  _faction: 1
   _stats:
-    Health: 150
-    Attack: 15
-    Armor: 15
-    Speed: 3
-    ATKRange: 0
-    JumpPower: 5
-  PlayerType: 0
+    Health: 1
+    Attack: 1
+    Armor: 1
+    Speed: 1
+    ATKRange: 1
+    JumpPower: 1
+  EnemyType: 2

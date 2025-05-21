@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +9,6 @@ public class DamageManagerPlayer : DamageBase
     protected override void Start()
     {
         base.Start();
-               
     }
     public override void LoadComponent()
     {
@@ -20,7 +19,14 @@ public class DamageManagerPlayer : DamageBase
         base.LoadController();
         if (this.playerController != null)
             return;
-        this.playerController = transform.GetComponentInParent<PlayerController>();
+        this.playerController = GetComponentInParent<PlayerController>();
+    }
+    protected override void LoadStats()
+    {
+        base.LoadStats();
+        this.maxHP = playerController.PlayerStats.MaxHP;
+        //Debug.Log($"Đã load stats cho Player - HP: {maxHP}");
+        this.currentHP = maxHP;
     }
 
     public override void TakeDamage(int damage, GameObject enemy)
@@ -44,13 +50,6 @@ public class DamageManagerPlayer : DamageBase
     public override void Heal(int amount)
     {
         base.Heal(amount);
-    }
-    public override void Reset()
-    {
-        base.Reset();
-        maxHP = playerController.PlayerStats.MaxHP;
-        currentHP = maxHP;
-        isDead = false;
     }
     
 }

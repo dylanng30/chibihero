@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b7c88123a6ed741a7f2a08b8cc4271, type: 3}
   m_Name: RedPawn
   m_EditorClassIdentifier: 
-  _faction: 0
+  _faction: 1
   _stats:
-    Health: 0
-    Attack: 0
-    Armor: 0
-    Speed: 0
-    ATKRange: 0
-    JumpPower: 0
-  PlayerType: 0
+    Health: 100
+    Attack: 10
+    Armor: 1
+    Speed: 5
+    ATKRange: 0.8
+    JumpPower: 1
+  EnemyType: 1

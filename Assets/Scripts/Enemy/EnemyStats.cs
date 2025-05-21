@@ -13,15 +13,16 @@ public class EnemyStats : MonoBehaviour
     protected int armor;
     protected int moveSpeed;
     protected int jumpPower;
+    protected float atkRange;
 
-    void Start()
+    void Awake()
     {
         LoadComponent();
     }
 
     protected void LoadComponent()
     {
-        LoadPlayerController();
+        LoadEnemyController();
         LoadEnemyStats();
     }
 
@@ -34,15 +35,16 @@ public class EnemyStats : MonoBehaviour
         armor = enemy._stats.Armor;
         moveSpeed = enemy._stats.Speed;
         jumpPower = enemy._stats.JumpPower;
+        atkRange = enemy._stats.ATKRange;
 
         Debug.Log($"Đã load stats cho {enemyType} - HP: {maxHP}, ATK: {attackPower}, Armor: {armor}, Speed: {moveSpeed}");
     }
 
-    protected virtual void LoadPlayerController()
+    protected virtual void LoadEnemyController()
     {
         if (this.lowEnemyController != null)
             return;
-        this.lowEnemyController = transform.GetComponentInParent<LowEnemyController>();
+        this.lowEnemyController = this.GetComponentInParent<LowEnemyController>();
     }
     public int MaxHP
     {
@@ -56,6 +58,13 @@ public class EnemyStats : MonoBehaviour
         get
         {
             return attackPower;
+        }
+    }
+    public float ATKRange
+    {
+        get
+        {
+            return atkRange;
         }
     }
     public int Armor

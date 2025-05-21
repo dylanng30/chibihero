@@ -4,24 +4,24 @@ using UnityEngine;
 
 public abstract class DamageBase : MonoBehaviour
 {
-    [SerializeField] protected int currentHP = 0;
-    [SerializeField] protected int maxHP = 0;
+    [SerializeField] protected int currentHP;
+    [SerializeField] protected int maxHP;
     [SerializeField] protected bool isDead = false;
 
     protected virtual void Start()
     {
-        Reset();
         LoadComponent();
+        LoadStats();
     }
     public virtual void LoadComponent()
     {
-        LoadController();
+        LoadController();        
     }
     protected virtual void LoadController()
     {
 
     }
-    public virtual void Reset()
+    protected virtual void LoadStats()
     {
 
     }
@@ -56,5 +56,9 @@ public abstract class DamageBase : MonoBehaviour
     public int MaxHP
     {
         get { return maxHP; }
+    }
+    public bool IsDead
+    {
+        get { return isDead; }
     }
 }
