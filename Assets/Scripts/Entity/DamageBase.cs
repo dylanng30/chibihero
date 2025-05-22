@@ -38,19 +38,6 @@ public abstract class DamageBase : MonoBehaviour
     public virtual void TakeDamage(int damage, GameObject enemy)
     {
         currentHP -= damage;
-        if (currentHP <= 0)
-            currentHP = 0;
-        ChecktityEnDied();
-    }
-
-    private void ChecktityEnDied()
-    {
-        if (currentHP > 0)
-            isDead = false;
-        else
-        {
-            isDead = true;
-        }
     }
     public int CurrentHP
     {

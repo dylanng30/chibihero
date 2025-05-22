@@ -45,9 +45,9 @@ public class PhysicsPlayer : PhysicsBase
 
     public void KnockBack(GameObject enemy)
     {
-        Vector2 direction = enemy.transform.position - playerController.gameObject.transform.position;
-        direction.y = 0.3f;
-        rb.AddForce(direction * 200);
+        Vector2 dir = playerController.gameObject.transform.position - enemy.transform.position;
+        dir.y = 0.3f;
+        this.rb.AddForce(dir * 200);
     }
 
     public PlayerMode Mode

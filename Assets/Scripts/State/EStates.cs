@@ -90,7 +90,7 @@ public class ENormalATKState : IState
     }
     public void Exit()
     {
-        
+        enemyController.AbilityNormalATK.NormalATK();
     }
 }
 

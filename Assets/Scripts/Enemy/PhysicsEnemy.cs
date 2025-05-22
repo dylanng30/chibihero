@@ -31,11 +31,9 @@ public class PhysicsEnemy : PhysicsBase
         rb.gravityScale = 1;
     }
 
-    public void KnockBack()
+    public void KnockBack(GameObject player)
     {
-        PlayerController playerController = GameObject.FindObjectOfType<PlayerController>();
-        Vector2 dir = playerController.transform.position - this.gameObject.transform.position;
-        dir.y = 0.3f;
-        this.rb.AddForce(dir.normalized * 100);
+        float dir = lowEnemyController.transform.position.x - player.transform.position.x;
+        this.rb.AddForce(new Vector2(dir * lowEnemyController.EnemyStats.MoveSpeed, lowEnemyController.EnemyStats.JumpPower / 2));
     }
 }

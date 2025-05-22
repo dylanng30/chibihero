@@ -7,6 +7,7 @@ public class AbilityEnemyNormalATK : MonoBehaviour
     [SerializeField] protected LowEnemyController lowEnemyController;
     [SerializeField] protected Transform ATKPoint;
 
+
     private void Start()
     {
         LoadComponent();
@@ -33,6 +34,11 @@ public class AbilityEnemyNormalATK : MonoBehaviour
 
     public void NormalATK()
     {
+        CloseATK();
+    }
+
+    public void CloseATK()
+    {
         int Dmg = lowEnemyController.EnemyStats.AttackPower;
         float atkRange = lowEnemyController.EnemyStats.ATKRange;
         LayerMask targetLayer = LayerMask.GetMask("Player");
@@ -40,8 +46,16 @@ public class AbilityEnemyNormalATK : MonoBehaviour
         Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(ATKPoint.position, atkRange, targetLayer);
         foreach (Collider2D player in hitPlayers)
         {
-            PlayerController p = player.GetComponentInParent<PlayerController>();
-            p.DamageManager.TakeDamage(Dmg, this.gameObject);
+            var p = player.GetComponentInParent<PlayerController>();
+            p.DamageManager.TakeDamage(Dmg, lowEnemyController.gameObject);
         }
     }
+
+    /*public void RangeATK()
+    {
+        ProjectileFactory projectileFactory = GameObject.FindObjectOfType<ProjectileFactory>().GetComponent<ProjectileFactory>();
+        ProjectileType projectileType = ProjectileType.TNT;
+        int Dmg = lowEnemyController.EnemyStats.AttackPower;
+        projectileFactory.CreateProjectile(projectileType, _Damage, this.gameObject, this.gameObject.transform);
+    }*/
 }

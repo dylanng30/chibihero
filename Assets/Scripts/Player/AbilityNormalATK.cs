@@ -46,8 +46,8 @@ public class AbilityNormalATK : MonoBehaviour
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(ATKPoint.position, 0.8f, LayerMask.GetMask("Enemy"));
             foreach (Collider2D enemy in hitEnemies)
             {
-                Enemy e = enemy.GetComponent<Enemy>();
-                e.TakeDamage(playerController.PlayerStats.AttackPower, this.transform);
+                var e = enemy.GetComponentInParent<LowEnemyController>();
+                e.DamageManager.TakeDamage(playerController.PlayerStats.AttackPower, playerController.gameObject);
             }
         }
         else
