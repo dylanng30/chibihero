@@ -30,17 +30,19 @@ public class LevelManager : Singleton<LevelManager>
 
         loadingScreen.SetActive(true);
 
-        do
+        while (scene.progress < 0.9f)
         {
             await Task.Delay(100);
             target = scene.progress;
-        } while (scene.progress < 0.9f);
+        }
+
+        target = 1f;
+        await Task.Delay(500);
 
         scene.allowSceneActivation = true;
 
         await OnScenePreActivate(sceneName);
 
-        await Task.Delay(100);
         loadingScreen.SetActive(false);
     }
 

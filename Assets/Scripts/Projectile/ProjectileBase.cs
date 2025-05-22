@@ -27,7 +27,6 @@ public abstract class ProjectileBase : MonoBehaviour
                 StartCoroutine(ChangeStateCoroutine("Fly", projectile));
                 break;
             case "Fly":
-                Debug.Log(projectile + " đang bay");
                 break;
             case "Explosion":
                 Destroy(projectile);

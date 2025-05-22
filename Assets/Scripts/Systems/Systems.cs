@@ -13,6 +13,7 @@ public class Systems : PersistentSingleton<Systems>
     }
     protected virtual void LoadSystem()
     {
+        if (resourceSystem != null) return;
         resourceSystem = GetComponentInChildren<ResourceSystem>();
     }
 

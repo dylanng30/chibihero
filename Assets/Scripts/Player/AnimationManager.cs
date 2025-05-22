@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public class AnimationPlayer : MonoBehaviour
+public class AnimationManager : MonoBehaviour
 {
     [SerializeField] protected Animator animator;
 
@@ -24,8 +24,13 @@ public class AnimationPlayer : MonoBehaviour
 
     public void SetAnimation(string animName)
     {
+        StartCoroutine(SetAnimationCouroutine(animName));
+    }
+    public IEnumerator SetAnimationCouroutine(string animName)
+    {
+        yield return new WaitUntil(() => animator != null);
         this.animName = animName;
-        animator.Play(animName);
+        this.animator.Play(this.animName);
     }
 
     public bool IsAnimation(string animName)
@@ -34,7 +39,7 @@ public class AnimationPlayer : MonoBehaviour
         return stateInfo.IsName(animName);
     }
 
-    public bool FininshAnimation(string animName)
+    public bool FinishAnimation(string animName)
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         return stateInfo.IsName(animName) && stateInfo.normalizedTime >= 1f;

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,9 +10,9 @@ public class MovementEnemy : MonoBehaviour
     {
         LoadComponent();
     }
-    void FixedUpdate()
+    private void Update()
     {
-        Moving();
+        Flip();
     }
     protected void LoadComponent()
     {
@@ -22,27 +22,47 @@ public class MovementEnemy : MonoBehaviour
     {
         if (this.lowEnemyController != null)
             return;
-        this.lowEnemyController = transform.GetComponentInParent<LowEnemyController>();
+        this.lowEnemyController = GetComponentInParent<LowEnemyController>();
     }
-    public virtual void Moving()
+    public void Moving()
     {
-        lowEnemyController.PhysicsEnemy.Rigidbody2D.velocity = new Vector2(this.SetSpeed(), lowEnemyController.PhysicsEnemy.Rigidbody2D.velocity.y);
-    }
-    private int SetSpeed()
-    {
-        Vector2 direction = lowEnemyController.Target.transform.position - lowEnemyController.transform.position;
-        float distance = direction.magnitude;
+        Vector2 origin = lowEnemyController.transform.position;
+        Vector2 target = lowEnemyController.Target.transform.position;
         int speed = lowEnemyController.EnemyStats.MoveSpeed;
-        if (direction.x > 0 && distance > lowEnemyController.EnemyStats.ATKRange)
-            speed = lowEnemyController.EnemyStats.MoveSpeed;
-        else if (direction.x < 0 && distance > lowEnemyController.EnemyStats.ATKRange)
-            speed = -lowEnemyController.EnemyStats.MoveSpeed;
-        else
-        {
-            speed = 0;
-        }
+        float atkRange = lowEnemyController.EnemyStats.ATKRange;
 
-        return speed;
+        if (Vector2.Distance(origin, target) < atkRange)
+        {
+            lowEnemyController.PhysicsEnemy.Rigidbody2D.velocity = Vector2.zero;
+            return;
+        }
+        Vector2 direction = (target - origin).normalized;
+        lowEnemyController.PhysicsEnemy.Rigidbody2D.velocity = new Vector2(direction.x * speed, lowEnemyController.PhysicsEnemy.Rigidbody2D.velocity.y);
     }
+    public void Flee()
+    {
+        Vector2 origin = lowEnemyController.transform.position;
+        Vector2 target = lowEnemyController.Target.transform.position;
+        int speed = lowEnemyController.EnemyStats.MoveSpeed;
+        Vector2 direction = (origin - target).normalized;
+        lowEnemyController.PhysicsEnemy.Rigidbody2D.velocity = new Vector2(direction.x * speed, lowEnemyController.PhysicsEnemy.Rigidbody2D.velocity.y);
+    }
+
+    public void Jump()
+    {
+        int jumpPower = lowEnemyController.EnemyStats.JumpPower;
+        lowEnemyController.PhysicsEnemy.Rigidbody2D.velocity = new Vector2(lowEnemyController.PhysicsEnemy.Rigidbody2D.velocity.x, jumpPower);
+    }
+    private void Flip()
+    {
+        Vector2 origin = lowEnemyController.transform.position;
+        Vector2 target = lowEnemyController.Target.transform.position;
+        Vector2 direction = (target - origin).normalized;
+        if (direction.x > 0)
+            lowEnemyController.transform.localScale = new Vector3(1, 1, 1);
+        if (direction.x < 0)
+            lowEnemyController.transform.localScale = new Vector3(-1, 1, 1);
+    }
+
 
 }

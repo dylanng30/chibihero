@@ -7,9 +7,9 @@ public class PhysicsPlayer : PhysicsBase
     [SerializeField] protected PlayerController playerController;
 
     private PlayerMode currentMode;
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
     }
     public override void LoadComponent()
     {
@@ -45,7 +45,6 @@ public class PhysicsPlayer : PhysicsBase
 
     public void KnockBack(GameObject enemy)
     {
-        Debug.Log("KnockBack");
         Vector2 direction = enemy.transform.position - playerController.gameObject.transform.position;
         direction.y = 0.3f;
         rb.AddForce(direction * 200);

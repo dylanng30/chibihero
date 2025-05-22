@@ -28,7 +28,6 @@ public class ProjectileFactory : MonoBehaviour
         {
             GameObject projectileObject = Instantiate(projectilePrefab, entity.transform.position, Quaternion.identity);
             ProjectileBase p = projectileObject.GetComponent<ProjectileBase>();
-            Debug.Log(p);
             Vector2 direction = p.InitVelo(dmg, entity, dir);
             p.GetRb().AddForce(direction);
         }

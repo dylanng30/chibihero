@@ -8,9 +8,12 @@ public abstract class DamageBase : MonoBehaviour
     [SerializeField] protected int maxHP;
     [SerializeField] protected bool isDead = false;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         LoadComponent();
+    }
+    protected virtual void Start()
+    {
         LoadStats();
     }
     public virtual void LoadComponent()

@@ -7,7 +7,7 @@ public class PlayerController : PersistentSingleton<PlayerController>
 {
     [SerializeField] protected PhysicsPlayer physicsPlayer;
     [SerializeField] protected CollisionPlayer collisionPlayer;
-    [SerializeField] protected AnimationPlayer animationPlayer;
+    [SerializeField] protected AnimationManager animationPlayer;
     [SerializeField] protected PlayerStats playerStats;
     [SerializeField] protected DamageManagerPlayer damageManager;
     [SerializeField] protected MovementPlayer movementPlayer;
@@ -25,12 +25,18 @@ public class PlayerController : PersistentSingleton<PlayerController>
     private StateManager stateManager;
 
     private bool Skill1Locked = true;
-    
+
+    protected override void Awake()
+    {
+        base.Awake();
+        LoadComponent();
+    }
+
     void Start()
     {
-        this.LoadComponent();
-        this.LoadState();    
+        LoadState();
     }
+
     protected void LoadState()
     {
         stateManager = this.GetComponent<StateManager>();
@@ -67,7 +73,7 @@ public class PlayerController : PersistentSingleton<PlayerController>
     protected virtual void LoadAnimationPlayer()
     {
         if (this.animationPlayer != null) return;
-        this.animationPlayer = this.GetComponentInChildren<AnimationPlayer>();
+        this.animationPlayer = this.GetComponentInChildren<AnimationManager>();
     }
     protected virtual void LoadPlayerStat()
     {
@@ -105,7 +111,7 @@ public class PlayerController : PersistentSingleton<PlayerController>
     {
         get { return collisionPlayer; }
     }
-    public AnimationPlayer AnimationPlayer
+    public AnimationManager AnimationPlayer
     {
         get { return animationPlayer; }
     }

@@ -8,9 +8,9 @@ public abstract class LowEnemy : Enemy
 
     protected void InitState()
     {
-        idleState = new EIdleState(this);
+        /*idleState = new EIdleState(this);
         runState = new ERunState(this);
-        normalATKState = new ENormalATKState(this);
+        normalATKState = new ENormalATKState(this);*/
         this.GetStateManager().ChangeState(runState);
     }
     public abstract void NormalATK();

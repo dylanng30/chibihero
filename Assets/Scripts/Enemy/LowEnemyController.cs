@@ -9,26 +9,33 @@ public class LowEnemyController : MonoBehaviour
     [SerializeField] protected DamageManagerEnemy damageManager;
     [SerializeField] protected EnemyStats enemyStats;
     [SerializeField] protected MovementEnemy movementEnemy;
+    [SerializeField] protected AnimationManager animationEnemy;
+    [SerializeField] protected AbilityEnemyNormalATK abilityNormalATK;
+    [SerializeField] protected EnemyDetectObstacle enemyDetectObstacle;
     /*[SerializeField] protected AnimationPlayer animationPlayer;
     [SerializeField] protected PlayerStats playerStats;    
     [SerializeField] protected MovementPlayer movementPlayer;
     [SerializeField] protected AbilityNormalATK abilityNormalATK;
     [SerializeField] protected AbilitySkill abilitySkill;*/
 
+    private EIdleState idleState;
+    private ERunState runState;
+    private ENormalATKState normalATKState;
+    private StateManager stateManager;
+
     void Awake()
     {
         this.LoadComponent();
-        //this.LoadState();
+        this.LoadState();
     }
-    /*protected void LoadState()
+    protected void LoadState()
     {
         stateManager = this.GetComponent<StateManager>();
-        idleState = new IdleState(this);
-        runState = new RunState(this);
-        normalATKState = new NormalATKState(this);
-        skillState = new SkillState(this);
+        idleState = new EIdleState(this);
+        runState = new ERunState(this);
+        normalATKState = new ENormalATKState(this);
         this.stateManager.ChangeState(idleState);
-    }*/
+    }
 
     private void LoadComponent()
     {
@@ -37,6 +44,9 @@ public class LowEnemyController : MonoBehaviour
         LoadEnemyStats();
         LoadDamageManagerEnemy();        
         LoadMovementEnemy();
+        LoadAnimationEnemy();
+        LoadAbilityEnemyNormalATK();
+        LoadEnemyDetectObstacle();
         /*LoadAnimationPlayer();
         LoadPlayerStat();        
         LoadMovementPlayer();
@@ -70,18 +80,22 @@ public class LowEnemyController : MonoBehaviour
         if (this.movementEnemy != null) return;
         this.movementEnemy = this.GetComponentInChildren<MovementEnemy>();
     }
-    /*protected virtual void LoadAnimationEnemy()
+    protected virtual void LoadAnimationEnemy()
     {
-        if (this.animationPlayer != null) return;
-        this.collisionEnemy = this.GetComponentInChildren<CollisionEnemy>();
+        if (this.animationEnemy != null) return;
+        this.animationEnemy = this.GetComponentInChildren<AnimationManager>();
     }
-    
-    protected virtual void LoadMovementPlayer()
+    protected void LoadAbilityEnemyNormalATK()
     {
-        if (this.movementPlayer != null) return;
-        this.movementPlayer = this.GetComponentInChildren<MovementPlayer>();
+        if (this.abilityNormalATK != null) return;
+        this.abilityNormalATK = this.GetComponentInChildren<AbilityEnemyNormalATK>();
     }
-    protected virtual void LoadAbilityNormalATK()
+    protected void LoadEnemyDetectObstacle()
+    {
+        if (this.enemyDetectObstacle != null) return;
+        this.enemyDetectObstacle = this.GetComponentInChildren<EnemyDetectObstacle>();
+    }
+    /*    protected virtual void LoadAbilityNormalATK()
     {
         if (this.abilityNormalATK != null) return;
         this.abilityNormalATK = this.GetComponentInChildren<AbilityNormalATK>();
@@ -114,6 +128,18 @@ public class LowEnemyController : MonoBehaviour
     {
         get { return movementEnemy; }
     }
+    public AnimationManager AnimationEnemy
+    {
+        get { return animationEnemy; }
+    }
+    public AbilityEnemyNormalATK AbilityNormalATK
+    {
+        get { return abilityNormalATK; }
+    }
+    public EnemyDetectObstacle EnemyDetectObstacle
+    {
+        get { return enemyDetectObstacle; }
+    }
 
     /*public AnimationEnemy AnimationPlayer
     {
@@ -136,5 +162,21 @@ public class LowEnemyController : MonoBehaviour
     public GameObject Target
     {
         get { return GameObject.FindGameObjectWithTag("Player"); }
+    }
+    public StateManager StateManager
+    {
+        get { return stateManager; }
+    }
+    public EIdleState IdleState
+    {
+        get { return idleState; }
+    }
+    public ERunState RunState
+    {
+        get { return runState; }
+    }
+    public ENormalATKState NormalATKState
+    {
+        get { return normalATKState; }
     }
 }

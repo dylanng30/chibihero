@@ -71,7 +71,7 @@ public class NormalATKState : IState
     }
     public void Execute()
     {
-        if(_player.AnimationPlayer.FininshAnimation(currentAnimation))
+        if(_player.AnimationPlayer.FinishAnimation(currentAnimation))
             _player.StateManager.ChangeState(_player.IdleState);
     }
     public void Exit()
@@ -94,7 +94,7 @@ public class SkillState : IState
     }
     public void Execute()
     {
-        if (_player.AnimationPlayer.FininshAnimation(currentAnimation))
+        if (_player.AnimationPlayer.FinishAnimation(currentAnimation))
             _player.StateManager.ChangeState(_player.IdleState);
     }
     public void Exit()

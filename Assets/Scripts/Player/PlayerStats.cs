@@ -9,33 +9,39 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] protected ScriptablePlayer player;
     [SerializeField] protected PlayerController playerController;
 
-    protected int maxHP;
-    protected int attackPower;
-    protected int armor;
-    protected int moveSpeed;
-    protected int jumpPower;
+    [SerializeField] protected int maxHP;
+    [SerializeField] protected int attackPower;
+    [SerializeField] protected int armor;
+    [SerializeField] protected int moveSpeed;
+    [SerializeField] protected int jumpPower;
 
-    void Start()
+    void Awake()
     {
         LoadComponent();
     }
 
     protected void LoadComponent()
     {
-        LoadPlayerController();
         LoadPlayerStats();
+        LoadPlayerController();
     }
 
     protected virtual void LoadPlayerStats()
     {
-        player = Systems.Instance.ResourceSystem.GetPlayer(playerType);
 
+        StartCoroutine(LoadPlayerStatsCouroutine());
+    }
+
+    private IEnumerator LoadPlayerStatsCouroutine()
+    {
+        yield return new WaitUntil(() => Systems.Instance != null && Systems.Instance.ResourceSystem != null);
+
+        player = Systems.Instance.ResourceSystem.GetPlayer(playerType);
         maxHP = player._stats.Health;
         attackPower = player._stats.Attack;
         armor = player._stats.Armor;
         moveSpeed = player._stats.Speed;
         jumpPower = player._stats.JumpPower;
-
         Debug.Log($"Đã load stats cho {playerType} - HP: {maxHP}, ATK: {attackPower}, Armor: {armor}, Speed: {moveSpeed}");
     }
 

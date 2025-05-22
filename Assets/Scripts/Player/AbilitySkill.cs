@@ -19,7 +19,7 @@ public class AbilitySkill : MonoBehaviour
         //Debug.Log("ATK Trigger: " + skillTrigger);
     }
 
-    void Start()
+    void Awake()
     {
         LoadComponent();
         GetSkillTrigger += GetSkill;

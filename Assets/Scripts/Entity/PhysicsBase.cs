@@ -6,7 +6,7 @@ public class PhysicsBase : MonoBehaviour
 {
     [SerializeField] protected Rigidbody2D rb;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         LoadComponent();
     }

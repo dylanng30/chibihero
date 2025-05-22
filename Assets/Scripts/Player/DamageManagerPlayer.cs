@@ -5,7 +5,11 @@ using UnityEngine;
 public class DamageManagerPlayer : DamageBase
 {
     [SerializeField] protected PlayerController playerController;
-    
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
     protected override void Start()
     {
         base.Start();
@@ -25,7 +29,6 @@ public class DamageManagerPlayer : DamageBase
     {
         base.LoadStats();
         this.maxHP = playerController.PlayerStats.MaxHP;
-        //Debug.Log($"Đã load stats cho Player - HP: {maxHP}");
         this.currentHP = maxHP;
     }
 
@@ -34,7 +37,7 @@ public class DamageManagerPlayer : DamageBase
         base.TakeDamage(damage, enemy);
         playerController.PhysicsPlayer.KnockBack(enemy);
         CheckPlayerDied();
-        //Debug.Log($"Player took {damage} damage. Current HP: {currentHP}");
+        Debug.Log($"Player took {damage} damage. Current HP: {currentHP}");
     }
     private void CheckPlayerDied()
     {

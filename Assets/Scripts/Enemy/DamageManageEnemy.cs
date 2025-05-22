@@ -6,6 +6,10 @@ public class DamageManagerEnemy : DamageBase
 {
     [SerializeField] protected LowEnemyController lowEnemyController;
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
     protected override void Start()
     {
         base.Start();

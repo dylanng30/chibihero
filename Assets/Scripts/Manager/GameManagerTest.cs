@@ -17,8 +17,8 @@ public class GameManagerTest : PersistentSingleton<GameManagerTest>
     }
     void Start()
     {
-        CurrentState = GameState.Starting;
-        HandleStartingState();
+        CurrentState = GameState.Menu;
+        HandleMenuState();
     }
 
     public void ChangeState(GameState newState)
@@ -30,6 +30,9 @@ public class GameManagerTest : PersistentSingleton<GameManagerTest>
         CurrentState = newState;
         switch (CurrentState)
         {
+            case GameState.Menu:
+                HandleMenuState();
+                break;
             case GameState.Starting:
                 HandleStartingState();
                 break;
@@ -53,7 +56,11 @@ public class GameManagerTest : PersistentSingleton<GameManagerTest>
 
         Debug.Log("Current State: " + CurrentState);
     }
-
+    private void HandleMenuState()
+    {
+        // Logic for starting state
+        UIManager.Instance.ShowMenu();
+    }
     private void HandleStartingState()
     {
         // Logic for starting state
@@ -62,12 +69,16 @@ public class GameManagerTest : PersistentSingleton<GameManagerTest>
     }
     private void HandleExploringState()
     {
-        // Logic for exploring state
+        StartCoroutine(HandleExploringStateCoroutine());
+    }
+
+    private IEnumerator HandleExploringStateCoroutine()
+    {
         LevelManager.Instance.LoadScene("MainTopDown");
+        yield return new WaitUntil(() => PlayerController.Instance != null && PlayerController.Instance.PhysicsPlayer != null);
         EnemyManager.Instance.ActivatePool();
         UIManager.Instance.DeactivateAllUIs();
         PlayerController.Instance.PhysicsPlayer.SetMode(PlayerMode.TopDown);
-
     }
     private void HandleFightingState()
     {

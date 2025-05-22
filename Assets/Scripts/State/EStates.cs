@@ -3,20 +3,27 @@ using UnityEngine;
 
 public class EIdleState : IState
 {
-    LowEnemy _enemy;
-    public EIdleState(LowEnemy enemy)
+    LowEnemyController enemyController;
+    private string currentAnimation = "Idle";
+    public EIdleState(LowEnemyController enemyController)
     {
-        this._enemy = enemy;
+        this.enemyController = enemyController;
     }
     public void Enter()
     {
-        _enemy.GetAnim().Play("Idle");
+        //Debug.Log("Idle State");
+        enemyController.AnimationEnemy.SetAnimation(currentAnimation);
     }
     public void Execute()
     {
-        AnimatorStateInfo stateInfo = _enemy.GetAnim().GetCurrentAnimatorStateInfo(0);
-        if (stateInfo.IsName("Idle") && stateInfo.normalizedTime >= 2f)
-            _enemy.GetStateManager().ChangeState(_enemy.GetRunState());
+        if (!enemyController.AnimationEnemy.FinishAnimation(currentAnimation))
+            return;
+
+        if (!enemyController.AbilityNormalATK.PlayerInATKRange())
+            enemyController.StateManager.ChangeState(enemyController.RunState);
+        else
+            enemyController.StateManager.ChangeState(enemyController.NormalATKState);
+
     }
     public void Exit()
     {
@@ -25,31 +32,36 @@ public class EIdleState : IState
 }
 public class ERunState : IState
 {
-    LowEnemy _enemy;
-    public ERunState(LowEnemy enemy)
+    LowEnemyController enemyController;
+    private string currentAnimation = "Run";
+    public ERunState(LowEnemyController enemyController)
     {
-        this._enemy = enemy;
+        this.enemyController = enemyController;
     }
     public void Enter()
     {
-        _enemy.GetAnim().Play("Run");
+        //Debug.Log("Run State");
+        enemyController.AnimationEnemy.SetAnimation(currentAnimation);
     }
     public void Execute()
-    {
-        _enemy.ChasePlayer();
-        if (_enemy.NextToWall())
-            _enemy.SetSpeed(-_enemy.GetSpeed());
-        else if (_enemy.DetectObstacle() && !_enemy.NextToWall())
+    {        
+        if (enemyController.EnemyDetectObstacle.NextToWall())
         {
-            _enemy.Jump();
+            enemyController.MovementEnemy.Flee();
             return;
         }            
-        else if (_enemy.InATKRange())
+        else if(enemyController.EnemyDetectObstacle.DetectObstacle() && !enemyController.EnemyDetectObstacle.NextToWall())
         {
-            _enemy.GetStateManager().ChangeState(_enemy.GetNormalATKState());
+            enemyController.MovementEnemy.Jump();
             return;
-        }        
-        _enemy.Move();
+        }
+        else if (enemyController.AbilityNormalATK.PlayerInATKRange())
+        {
+            enemyController.StateManager.ChangeState(enemyController.NormalATKState);
+            return;
+        }
+
+        enemyController.MovementEnemy.Moving();
     }
     public void Exit()
     {
@@ -58,23 +70,22 @@ public class ERunState : IState
 }
 public class ENormalATKState : IState
 {
-    LowEnemy _enemy;
-    public ENormalATKState(LowEnemy enemy)
+    LowEnemyController enemyController;
+    private string currentAnimation = "NormalATK";
+    public ENormalATKState(LowEnemyController enemyController)
     {
-        this._enemy = enemy;
+        this.enemyController = enemyController;
     }
     public void Enter()
     {
-        _enemy.NormalATK();
-        _enemy.GetAnim().Play("NormalATK");
-        _enemy.GetRb().velocity = Vector2.zero;
-
+        //Debug.Log("Normal ATK State");
+        enemyController.AnimationEnemy.SetAnimation(currentAnimation);
+        enemyController.PhysicsEnemy.Rigidbody2D.velocity = Vector2.zero;
     }
     public void Execute()
     {
-        AnimatorStateInfo stateInfo = _enemy.GetAnim().GetCurrentAnimatorStateInfo(0);
-        if (stateInfo.IsName("NormalATK") && stateInfo.normalizedTime >= 1f)
-            _enemy.GetStateManager().ChangeState(_enemy.GetIdleState());
+        if(enemyController.AnimationEnemy.FinishAnimation(currentAnimation))
+            enemyController.StateManager.ChangeState(enemyController.IdleState);
 
     }
     public void Exit()
