@@ -11,17 +11,18 @@ public class PirateController : MonoBehaviour
     [SerializeField] protected CollisionPirate collisionPirate;
     [SerializeField] protected PirateStats pirateStats;
     [SerializeField] protected PhysicsPirate physicsPirate;
+    [SerializeField] protected PirateRangeATKAbility pirateRangeATKAbility;
+    [SerializeField] protected PirateNormalATKAbility pirateNormalATKAbility;
+    [SerializeField] protected PirateMovement pirateMovement;
+    [SerializeField] protected PirateDetectObstacle pirateDetectObstacle;
+    [SerializeField] protected PirateDamageManager pirateDamageManager;
 
     [SerializeField] protected StateManager stateManager;
     [SerializeField] protected PirateIdleState idleState;
     [SerializeField] protected PirateRunState runState;
-    [SerializeField] protected PirateJumpState jumpState;
-    [SerializeField] protected PirateFallState fallState;
-    [SerializeField] protected PirateHitState hitState;
+    [SerializeField] protected PirateFleeState fleeState;
     [SerializeField] protected PirateNormalATKState normalATKState;
-    [SerializeField] protected PirateAttackUpState attackUpState;
-    [SerializeField] protected PirateAttackDownState attackDownState;
-    [SerializeField] protected PirateRangeAttackState rangeAttackState;
+    [SerializeField] protected PirateRangeATKState rangeATKState;
 
 
     void Awake()
@@ -34,13 +35,9 @@ public class PirateController : MonoBehaviour
         stateManager = this.GetComponent<StateManager>();
         idleState = new PirateIdleState(this);
         runState = new PirateRunState(this);
-        jumpState = new PirateJumpState(this);
-        fallState = new PirateFallState(this);
-        hitState = new PirateHitState(this);
+        fleeState = new PirateFleeState(this);
         normalATKState = new PirateNormalATKState(this);
-        attackUpState = new PirateAttackUpState(this);
-        attackDownState = new PirateAttackDownState(this);
-        rangeAttackState = new PirateRangeAttackState(this);
+        rangeATKState = new PirateRangeATKState(this);
         this.stateManager.ChangeState(idleState);
     }
 
@@ -48,6 +45,13 @@ public class PirateController : MonoBehaviour
     {
         LoadAnimationPirate();
         LoadCollisionPirate();
+        LoadPirateStats();
+        LoadPhysicsPirate();
+        LoadPirateDetectObstacle();
+        LoadDamageManagerPirate();
+        LoadAbilityPirateNormalATK();
+        LoadAbilityPirateRangeATK();
+        LoadMovementPirate();
         /*LoadPhysicsEnemy();
         LoadCollisionEnemy();
         LoadEnemyStats();
@@ -67,10 +71,40 @@ public class PirateController : MonoBehaviour
         if (this.collisionPirate != null) return;
         this.collisionPirate = this.GetComponentInChildren<CollisionPirate>();
     }
+    protected virtual void LoadPirateStats()
+    {
+        if (this.pirateStats != null) return;
+        this.pirateStats = this.GetComponentInChildren<PirateStats>();
+    }
     protected virtual void LoadPhysicsPirate()
     {
         if (this.physicsPirate != null) return;
         this.physicsPirate = this.GetComponentInChildren<PhysicsPirate>();
+    }
+    protected virtual void LoadDamageManagerPirate()
+    {
+        if (this.pirateDamageManager != null) return;
+        this.pirateDamageManager = this.GetComponentInChildren<PirateDamageManager>();
+    }
+    protected virtual void LoadMovementPirate()
+    {
+        if (this.pirateMovement != null) return;
+        this.pirateMovement = this.GetComponentInChildren<PirateMovement>();
+    }
+    protected virtual void LoadAbilityPirateNormalATK()
+    {
+        if (this.pirateNormalATKAbility != null) return;
+        this.pirateNormalATKAbility = this.GetComponentInChildren<PirateNormalATKAbility>();
+    }
+    protected virtual void LoadAbilityPirateRangeATK()
+    {
+        if (this.pirateRangeATKAbility != null) return;
+        this.pirateRangeATKAbility = this.GetComponentInChildren<PirateRangeATKAbility>();
+    }
+    protected virtual void LoadPirateDetectObstacle()
+    {
+        if (this.pirateDetectObstacle != null) return;
+        this.pirateDetectObstacle = this.GetComponentInChildren<PirateDetectObstacle>();
     }
 
 
@@ -82,9 +116,65 @@ public class PirateController : MonoBehaviour
     {
         get { return this.collisionPirate; }
     }
+    public PirateDamageManager PirateDamageManager
+    {
+        get { return pirateDamageManager; }
+    }
     public PirateStats PirateStats
     {
         get { return this.pirateStats; }
+    }
+    public PhysicsPirate PhysicsPirate
+    {
+        get { return this.physicsPirate; }
+    }
+    public PirateDetectObstacle PirateDetectObstacle
+    {
+        get { return this.pirateDetectObstacle; }
+    }
+    public PirateRangeATKAbility PirateRangeATKAbility
+    {
+        get { return this.pirateRangeATKAbility; }
+    }
+    public PirateNormalATKAbility PirateNormalATKAbility
+    {
+        get { return this.pirateNormalATKAbility; }
+    }
+    public PirateMovement PirateMovement
+    {
+        get { return this.pirateMovement; }
+    }
+
+    //States
+    public StateManager StateManager
+    {
+        get { return this.stateManager; }
+    }
+    public PirateIdleState IdleState
+    {
+        get { return this.idleState; }
+    }
+    public PirateRunState RunState
+    {
+        get { return this.runState; }
+    }
+    public PirateFleeState FleeState
+    {
+        get { return this.fleeState; }
+    }
+    public PirateNormalATKState NormalATKState
+    {
+        get { return this.normalATKState; }
+    }
+    public PirateRangeATKState RangeATKState
+    {
+        get { return this.rangeATKState; }
+    }
+
+    // Target is the player
+    public GameObject Target
+    {
+        get { return GameObject.FindGameObjectWithTag("Player"); }
     }
 
 }

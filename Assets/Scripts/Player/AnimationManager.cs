@@ -44,4 +44,10 @@ public class AnimationManager : MonoBehaviour
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         return stateInfo.IsName(animName) && stateInfo.normalizedTime >= 1f;
     }
+
+    public bool CoolDown(string animName)
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        return stateInfo.IsName(animName) && stateInfo.normalizedTime >= 10f;
+    }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PirateStats : ObjectStats
 {
-    //[SerializeField] protected PirateController pirateController;    
+    [SerializeField] protected PirateController pirateController;    
 
     void Start()
     {
@@ -13,7 +13,7 @@ public class PirateStats : ObjectStats
 
     protected void LoadComponent()
     {
-        //LoadPirateController();
+        LoadPirateController();
         LoadEnemyStats();
     }
 
@@ -36,11 +36,11 @@ public class PirateStats : ObjectStats
         //Debug.Log($"Đã load stats cho {enemyType} - HP: {maxHP}, ATK: {attackPower}, Armor: {armor}, Speed: {moveSpeed}");
     }
 
-    /*protected virtual void LoadPirateController()
+    protected virtual void LoadPirateController()
     {
         if (this.pirateController != null)
             return;
         this.pirateController = this.GetComponentInParent<PirateController>();
-    }*/
-    
+    }
+
 }

@@ -12,17 +12,19 @@ public class PirateIdleState : IState
     }
     public void Enter()
     {
+        Debug.Log("Idle");
         pirateController.AnimationPirate.SetAnimation(currentState);
     }
 
     public void Execute()
     {
-        throw new System.NotImplementedException();
+        if(pirateController.AnimationPirate.FinishAnimation(currentState))
+            pirateController.StateManager.ChangeState(pirateController.RunState);
     }
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
+
     }
 }
 public class PirateRunState : IState
@@ -35,86 +37,60 @@ public class PirateRunState : IState
     }
     public void Enter()
     {
+        Debug.Log("Run");
         pirateController.AnimationPirate.SetAnimation(currentState);
     }
 
     public void Execute()
     {
-        throw new System.NotImplementedException();
+        if (pirateController.PirateDetectObstacle.NextToWall())
+        {
+            pirateController.PirateMovement.Flee();
+            return;
+        }
+        else if (pirateController.PirateDetectObstacle.DetectObstacle() && !pirateController.PirateDetectObstacle.NextToWall())
+        {
+            pirateController.PirateMovement.Jump();
+            return;
+        }
+        else if (pirateController.PirateNormalATKAbility.PlayerInNormalATKRange())
+        {
+            pirateController.StateManager.ChangeState(pirateController.NormalATKState);
+            return;
+        }
+
+        pirateController.PirateMovement.Moving();
     }
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
+
     }
 }
-public class PirateJumpState : IState
+public class PirateFleeState : IState
 {
     private PirateController pirateController;
-    private string currentState = "Jump";
-    public PirateJumpState(PirateController pirateController)
+    private string currentState = "Run";
+    public PirateFleeState(PirateController pirateController)
     {
         this.pirateController = pirateController;
     }
     public void Enter()
     {
+        Debug.Log("Flee");
         pirateController.AnimationPirate.SetAnimation(currentState);
     }
 
     public void Execute()
     {
-        throw new System.NotImplementedException();
+        if(pirateController.AnimationPirate.CoolDown(currentState))
+            pirateController.StateManager.ChangeState(pirateController.RangeATKState);
+        pirateController.PirateMovement.Flee();
     }
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
-    }
-}
-public class PirateFallState : IState
-{
-    private PirateController pirateController;
-    private string currentState = "Fall";
-    public PirateFallState(PirateController pirateController)
-    {
-        this.pirateController = pirateController;
-    }
-    public void Enter()
-    {
-        pirateController.AnimationPirate.SetAnimation(currentState);
-    }
 
-    public void Execute()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Exit()
-    {
-        throw new System.NotImplementedException();
-    }
-}
-public class PirateHitState : IState
-{
-    private PirateController pirateController;
-    private string currentState = "Hit";
-    public PirateHitState(PirateController pirateController)
-    {
-        this.pirateController = pirateController;
-    }
-    public void Enter()
-    {
-        pirateController.AnimationPirate.SetAnimation(currentState);
-    }
-
-    public void Execute()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Exit()
-    {
-        throw new System.NotImplementedException();
     }
 }
 public class PirateNormalATKState : IState
@@ -127,85 +103,43 @@ public class PirateNormalATKState : IState
     }
     public void Enter()
     {
+        Debug.Log("NormalATK");
         pirateController.AnimationPirate.SetAnimation(currentState);
     }
 
     public void Execute()
     {
-        throw new System.NotImplementedException();
+        if (pirateController.AnimationPirate.FinishAnimation(currentState))
+            pirateController.StateManager.ChangeState(pirateController.FleeState);
     }
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
+
     }
 }
-public class PirateAttackUpState : IState
-{
-    private PirateController pirateController;
-    private string currentState = "ATKUp";
-    public PirateAttackUpState(PirateController pirateController)
-    {
-        this.pirateController = pirateController;
-    }
-    public void Enter()
-    {
-        pirateController.AnimationPirate.SetAnimation(currentState);
-    }
-
-    public void Execute()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Exit()
-    {
-        throw new System.NotImplementedException();
-    }
-}
-public class PirateAttackDownState : IState
-{
-    private PirateController pirateController;
-    private string currentState = "ATKDown";
-    public PirateAttackDownState(PirateController pirateController)
-    {
-        this.pirateController = pirateController;
-    }
-    public void Enter()
-    {
-        pirateController.AnimationPirate.SetAnimation(currentState);
-    }
-
-    public void Execute()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Exit()
-    {
-        throw new System.NotImplementedException();
-    }
-}
-public class PirateRangeAttackState : IState
+public class PirateRangeATKState : IState
 {
     private PirateController pirateController;
     private string currentState = "RangeATK";
-    public PirateRangeAttackState(PirateController pirateController)
+    public PirateRangeATKState(PirateController pirateController)
     {
         this.pirateController = pirateController;
     }
     public void Enter()
     {
+        Debug.Log("RangeATK");
         pirateController.AnimationPirate.SetAnimation(currentState);
     }
 
     public void Execute()
     {
-        throw new System.NotImplementedException();
+        if (pirateController.AnimationPirate.FinishAnimation(currentState))
+            pirateController.StateManager.ChangeState(pirateController.IdleState);
     }
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
+
     }
 }

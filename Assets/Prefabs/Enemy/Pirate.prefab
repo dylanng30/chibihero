@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 5432728937074035196}
   - component: {fileID: 3172465350552556972}
   - component: {fileID: 756083704687632191}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pirate
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,13 +30,18 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.2295, y: -1.3196, z: -0.0282}
-  m_LocalScale: {x: 3.4169, y: 3.4169, z: 3.4169}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1706240644535001754}
   - {fileID: 4290974442938872584}
   - {fileID: 6599524448829791027}
   - {fileID: 7105914234686632724}
+  - {fileID: 6829864107931750221}
+  - {fileID: 1822795511450194490}
+  - {fileID: 2294619807515884965}
+  - {fileID: 7209159817172400804}
+  - {fileID: 8745256260729869551}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2987530171304027754
@@ -53,6 +58,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationPirate: {fileID: 0}
   collisionPirate: {fileID: 0}
+  pirateStats: {fileID: 0}
+  physicsPirate: {fileID: 0}
+  pirateRangeATKAbility: {fileID: 0}
+  pirateNormalATKAbility: {fileID: 0}
+  pirateMovement: {fileID: 0}
+  pirateDetectObstacle: {fileID: 0}
+  pirateDamageManager: {fileID: 0}
   stateManager: {fileID: 0}
 --- !u!114 &5432728937074035196
 MonoBehaviour:
@@ -107,6 +119,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   pirateController: {fileID: 0}
+--- !u!1 &1446632313015392796
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7209159817172400804}
+  - component: {fileID: 4206137857117135360}
+  m_Layer: 9
+  m_Name: RangeATK
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7209159817172400804
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446632313015392796}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.10849396, y: 0.0038286597, z: 0.023939122}
+  m_LocalScale: {x: 0.29266295, y: 0.29266295, z: 0.29266295}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1076476025759923414}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4206137857117135360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446632313015392796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a05727b94c5cae42a070bd1b2e9f558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pirateController: {fileID: 0}
+  projectileType: 2
 --- !u!1 &2006197072800512398
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +176,7 @@ GameObject:
   - component: {fileID: 4290974442938872584}
   - component: {fileID: 2182424258908227628}
   - component: {fileID: 3696212555623620019}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +230,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0027110875, y: 0.029780418}
+  m_Offset: {x: -0.00641191, y: -0.06753141}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -183,7 +241,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.24088088, y: 0.4324497}
+  m_Size: {x: 0.97680163, y: 1.3325843}
   m_EdgeRadius: 0
 --- !u!114 &3696212555623620019
 MonoBehaviour:
@@ -199,6 +257,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitbox: {fileID: 0}
   pirateController: {fileID: 0}
+--- !u!1 &3019441186501134714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8745256260729869551}
+  m_Layer: 9
+  m_Name: ATKPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8745256260729869551
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3019441186501134714}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1076476025759923414}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4954403079520721595
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6599524448829791027}
   - component: {fileID: 6900944529215197942}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PirateStats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +347,7 @@ GameObject:
   - component: {fileID: 9124717166557376664}
   - component: {fileID: 7961692954531088340}
   - component: {fileID: 4581347518585004813}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +379,7 @@ Animator:
   m_GameObject: {fileID: 5467036271965397923}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 41cf16355c60b9744ab146456cbc2684, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -366,6 +455,144 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5490003569637080755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1822795511450194490}
+  - component: {fileID: 1061148914876287650}
+  m_Layer: 9
+  m_Name: Movement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1822795511450194490
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5490003569637080755}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1076476025759923414}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1061148914876287650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5490003569637080755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8a0bd066ae2cdd48bac5b25cb335bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pirateController: {fileID: 0}
+--- !u!1 &7134820333484584207
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2294619807515884965}
+  - component: {fileID: 7872361672022487716}
+  m_Layer: 9
+  m_Name: DamagerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2294619807515884965
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7134820333484584207}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.10849396, y: 0.0038286597, z: 0.023939122}
+  m_LocalScale: {x: 0.29266295, y: 0.29266295, z: 0.29266295}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1076476025759923414}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7872361672022487716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7134820333484584207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d77ea897d5cc4448561540be8fbcc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHP: 0
+  maxHP: 0
+  isDead: 0
+  pirateController: {fileID: 0}
+--- !u!1 &7379790581323853844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6829864107931750221}
+  - component: {fileID: 704041316611130669}
+  m_Layer: 9
+  m_Name: DetectObstacle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6829864107931750221
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7379790581323853844}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1076476025759923414}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &704041316611130669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7379790581323853844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aaf894f0dd44294280df83c84c5d1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pirateController: {fileID: 0}
 --- !u!1 &7692981985573448493
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +602,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7105914234686632724}
-  m_Layer: 0
+  - component: {fileID: 5403398707134943688}
+  m_Layer: 9
   m_Name: NormalATK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,3 +625,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1076476025759923414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5403398707134943688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7692981985573448493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478b958f7217dc040b477ef283bf49c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pirateController: {fileID: 0}
+  ATKPoint: {fileID: 8745256260729869551}

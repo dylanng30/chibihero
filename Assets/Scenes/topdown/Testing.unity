@@ -324,6 +324,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pirate
       objectReference: {fileID: 0}
+    - target: {fileID: 8745256260729869551, guid: 426128437d59e3646a70cdeb156522a5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.865
+      objectReference: {fileID: 0}
+    - target: {fileID: 8745256260729869551, guid: 426128437d59e3646a70cdeb156522a5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.023
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
