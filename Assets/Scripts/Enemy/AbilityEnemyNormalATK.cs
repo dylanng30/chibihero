@@ -6,7 +6,7 @@ public class AbilityEnemyNormalATK : MonoBehaviour
 {
     [SerializeField] protected LowEnemyController lowEnemyController;
     [SerializeField] protected Transform ATKPoint;
-
+    private ProjectileType projectileType;
 
     private void Start()
     {
@@ -34,11 +34,27 @@ public class AbilityEnemyNormalATK : MonoBehaviour
 
     public void NormalATK()
     {
-        CloseATK();
+        switch (lowEnemyController.EnemyStats.EnemyType)
+        {
+            case EnemyType.RedPawn:
+                StartCoroutine(CloseATK());
+                break;
+            case EnemyType.RedTNT:
+                projectileType = ProjectileType.TNT;
+                StartCoroutine(RangeATK(projectileType));
+                break;
+            case EnemyType.RedArcher:
+                projectileType = ProjectileType.Arrow;
+                StartCoroutine(RangeATK(projectileType));
+                break;
+            default:
+                break;
+        }
     }
 
-    public void CloseATK()
+    public IEnumerator CloseATK()
     {
+        yield return new WaitUntil(() => lowEnemyController != null && lowEnemyController.EnemyStats != null);
         int Dmg = lowEnemyController.EnemyStats.AttackPower;
         float atkRange = lowEnemyController.EnemyStats.ATKRange;
         LayerMask targetLayer = LayerMask.GetMask("Player");
@@ -51,11 +67,11 @@ public class AbilityEnemyNormalATK : MonoBehaviour
         }
     }
 
-    /*public void RangeATK()
+    public IEnumerator RangeATK(ProjectileType projectileType)
     {
+        yield return new WaitUntil(() => lowEnemyController != null && lowEnemyController.EnemyStats != null);
         ProjectileFactory projectileFactory = GameObject.FindObjectOfType<ProjectileFactory>().GetComponent<ProjectileFactory>();
-        ProjectileType projectileType = ProjectileType.TNT;
-        int Dmg = lowEnemyController.EnemyStats.AttackPower;
-        projectileFactory.CreateProjectile(projectileType, _Damage, this.gameObject, this.gameObject.transform);
-    }*/
+        int dmg = lowEnemyController.EnemyStats.AttackPower;
+        projectileFactory.CreateProjectile(projectileType, dmg, lowEnemyController.gameObject, lowEnemyController.gameObject.transform);
+    }
 }

@@ -19,7 +19,7 @@ public class ProjSwordSlash : ProjectileBase
     }
     private void Update()
     {
-        
+      
     }
     public override void Action()
     {
@@ -32,7 +32,7 @@ public class ProjSwordSlash : ProjectileBase
     {
         this.dmg = dmg;
         Vector2 Force = new Vector2(dir.localScale.x, 0);
-        return Force * 200;
+        return Force * 500;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -41,8 +41,7 @@ public class ProjSwordSlash : ProjectileBase
             return;
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            this.collision = true;
-            collision.gameObject.GetComponent<Entity>().TakeDamage(dmg, this.gameObject.transform);
+            collision.GetComponent<CollisionEnemy>().GetComponentInParent<LowEnemyController>().DamageManager.TakeDamage(dmg, this.gameObject);
             Destroy(this.gameObject);
         }
     }

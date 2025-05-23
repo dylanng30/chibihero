@@ -17,6 +17,7 @@ public class DamageManagerPlayer : DamageBase
     public override void LoadComponent()
     {
         base.LoadComponent();
+        LoadStats();
     }
     protected override void LoadController()
     {
@@ -28,6 +29,11 @@ public class DamageManagerPlayer : DamageBase
     protected override void LoadStats()
     {
         base.LoadStats();
+        StartCoroutine(LoadStatsCoroutine());
+    }
+    protected IEnumerator LoadStatsCoroutine()
+    {
+        yield return new WaitUntil(() => playerController != null && playerController.PlayerStats != null);
         this.maxHP = playerController.PlayerStats.MaxHP;
         this.currentHP = maxHP;
     }

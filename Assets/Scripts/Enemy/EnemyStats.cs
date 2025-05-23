@@ -10,6 +10,7 @@ public class EnemyStats : MonoBehaviour
     [SerializeField] protected LowEnemyController lowEnemyController;
 
     protected int maxHP;
+    protected int currentHP;
     protected int attackPower;
     protected int armor;
     protected int moveSpeed;
@@ -37,12 +38,13 @@ public class EnemyStats : MonoBehaviour
 
         enemy = Systems.Instance.ResourceSystem.GetEnemy(enemyType);
         maxHP = enemy._stats.Health;
+        currentHP = maxHP;
         attackPower = enemy._stats.Attack;
         armor = enemy._stats.Armor;
         moveSpeed = enemy._stats.Speed;
         jumpPower = enemy._stats.JumpPower;
         atkRange = enemy._stats.ATKRange;
-        Debug.Log($"Đã load stats cho {enemyType} - HP: {maxHP}, ATK: {attackPower}, Armor: {armor}, Speed: {moveSpeed}");
+        //Debug.Log($"Đã load stats cho {enemyType} - HP: {maxHP}, ATK: {attackPower}, Armor: {armor}, Speed: {moveSpeed}");
     }
 
     protected virtual void LoadEnemyController()
@@ -91,6 +93,20 @@ public class EnemyStats : MonoBehaviour
         get
         {
             return jumpPower;
+        }
+    }
+    public int CurrentHP
+    {
+        get
+        {
+            return currentHP;
+        }
+    }
+    public EnemyType EnemyType
+    {
+        get
+        {
+            return enemyType;
         }
     }
 }

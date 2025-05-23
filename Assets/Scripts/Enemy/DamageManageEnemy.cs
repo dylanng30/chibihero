@@ -17,6 +17,7 @@ public class DamageManagerEnemy : DamageBase
     public override void LoadComponent()
     {
         base.LoadComponent();
+        LoadStats();
     }
     protected override void LoadController()
     {
@@ -28,9 +29,13 @@ public class DamageManagerEnemy : DamageBase
     protected override void LoadStats()
     {
         base.LoadStats();
-        this.maxHP = this.lowEnemyController.EnemyStats.MaxHP;        
-        this.currentHP = maxHP;
-        //Debug.Log($"Đã load stats cho Enemy - HP: {maxHP}");
+        StartCoroutine(LoadStatsCoroutine());
+    }
+    protected IEnumerator LoadStatsCoroutine()
+    {
+        yield return new WaitUntil(() => lowEnemyController != null && lowEnemyController.EnemyStats != null);
+        this.maxHP = lowEnemyController.EnemyStats.MaxHP;
+        this.currentHP = maxHP;        
     }
 
     public override void TakeDamage(int damage, GameObject enemy)
@@ -38,7 +43,7 @@ public class DamageManagerEnemy : DamageBase
         base.TakeDamage(damage, enemy);
         lowEnemyController.PhysicsEnemy.KnockBack(enemy);
         CheckEnemyDied();
-        //Debug.Log($"Player took {damage} damage. Current HP: {currentHP}");
+        Debug.Log($"Enemy took {damage} damage. Current HP: {currentHP}");
     }
     private void CheckEnemyDied()
     {

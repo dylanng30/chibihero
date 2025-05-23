@@ -4,28 +4,24 @@ using UnityEngine;
 
 public class CheckEnemiesLeftInPlatForm : StaticInstance<CheckEnemiesLeftInPlatForm>
 {
-    List<GameObject> enemiesInPlatform = new List<GameObject>();
+    public List<GameObject> enemiesInPlatform = new List<GameObject>();
     protected override void Awake()
     {
         base.Awake();
     }
-    void Start()
+    private void Update()
     {
-        Transform[] e = GetComponentsInChildren<Transform>();
-        foreach (Transform child in e)
-        {
-            enemiesInPlatform.Add((child.gameObject));
-        }
-    }
-
-    public void EliminateEnemy(GameObject enemy)
-    {
-        if (enemiesInPlatform.Contains(enemy))
-        {
-            enemiesInPlatform.Remove(enemy);
-            Destroy(enemy);
-        }
+        EnemiesToList();
         CheckAnyEnemiesLeft();
+        enemiesInPlatform.Clear();
+    }
+    private void EnemiesToList()
+    {
+        foreach (Transform child in this.transform)
+        {
+            if(!enemiesInPlatform.Contains(child.gameObject))
+                enemiesInPlatform.Add(child.gameObject);
+        }
     }
     private void CheckAnyEnemiesLeft()
     {

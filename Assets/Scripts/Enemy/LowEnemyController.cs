@@ -12,11 +12,6 @@ public class LowEnemyController : MonoBehaviour
     [SerializeField] protected AnimationManager animationEnemy;
     [SerializeField] protected AbilityEnemyNormalATK abilityNormalATK;
     [SerializeField] protected EnemyDetectObstacle enemyDetectObstacle;
-    /*[SerializeField] protected AnimationPlayer animationPlayer;
-    [SerializeField] protected PlayerStats playerStats;    
-    [SerializeField] protected MovementPlayer movementPlayer;
-    [SerializeField] protected AbilityNormalATK abilityNormalATK;
-    [SerializeField] protected AbilitySkill abilitySkill;*/
 
     private EIdleState idleState;
     private ERunState runState;
@@ -47,11 +42,6 @@ public class LowEnemyController : MonoBehaviour
         LoadAnimationEnemy();
         LoadAbilityEnemyNormalATK();
         LoadEnemyDetectObstacle();
-        /*LoadAnimationPlayer();
-        LoadPlayerStat();        
-        LoadMovementPlayer();
-        LoadAbilityNormalATK();
-        LoadAbilitySkill();*/
     }
 
     //Load Component
@@ -95,17 +85,6 @@ public class LowEnemyController : MonoBehaviour
         if (this.enemyDetectObstacle != null) return;
         this.enemyDetectObstacle = this.GetComponentInChildren<EnemyDetectObstacle>();
     }
-    /*    protected virtual void LoadAbilityNormalATK()
-    {
-        if (this.abilityNormalATK != null) return;
-        this.abilityNormalATK = this.GetComponentInChildren<AbilityNormalATK>();
-    }
-    protected virtual void LoadAbilitySkill()
-    {
-        if (this.abilitySkill != null) return;
-        this.abilitySkill = this.GetComponentInChildren<AbilitySkill>();
-    }*/
-
 
     //Components
     public PhysicsEnemy PhysicsEnemy
@@ -140,29 +119,7 @@ public class LowEnemyController : MonoBehaviour
     {
         get { return enemyDetectObstacle; }
     }
-
-    /*public AnimationEnemy AnimationPlayer
-    {
-        get { return animationPlayer; }
-    }
-    
-    public EnemyPlayer MovementPlayer
-    {
-        get { return movementPlayer; }
-    }
-    public AbilityNormalATK AbilityNormalATK
-    {
-        get { return abilityNormalATK; }
-    }
-    public AbilitySkill AbilitySkill
-    {
-        get { return abilitySkill; }
-    }*/
-
-    public GameObject Target
-    {
-        get { return GameObject.FindGameObjectWithTag("Player"); }
-    }
+    //States    
     public StateManager StateManager
     {
         get { return stateManager; }
@@ -178,5 +135,10 @@ public class LowEnemyController : MonoBehaviour
     public ENormalATKState NormalATKState
     {
         get { return normalATKState; }
+    }
+    //Target
+    public GameObject Target
+    {
+        get { return GameObject.FindGameObjectWithTag("Player"); }
     }
 }

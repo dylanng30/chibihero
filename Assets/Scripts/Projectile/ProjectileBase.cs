@@ -29,7 +29,7 @@ public abstract class ProjectileBase : MonoBehaviour
             case "Fly":
                 break;
             case "Explosion":
-                Destroy(projectile);
+                //Destroy(projectile);
                 break;
         }
     }

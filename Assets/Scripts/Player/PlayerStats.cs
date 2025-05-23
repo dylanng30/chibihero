@@ -42,7 +42,7 @@ public class PlayerStats : MonoBehaviour
         armor = player._stats.Armor;
         moveSpeed = player._stats.Speed;
         jumpPower = player._stats.JumpPower;
-        Debug.Log($"Đã load stats cho {playerType} - HP: {maxHP}, ATK: {attackPower}, Armor: {armor}, Speed: {moveSpeed}");
+        //Debug.Log($"Đã load stats cho {playerType} - HP: {maxHP}, ATK: {attackPower}, Armor: {armor}, Speed: {moveSpeed}");
     }
 
     protected virtual void LoadPlayerController()

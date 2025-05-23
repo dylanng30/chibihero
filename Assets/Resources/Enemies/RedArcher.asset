@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _faction: 1
   _stats:
-    Health: 1
-    Attack: 1
-    Armor: 1
-    Speed: 1
-    ATKRange: 1
-    JumpPower: 1
+    Health: 100
+    Attack: 20
+    Armor: 5
+    Speed: 5
+    ATKRange: 6
+    JumpPower: 5
   EnemyType: 0
