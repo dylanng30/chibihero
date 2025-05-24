@@ -43,6 +43,8 @@ public class PirateRunState : IState
 
     public void Execute()
     {
+        pirateController.PirateMovement.FLipToPlayer();
+
         if (pirateController.PirateDetectObstacle.NextToWall())
         {
             pirateController.PirateMovement.Flee();
@@ -53,11 +55,11 @@ public class PirateRunState : IState
             pirateController.PirateMovement.Jump();
             return;
         }
-        else if (pirateController.PirateNormalATKAbility.PlayerInNormalATKRange())
+        else if (pirateController.PirateATKAbility.PlayerInATKRange())
         {
             pirateController.StateManager.ChangeState(pirateController.NormalATKState);
-            return;
         }
+        Debug.Log(pirateController.PirateATKAbility.PlayerInATKRange());
 
         pirateController.PirateMovement.Moving();
     }
@@ -83,7 +85,19 @@ public class PirateFleeState : IState
 
     public void Execute()
     {
-        if(pirateController.AnimationPirate.CoolDown(currentState))
+        pirateController.PirateMovement.Flip();
+
+        if (pirateController.PirateDetectObstacle.NextToWall())
+        {
+            pirateController.PirateMovement.Moving();
+            return;
+        }
+        else if (pirateController.PirateDetectObstacle.DetectObstacle() && !pirateController.PirateDetectObstacle.NextToWall())
+        {
+            pirateController.PirateMovement.Jump();
+            return;
+        }
+        else if (pirateController.AnimationPirate.CoolDown(currentState))
             pirateController.StateManager.ChangeState(pirateController.RangeATKState);
         pirateController.PirateMovement.Flee();
     }
@@ -105,17 +119,20 @@ public class PirateNormalATKState : IState
     {
         Debug.Log("NormalATK");
         pirateController.AnimationPirate.SetAnimation(currentState);
+        pirateController.PhysicsPirate.Rigidbody2D.velocity = Vector2.zero;
     }
 
     public void Execute()
     {
+        pirateController.PirateMovement.FLipToPlayer();
+
         if (pirateController.AnimationPirate.FinishAnimation(currentState))
             pirateController.StateManager.ChangeState(pirateController.FleeState);
     }
 
     public void Exit()
     {
-
+        pirateController.PirateATKAbility.NormalAttack();
     }
 }
 public class PirateRangeATKState : IState
@@ -130,16 +147,19 @@ public class PirateRangeATKState : IState
     {
         Debug.Log("RangeATK");
         pirateController.AnimationPirate.SetAnimation(currentState);
+        pirateController.PhysicsPirate.Rigidbody2D.velocity = Vector2.zero;
     }
 
     public void Execute()
     {
+        pirateController.PirateMovement.FLipToPlayer();
+
         if (pirateController.AnimationPirate.FinishAnimation(currentState))
             pirateController.StateManager.ChangeState(pirateController.IdleState);
     }
 
     public void Exit()
     {
-
+        pirateController.PirateATKAbility.RangeAttack();
     }
 }

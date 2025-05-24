@@ -9,6 +9,9 @@ public abstract class ProjectileBase : MonoBehaviour
 
     protected bool collision = false;
 
+    protected ObjectPool pool;
+    public void SetPool(ObjectPool pool) => this.pool = pool;
+
     protected void Init()
     {
         anim = GetComponent<Animator>();
@@ -30,6 +33,7 @@ public abstract class ProjectileBase : MonoBehaviour
                 break;
             case "Explosion":
                 //Destroy(projectile);
+                pool.ReturnProjectile(this);
                 break;
         }
     }
@@ -40,7 +44,7 @@ public abstract class ProjectileBase : MonoBehaviour
     }
 
     public abstract void Action();
-    public abstract Vector2 InitVelo(int dmg, GameObject entity, Transform dir);
+    public abstract Vector2 InitVelo(int dmg, Transform entity, Transform dir);
 
     public Rigidbody2D GetRb()
     {

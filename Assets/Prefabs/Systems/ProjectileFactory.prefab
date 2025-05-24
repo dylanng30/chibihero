@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 8381611178671580109, guid: 0f168e269d5771e4d97470a41d530bd5, type: 3}
   tntPrefab: {fileID: 2797612290777865404, guid: 297c569af62777a4ab014e1dbb99e77b, type: 3}
-  swordSlashPrefab: {fileID: 2797612290777865404, guid: 297c569af62777a4ab014e1dbb99e77b, type: 3}
+  swordSlashPrefab: {fileID: 1911914180328527165, guid: ae8989aa4287d264e9857cefdf32e9eb, type: 3}

@@ -24,11 +24,11 @@ public class ProjArrow : ProjectileBase
             transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
     }
-    public override Vector2 InitVelo(int dmg, GameObject entity, Transform dir)
+    public override Vector2 InitVelo(int dmg, Transform origin, Transform dir)
     {
         this.dmg = dmg;
         Transform target = GameObject.FindObjectOfType<PlayerController>().transform;
-        Vector3 direction = target.position - entity.transform.position;
+        Vector3 direction = target.position - origin.position;
         float AngleR = 0;
         if (direction.x < 0)
             AngleR = -Mathf.Abs(Angle) * Mathf.Deg2Rad;

@@ -36,6 +36,6 @@ public class PhysicsPirate : PhysicsBase
     public void KnockBack(GameObject player)
     {
         float dir = pirateController.transform.position.x - player.transform.position.x;
-        //this.rb.AddForce(new Vector2(dir * pirateController.PirateStats.MoveSpeed, pirateController.PirateStats.JumpPower / 2));
+        this.rb.AddForce(new Vector2(dir * pirateController.PirateStats.MoveSpeed, pirateController.PirateStats.JumpPower / 2));
     }
 }

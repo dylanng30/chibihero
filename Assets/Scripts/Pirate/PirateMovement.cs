@@ -10,10 +10,6 @@ public class PirateMovement : MonoBehaviour
     {
         LoadComponent();
     }
-    private void Update()
-    {
-        Flip();
-    }
     protected void LoadComponent()
     {
         LoadController();
@@ -27,12 +23,9 @@ public class PirateMovement : MonoBehaviour
     public void Moving()
     {
         Vector2 origin = pirateController.transform.position;
-        Debug.Log(origin);
         Vector2 target = pirateController.Target.transform.position;
-        Debug.Log(target);
         int speed = pirateController.PirateStats.MoveSpeed;
         float atkRange = pirateController.PirateStats.ATKRange;
-        Debug.Log(atkRange);
 
         if (Vector2.Distance(origin, target) < atkRange)
         {
@@ -40,9 +33,7 @@ public class PirateMovement : MonoBehaviour
             return;
         }
         Vector2 direction = (target - origin).normalized;
-        Debug.Log(direction);
         pirateController.PhysicsPirate.Rigidbody2D.velocity = new Vector2(direction.x * speed, pirateController.PhysicsPirate.Rigidbody2D.velocity.y);
-        Debug.Log(pirateController.PhysicsPirate.Rigidbody2D.velocity);
     }
     public void Flee()
     {
@@ -58,7 +49,15 @@ public class PirateMovement : MonoBehaviour
         int jumpPower = pirateController.PirateStats.JumpPower;
         pirateController.PhysicsPirate.Rigidbody2D.velocity = new Vector2(pirateController.PhysicsPirate.Rigidbody2D.velocity.x, jumpPower);
     }
-    private void Flip()
+    public void Flip()
+    {
+        float dirX = pirateController.PhysicsPirate.Rigidbody2D.velocity.x;
+        if (dirX > 0)
+            pirateController.transform.localScale = new Vector3(1, 1, 1);
+        if (dirX < 0)
+            pirateController.transform.localScale = new Vector3(-1, 1, 1);        
+    }
+    public void FLipToPlayer()
     {
         Vector2 origin = pirateController.transform.position;
         Vector2 target = pirateController.Target.transform.position;

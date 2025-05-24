@@ -28,7 +28,7 @@ public class ProjSwordSlash : ProjectileBase
         else
             this.transform.localScale = new Vector3(-1, 1, 1);
     }
-    public override Vector2 InitVelo(int dmg, GameObject entity, Transform dir)
+    public override Vector2 InitVelo(int dmg, Transform origin, Transform dir)
     {
         this.dmg = dmg;
         Vector2 Force = new Vector2(dir.localScale.x, 0);

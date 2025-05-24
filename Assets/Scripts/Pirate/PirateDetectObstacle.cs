@@ -22,35 +22,6 @@ public class PirateDetectObstacle : MonoBehaviour
         this.pirateController = GetComponentInParent<PirateController>();
     }
 
-    //Player detection
-    public bool DetectPlayerInAir()
-    {
-        Vector2 direction = new Vector2(pirateController.transform.localScale.x, 1);
-        hit = Physics2D.Raycast(pirateController.transform.position, direction, 1f, LayerMask.GetMask("Player"));
-
-        if (hit.collider == null)
-            return false;
-
-        if (hit.collider.CompareTag("Player"))
-            return true;
-
-        return false;
-    }
-
-    public bool DetectPlayerUnder()
-    {
-        Vector2 direction = new Vector2(pirateController.transform.localScale.x, -1);
-        hit = Physics2D.Raycast(pirateController.transform.position, direction, 1f, LayerMask.GetMask("Player"));
-
-        if (hit.collider == null)
-            return false;
-
-        if (hit.collider.CompareTag("Player"))
-            return true;
-
-        return false;
-    }
-
     //Ground detection
     public bool DetectObstacle()
     {
@@ -61,7 +32,12 @@ public class PirateDetectObstacle : MonoBehaviour
             return false;
 
         if (hit.collider.CompareTag("Ground"))
+        {
+            Debug.Log("Hit: " + hit.collider.name);
+            Debug.DrawRay(pirateController.transform.position, direction, Color.red, 2f);
             return true;
+        }
+        
 
         return false;
     }    
@@ -75,7 +51,12 @@ public class PirateDetectObstacle : MonoBehaviour
             return false;
 
         if (hit.collider.CompareTag("Ground"))
+        {
+            Debug.Log("Hit: " + hit.collider.name);
+            Debug.DrawRay(pirateController.transform.position, direction, Color.yellow, 2f);
             return true;
+        }
+        
 
         return false;
     }

@@ -30,6 +30,6 @@ public class PirateRangeATKAbility : MonoBehaviour
         yield return new WaitUntil(() => pirateController != null && pirateController.PirateStats != null);
         ProjectileFactory projectileFactory = GameObject.FindObjectOfType<ProjectileFactory>().GetComponent<ProjectileFactory>();
         int dmg = pirateController.PirateStats.AttackPower;
-        projectileFactory.CreateProjectile(projectileType, dmg, pirateController.gameObject, pirateController.gameObject.transform);
+        //projectileFactory.CreateProjectile(projectileType, dmg, pirateController.gameObject, pirateController.gameObject.transform);
     }
 }

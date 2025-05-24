@@ -11,8 +11,7 @@ public class PirateController : MonoBehaviour
     [SerializeField] protected CollisionPirate collisionPirate;
     [SerializeField] protected PirateStats pirateStats;
     [SerializeField] protected PhysicsPirate physicsPirate;
-    [SerializeField] protected PirateRangeATKAbility pirateRangeATKAbility;
-    [SerializeField] protected PirateNormalATKAbility pirateNormalATKAbility;
+    [SerializeField] protected PirateATKAbility pirateATKAbility;
     [SerializeField] protected PirateMovement pirateMovement;
     [SerializeField] protected PirateDetectObstacle pirateDetectObstacle;
     [SerializeField] protected PirateDamageManager pirateDamageManager;
@@ -49,8 +48,7 @@ public class PirateController : MonoBehaviour
         LoadPhysicsPirate();
         LoadPirateDetectObstacle();
         LoadDamageManagerPirate();
-        LoadAbilityPirateNormalATK();
-        LoadAbilityPirateRangeATK();
+        LoadAbilityPirateATK();
         LoadMovementPirate();
         /*LoadPhysicsEnemy();
         LoadCollisionEnemy();
@@ -91,15 +89,10 @@ public class PirateController : MonoBehaviour
         if (this.pirateMovement != null) return;
         this.pirateMovement = this.GetComponentInChildren<PirateMovement>();
     }
-    protected virtual void LoadAbilityPirateNormalATK()
+    protected virtual void LoadAbilityPirateATK()
     {
-        if (this.pirateNormalATKAbility != null) return;
-        this.pirateNormalATKAbility = this.GetComponentInChildren<PirateNormalATKAbility>();
-    }
-    protected virtual void LoadAbilityPirateRangeATK()
-    {
-        if (this.pirateRangeATKAbility != null) return;
-        this.pirateRangeATKAbility = this.GetComponentInChildren<PirateRangeATKAbility>();
+        if (this.pirateATKAbility != null) return;
+        this.pirateATKAbility = this.GetComponentInChildren<PirateATKAbility>();
     }
     protected virtual void LoadPirateDetectObstacle()
     {
@@ -132,17 +125,13 @@ public class PirateController : MonoBehaviour
     {
         get { return this.pirateDetectObstacle; }
     }
-    public PirateRangeATKAbility PirateRangeATKAbility
-    {
-        get { return this.pirateRangeATKAbility; }
-    }
-    public PirateNormalATKAbility PirateNormalATKAbility
-    {
-        get { return this.pirateNormalATKAbility; }
-    }
     public PirateMovement PirateMovement
     {
         get { return this.pirateMovement; }
+    }
+    public PirateATKAbility PirateATKAbility
+    {
+        get { return this.pirateATKAbility; }
     }
 
     //States

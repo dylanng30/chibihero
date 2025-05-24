@@ -27,6 +27,6 @@ public class RedArcher : LowEnemy
 
     public override void NormalATK()
     {
-        projectileFactory.CreateProjectile(projectileType, _Damage, this.gameObject, this.gameObject.transform);
+        //projectileFactory.CreateProjectile(projectileType, _Damage, this.gameObject, this.gameObject.transform);
     }
 }

@@ -27,6 +27,6 @@ public class RedTNT : LowEnemy
 
     public override void NormalATK()
     {
-        projectileFactory.CreateProjectile(projectileType, _Damage, this.gameObject, this.transform);
+        //projectileFactory.CreateProjectile(projectileType, _Damage, this.gameObject, this.transform);
     }
 }
