@@ -15,7 +15,7 @@ public class ProjSwordSlash : ProjectileBase
         if (!this.collision)
             this.Action();
         else
-            this.GetRb().velocity = Vector2.zero;
+            this.Rigidbody2D.velocity = Vector2.zero;
     }
     private void Update()
     {
@@ -23,7 +23,7 @@ public class ProjSwordSlash : ProjectileBase
     }
     public override void Action()
     {
-        if(this.GetRb().velocity.x > 0)
+        if(this.Rigidbody2D.velocity.x > 0)
             this.transform.localScale = new Vector3(1 , 1, 1);
         else
             this.transform.localScale = new Vector3(-1, 1, 1);

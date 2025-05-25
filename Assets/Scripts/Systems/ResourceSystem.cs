@@ -60,6 +60,4 @@ public class ResourceSystem : MonoBehaviour
             return null;
         }
     }
-/*    public ScriptablePlayer GetRandomPlayer()
-        => Players[Random.Range(0, Players.Count)];*/
 }

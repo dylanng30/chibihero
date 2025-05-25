@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class ProjArrow : ProjectileBase
 {
-    public float Angle = 50f;
+    //public float Angle = 50f;
     void Awake()
     {
         this.Init();
@@ -14,26 +15,25 @@ public class ProjArrow : ProjectileBase
         if (!this.collision)
             this.Action();
         else
-            this.GetRb().velocity = Vector2.zero;
+            this.Rigidbody2D.velocity = Vector2.zero;
     }
     public override void Action()
     {
-        if (this.GetRb().velocity != Vector2.zero)
-        {
-            float angle = Mathf.Atan2(this.GetRb().velocity.y, this.GetRb().velocity.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, 0f, angle);
-        }
+        float angle = Mathf.Atan2(this.Rigidbody2D.velocity.y, this.Rigidbody2D.velocity.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
     public override Vector2 InitVelo(int dmg, Transform origin, Transform dir)
     {
+        this.collision = false;
         this.dmg = dmg;
         Transform target = GameObject.FindObjectOfType<PlayerController>().transform;
-        Vector3 direction = target.position - origin.position;
+        this.transform.position = origin.position;
+        Vector3 direction = target.position - transform.position;
         float AngleR = 0;
         if (direction.x < 0)
-            AngleR = -Mathf.Abs(Angle) * Mathf.Deg2Rad;
+            AngleR = -Mathf.Abs(AngleRandom()) * Mathf.Deg2Rad;
         else
-            AngleR = Mathf.Abs(Angle) * Mathf.Deg2Rad;
+            AngleR = Mathf.Abs(AngleRandom()) * Mathf.Deg2Rad;
 
         float v2 = (10 / ((Mathf.Tan(AngleR) * direction.x - direction.y) / (direction.x * direction.x)) / (2 * Mathf.Cos(AngleR) * Mathf.Cos(AngleR)));
         v2 = Mathf.Abs(v2);
@@ -41,7 +41,17 @@ public class ProjArrow : ProjectileBase
         Vector2 Force = Vector2.zero;
         Force.x = V * Mathf.Cos(AngleR);
         Force.y = V * Mathf.Sin(AngleR);
-        return Force * 50 * direction.normalized.x;
+        return Force * DistaceRandom() * direction.normalized.x;
+    }
+    private float AngleRandom()
+    {
+        float randomAngle = Random.Range(50f, 70f);
+        return randomAngle;
+    }
+    private float DistaceRandom()
+    {
+        float randomDistance = Random.Range(40f, 60f);
+        return randomDistance;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -53,7 +63,7 @@ public class ProjArrow : ProjectileBase
         {
             PlayerController p = collision.GetComponentInParent<PlayerController>();
             p.DamageManager.TakeDamage(dmg, this.gameObject);
-            this.ChangeState("Explosion", this.gameObject);
+            Pool.ReturnProjectile(this);
         }
         else if (collision.gameObject.CompareTag("Ground"))
         {            

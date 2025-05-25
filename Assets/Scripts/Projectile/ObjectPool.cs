@@ -42,7 +42,8 @@ public class ObjectPool : MonoBehaviour
             projectile = projectileFactory.CreateProjectile(type);
             projectile.SetPool(this);
         }
-        projectile.InitVelo(dmg, origin, dir);
+        Vector2 direction = projectile.InitVelo(dmg, origin, dir);
+        projectile.Rigidbody2D.AddForce(direction);
     }
 
     public void ReturnProjectile(ProjectileBase projectile)

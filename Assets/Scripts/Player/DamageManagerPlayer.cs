@@ -43,7 +43,7 @@ public class DamageManagerPlayer : DamageBase
         base.TakeDamage(damage, enemy);
         playerController.PhysicsPlayer.KnockBack(enemy);
         CheckPlayerDied();
-        Debug.Log($"Player took {damage} damage. Current HP: {currentHP}");
+        Debug.Log($"Player took {damage} damage from {enemy}. Current HP: {currentHP}");
     }
     private void CheckPlayerDied()
     {

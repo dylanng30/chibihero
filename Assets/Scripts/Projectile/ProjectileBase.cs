@@ -21,17 +21,16 @@ public abstract class ProjectileBase : MonoBehaviour
     {
         anim.Play(state);
 
-        // Wait for current animation to finish
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-
         switch (state)
         {
             case "PreFly":
+                yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
                 StartCoroutine(ChangeStateCoroutine("Fly", projectile));
                 break;
             case "Fly":
                 break;
             case "Explosion":
+                yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
                 pool.ReturnProjectile(projectile.GetComponent<ProjectileBase>());
                 break;
         }
@@ -45,14 +44,26 @@ public abstract class ProjectileBase : MonoBehaviour
     public abstract void Action();
     public abstract Vector2 InitVelo(int dmg, Transform entity, Transform dir);
 
-    public Rigidbody2D GetRb()
+    public Rigidbody2D Rigidbody2D
     {
-        return rb;
+        get
+        {
+            return rb;
+        }
     }
-    public Animator GetAnim()
+    public Animator Anim
     {
-        return anim;
+        get
+        {
+            return anim;
+        }
     }
 
-    
+    public ObjectPool Pool
+    {
+        get
+        {
+            return pool;
+        }
+    }
 }

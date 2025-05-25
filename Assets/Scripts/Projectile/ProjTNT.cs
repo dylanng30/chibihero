@@ -18,7 +18,7 @@ public class ProjTNT : ProjectileBase
         if (!this.collision)
             this.Action();
         else
-            this.GetRb().velocity = Vector2.zero;
+            this.Rigidbody2D.velocity = Vector2.zero;
     }
 
     public override Vector2 InitVelo(int dmg, Transform origin, Transform dir)
