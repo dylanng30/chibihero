@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/Scenes/platform/GreenGrassENEMY/RedPawn.unity
     guid: 96865da20cfcc2842a4e7faa834f20ac
   - enabled: 1
-    path: Assets/Scenes/platform/IsLandENEMY/IslandBOSS.unity
+    path: Assets/Scenes/platform/IsLandENEMY/Pirate.unity
     guid: ff2b580739133ef45a423216dd2c668f
   - enabled: 1
     path: Assets/Scenes/platform/IsLandENEMY/IslandENEMY1.unity

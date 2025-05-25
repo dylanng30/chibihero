@@ -50,14 +50,6 @@ public class PirateController : MonoBehaviour
         LoadDamageManagerPirate();
         LoadAbilityPirateATK();
         LoadMovementPirate();
-        /*LoadPhysicsEnemy();
-        LoadCollisionEnemy();
-        LoadEnemyStats();
-        LoadDamageManagerEnemy();
-        LoadMovementEnemy();
-        LoadAnimationEnemy();
-        LoadAbilityEnemyNormalATK();
-        LoadEnemyDetectObstacle();*/
     }
     protected virtual void LoadAnimationPirate()
     {

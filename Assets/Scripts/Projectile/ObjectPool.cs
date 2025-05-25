@@ -11,12 +11,16 @@ public class ObjectPool : MonoBehaviour
 
     private void Awake()
     {
-        foreach(ProjectileType type in System.Enum.GetValues(typeof(ProjectileType)))
+        projectileFactory = GameObject.FindObjectOfType<ProjectileFactory>().GetComponent<ProjectileFactory>();
+
+        foreach (ProjectileType type in System.Enum.GetValues(typeof(ProjectileType)))
         {
             projectilePools[type] = new Queue<ProjectileBase>();
             for (int i = 0; i < poolSize; i++)
             {
                 var projectile = projectileFactory.CreateProjectile(type);
+                projectile.transform.SetParent(this.transform);
+                projectile.SetPool(this);
                 projectile.gameObject.SetActive(false);
                 projectilePools[type].Enqueue(projectile);
             }
@@ -30,7 +34,8 @@ public class ObjectPool : MonoBehaviour
         if (projectilePools[type].Count > 0)
         {
             projectile = projectilePools[type].Dequeue();
-            //projectile.gameObject.SetActive(true);
+            //Debug.Log(projectile);
+            projectile.gameObject.SetActive(true);
         }
         else
         {
@@ -38,8 +43,6 @@ public class ObjectPool : MonoBehaviour
             projectile.SetPool(this);
         }
         projectile.InitVelo(dmg, origin, dir);
-
-        //return projectile;
     }
 
     public void ReturnProjectile(ProjectileBase projectile)

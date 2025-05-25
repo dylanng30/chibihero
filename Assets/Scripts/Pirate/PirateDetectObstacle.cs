@@ -32,12 +32,7 @@ public class PirateDetectObstacle : MonoBehaviour
             return false;
 
         if (hit.collider.CompareTag("Ground"))
-        {
-            Debug.Log("Hit: " + hit.collider.name);
-            Debug.DrawRay(pirateController.transform.position, direction, Color.red, 2f);
-            return true;
-        }
-        
+            return true;        
 
         return false;
     }    

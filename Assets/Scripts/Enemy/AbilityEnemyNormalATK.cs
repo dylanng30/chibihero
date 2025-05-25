@@ -77,11 +77,4 @@ public class AbilityEnemyNormalATK : MonoBehaviour
         pool.GetProjectile(projectileType, lowEnemyController.EnemyStats.AttackPower, ATKPoint, lowEnemyController.gameObject.transform);
     }
 
-    /*public IEnumerator RangeATK(ProjectileType projectileType)
-    {
-        yield return new WaitUntil(() => lowEnemyController != null && lowEnemyController.EnemyStats != null);
-        ProjectileFactory projectileFactory = GameObject.FindObjectOfType<ProjectileFactory>().GetComponent<ProjectileFactory>();
-        int dmg = lowEnemyController.EnemyStats.AttackPower;
-        projectileFactory.CreateProjectile(projectileType, dmg, lowEnemyController.gameObject, lowEnemyController.gameObject.transform);
-    }*/
 }
