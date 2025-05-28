@@ -59,7 +59,6 @@ public class PirateRunState : IState
         {
             pirateController.StateManager.ChangeState(pirateController.NormalATKState);
         }
-        Debug.Log(pirateController.PirateATKAbility.PlayerInATKRange());
 
         pirateController.PirateMovement.Moving();
     }

@@ -23,7 +23,10 @@ public class ProjTNT : ProjectileBase
 
     public override Vector2 InitVelo(int dmg, Transform origin, Transform dir)
     {
+        this.collision = false;
         this.dmg = dmg;
+        this.transform.position = origin.position;
+
         Transform target = GameObject.FindObjectOfType<PlayerController>().transform;
         Vector3 direction = target.position - origin.position;
         float AngleR = 0;
@@ -53,8 +56,8 @@ public class ProjTNT : ProjectileBase
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlayerController p = collision.GetComponentInParent<PlayerController>();
-            p.DamageManager.TakeDamage(dmg, this.gameObject);
+            var p = collision.GetComponentInParent<IDamagable>();
+            p.TakeDamage(dmg, this.gameObject);
             this.ChangeState("Explosion", this.gameObject);
         }
         else if (collision.gameObject.CompareTag("Ground"))

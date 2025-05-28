@@ -25,15 +25,15 @@ public class ProjArrow : ProjectileBase
     public override Vector2 InitVelo(int dmg, Transform origin, Transform dir)
     {
         this.collision = false;
-        this.dmg = dmg;
-        Transform target = GameObject.FindObjectOfType<PlayerController>().transform;
         this.transform.position = origin.position;
+        this.dmg = dmg;
+        Transform target = GameObject.FindObjectOfType<PlayerController>().transform;        
         Vector3 direction = target.position - transform.position;
         float AngleR = 0;
         if (direction.x < 0)
-            AngleR = -Mathf.Abs(AngleRandom()) * Mathf.Deg2Rad;
+            AngleR = -Mathf.Abs(AngleRandom) * Mathf.Deg2Rad;
         else
-            AngleR = Mathf.Abs(AngleRandom()) * Mathf.Deg2Rad;
+            AngleR = Mathf.Abs(AngleRandom) * Mathf.Deg2Rad;
 
         float v2 = (10 / ((Mathf.Tan(AngleR) * direction.x - direction.y) / (direction.x * direction.x)) / (2 * Mathf.Cos(AngleR) * Mathf.Cos(AngleR)));
         v2 = Mathf.Abs(v2);
@@ -41,17 +41,23 @@ public class ProjArrow : ProjectileBase
         Vector2 Force = Vector2.zero;
         Force.x = V * Mathf.Cos(AngleR);
         Force.y = V * Mathf.Sin(AngleR);
-        return Force * DistaceRandom() * direction.normalized.x;
+        return Force * DistaceRandom * direction.normalized.x;
     }
-    private float AngleRandom()
+    private float AngleRandom
     {
-        float randomAngle = Random.Range(50f, 70f);
-        return randomAngle;
+        get
+        {
+            float randomAngle = Random.Range(50f, 70f);
+            return randomAngle;
+        }        
     }
-    private float DistaceRandom()
+    private float DistaceRandom
     {
-        float randomDistance = Random.Range(40f, 60f);
-        return randomDistance;
+        get
+        {
+            float randomDistance = Random.Range(45f, 55f);
+            return randomDistance;
+        }        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -61,8 +67,8 @@ public class ProjArrow : ProjectileBase
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlayerController p = collision.GetComponentInParent<PlayerController>();
-            p.DamageManager.TakeDamage(dmg, this.gameObject);
+            var p = collision.GetComponentInParent<IDamagable>();
+            p.TakeDamage(dmg, this.gameObject);
             Pool.ReturnProjectile(this);
         }
         else if (collision.gameObject.CompareTag("Ground"))

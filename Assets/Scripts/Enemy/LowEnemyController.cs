@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LowEnemyController : MonoBehaviour
+public class LowEnemyController : MonoBehaviour, IDamagable
 {
     [SerializeField] protected PhysicsEnemy physicsEnemy;
     [SerializeField] protected CollisionEnemy collisionEnemy;
@@ -17,6 +17,8 @@ public class LowEnemyController : MonoBehaviour
     private ERunState runState;
     private ENormalATKState normalATKState;
     private StateManager stateManager;
+
+
 
     void Awake()
     {
@@ -86,6 +88,10 @@ public class LowEnemyController : MonoBehaviour
         this.enemyDetectObstacle = this.GetComponentInChildren<EnemyDetectObstacle>();
     }
 
+    public void TakeDamage(int damage, GameObject attacker)
+    {
+        damageManager.TakeDamage(damage, attacker);
+    }
     //Components
     public PhysicsEnemy PhysicsEnemy
     {

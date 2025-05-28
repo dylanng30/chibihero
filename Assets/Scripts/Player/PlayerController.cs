@@ -3,7 +3,7 @@ using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 [RequireComponent(typeof(StateManager))]
-public class PlayerController : PersistentSingleton<PlayerController>
+public class PlayerController : PersistentSingleton<PlayerController>, IDamagable
 {
     [SerializeField] protected PhysicsPlayer physicsPlayer;
     [SerializeField] protected CollisionPlayer collisionPlayer;
@@ -99,6 +99,11 @@ public class PlayerController : PersistentSingleton<PlayerController>
     {
         if (this.abilitySkill != null) return;
         this.abilitySkill = this.GetComponentInChildren<AbilitySkill>();
+    }
+
+    public void TakeDamage(int damage, GameObject attacker)
+    {
+        damageManager.TakeDamage(damage, attacker);
     }
 
 

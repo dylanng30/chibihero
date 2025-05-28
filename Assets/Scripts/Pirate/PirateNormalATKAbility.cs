@@ -8,6 +8,8 @@ public class PirateATKAbility : MonoBehaviour
     [SerializeField] protected Transform ATKPoint;
     [SerializeField] protected ProjectileType projectileType;
 
+    [SerializeField] protected ObjectPool pool;
+
     private float attackRange;
     private int dmg;
 
@@ -15,11 +17,11 @@ public class PirateATKAbility : MonoBehaviour
     private void Start()
     {
         LoadComponent();
-        StartCoroutine(LoadStats());
     }
     protected void LoadComponent()
     {
         LoadController();
+        LoadPool();
     }
     protected virtual void LoadController()
     {
@@ -27,11 +29,11 @@ public class PirateATKAbility : MonoBehaviour
             return;
         this.pirateController = GetComponentInParent<PirateController>();
     }
-    private IEnumerator LoadStats()
+    protected virtual void LoadPool()
     {
-        yield return new WaitUntil(() => pirateController != null && pirateController.PirateStats != null);
-        attackRange = pirateController.PirateStats.ATKRange;
-        dmg = pirateController.PirateStats.AttackPower;
+        if (this.pool != null)
+            return;
+        this.pool = GameObject.FindObjectOfType<ObjectPool>().GetComponent<ObjectPool>();
     }
     public void NormalAttack()
     {
@@ -41,13 +43,14 @@ public class PirateATKAbility : MonoBehaviour
     public IEnumerator CloseATK()
     {
         yield return new WaitUntil(() => pirateController != null && pirateController.PirateStats != null);
-
+        int dmg = pirateController.PirateStats.AttackPower;
         LayerMask enemyLayer = LayerMask.GetMask("Player");
         Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(ATKPoint.position, 0.5f, enemyLayer);
         foreach (Collider2D player in hitPlayers)
         {
-            var p = player.GetComponentInParent<PlayerController>();
-            p.DamageManager.TakeDamage(dmg, pirateController.gameObject);
+            var p = player.GetComponentInParent<IDamagable>();
+            Debug.Log($"Pirate attacking player: {player.name} with damage: {dmg}");
+            p.TakeDamage(dmg, pirateController.gameObject);
         }
     }
 
@@ -60,7 +63,7 @@ public class PirateATKAbility : MonoBehaviour
         yield return new WaitUntil(() => pirateController != null && pirateController.PirateStats != null);
         ProjectileFactory projectileFactory = GameObject.FindObjectOfType<ProjectileFactory>().GetComponent<ProjectileFactory>();
         int dmg = pirateController.PirateStats.AttackPower;
-        //projectileFactory.CreateProjectile(projectileType, dmg, pirateController.gameObject, pirateController.gameObject.transform);
+        pool.GetProjectile(projectileType, dmg, ATKPoint, pirateController.gameObject.transform);
     }
     public bool PlayerInATKRange()
     {

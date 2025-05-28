@@ -96,11 +96,8 @@ public class GameManagerTest : PersistentSingleton<GameManagerTest>
         // Logic for paused state
     }
 
-    public void LoadEntitiesInScene(string sceneName)
+    public void ChangeStateWithScene(string sceneName)
     {
-        EnemySpawn enemySpawn = GameObject.FindObjectOfType<EnemySpawn>();
-        if (enemySpawn != null)
-            enemySpawn.Spawn();
         if (sceneName.Contains("MainTopDown"))
             ChangeState(GameState.Exploring);
         else
@@ -110,7 +107,7 @@ public class GameManagerTest : PersistentSingleton<GameManagerTest>
     {
         this.currentEnemy = currentEnemy;
         LevelManager.Instance.LoadScene(nextScene);
-        LoadEntitiesInScene(nextScene);
+        ChangeStateWithScene(nextScene);
     }
 
     public void CompleteMap(bool CheckedComplete)

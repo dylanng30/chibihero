@@ -67,8 +67,8 @@ public class AbilityEnemyNormalATK : MonoBehaviour
         Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(ATKPoint.position, atkRange, targetLayer);
         foreach (Collider2D player in hitPlayers)
         {
-            var p = player.GetComponentInParent<PlayerController>();
-            p.DamageManager.TakeDamage(Dmg, lowEnemyController.gameObject);
+            var p = player.GetComponentInParent<IDamagable>();
+            p.TakeDamage(Dmg, lowEnemyController.gameObject);
         }
     }
     public IEnumerator RangeATK(ProjectileType projectileType)

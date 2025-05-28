@@ -5,7 +5,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(StateManager))]
 
-public class PirateController : MonoBehaviour
+public class PirateController : MonoBehaviour, IDamagable
 {
     [SerializeField] protected AnimationManager animationPirate;
     [SerializeField] protected CollisionPirate collisionPirate;
@@ -92,6 +92,10 @@ public class PirateController : MonoBehaviour
         this.pirateDetectObstacle = this.GetComponentInChildren<PirateDetectObstacle>();
     }
 
+    public void TakeDamage(int damage, GameObject attacker)
+    {
+        pirateDamageManager.TakeDamage(damage, attacker);
+    }
 
     public AnimationManager AnimationPirate
     {

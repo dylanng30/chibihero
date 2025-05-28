@@ -41,8 +41,9 @@ public class ProjSwordSlash : ProjectileBase
             return;
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.GetComponent<CollisionEnemy>().GetComponentInParent<LowEnemyController>().DamageManager.TakeDamage(dmg, this.gameObject);
-            Destroy(this.gameObject);
+            var p = collision.GetComponentInParent<IDamagable>();
+            p.TakeDamage(dmg, this.gameObject);
+            ChangeState("Explosion", this.gameObject);
         }
     }
 }

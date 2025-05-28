@@ -14,7 +14,6 @@ public class AbilityNormalATK : MonoBehaviour
     protected void GetATKing()
     {
         atkTrigger = InputManager.Instance.AttackPressed;
-        //Debug.Log("ATK Trigger: " + atkTrigger);
     }
 
     void Start()
@@ -41,18 +40,14 @@ public class AbilityNormalATK : MonoBehaviour
     public void NormalATK()
     {
         GetATKTrigger?.Invoke();
-        if (ATKPoint != null)
+        if(playerController.PhysicsPlayer.Mode == PlayerMode.TopDown)
+            return;
+
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(ATKPoint.position, 0.8f, LayerMask.GetMask("Enemy"));
+        foreach (Collider2D enemy in hitEnemies)
         {
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(ATKPoint.position, 0.8f, LayerMask.GetMask("Enemy"));
-            foreach (Collider2D enemy in hitEnemies)
-            {
-                var e = enemy.GetComponentInParent<LowEnemyController>();
-                e.DamageManager.TakeDamage(playerController.PlayerStats.AttackPower, playerController.gameObject);
-            }
-        }
-        else
-        {
-            Debug.LogError("ATKPoint kco");
+            var e = enemy.GetComponentInParent<IDamagable>();
+            e.TakeDamage(playerController.PlayerStats.AttackPower, playerController.gameObject);
         }
     }
 
