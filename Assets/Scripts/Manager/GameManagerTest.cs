@@ -89,7 +89,14 @@ public class GameManagerTest : PersistentSingleton<GameManagerTest>
         
     private void HandleGameOverState()
     {
+        UIManager.Instance.ShowPlayerDied();
+        StartCoroutine(HandleGameOverStateCoroutine());
         // Logic for game over state
+    }
+    private IEnumerator HandleGameOverStateCoroutine()
+    {
+        yield return new WaitForSeconds(3f);
+        this.ChangeState(GameState.Exploring);
     }
     private void HandlePausedState()
     {

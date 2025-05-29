@@ -12,6 +12,7 @@ TagManager:
   - RedWarrior
   - MainTopDown
   - RedKnight
+  - Pirate
   layers:
   - Default
   - TransparentFX

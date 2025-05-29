@@ -52,8 +52,8 @@ public class DamageManagerPlayer : DamageBase
         else
         {
             isDead = true;
+            GameManagerTest.Instance.CompleteMap(false);
             //Debug.Log("Player is dead");
-            //playerController.GetStateManager().ChangeState(playerController.GetDeathState());
         }
     }
     public override void Heal(int amount)

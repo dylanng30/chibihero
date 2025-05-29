@@ -32,7 +32,6 @@ public class PhysicsPirate : PhysicsBase
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         rb.gravityScale = 1;
     }
-
     public void KnockBack(GameObject player)
     {
         float dir = pirateController.transform.position.x - player.transform.position.x;
