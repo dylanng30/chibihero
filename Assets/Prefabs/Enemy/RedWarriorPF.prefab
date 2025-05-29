@@ -182,6 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f839daa6f1ff111499018c4882b3caf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  redKnightController: {fileID: 0}
 --- !u!1 &2322590994162293849
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,6 +388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67bc1b26e3df6334cb20db912d831790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  redKnightController: {fileID: 0}
 --- !u!1 &5010602793999116983
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,6 +477,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35f20ece6c55b7844a6b68fdbc2d9dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  redKnightController: {fileID: 0}
+  ATKPoint: {fileID: 0}
+  projectileType: 0
+  scale: 5
 --- !u!1 &9207692866624559744
 GameObject:
   m_ObjectHideFlags: 0

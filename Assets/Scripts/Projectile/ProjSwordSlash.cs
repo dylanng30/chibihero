@@ -30,8 +30,8 @@ public class ProjSwordSlash : ProjectileBase
     }
     public override Vector2 InitVelo(int dmg, Transform origin, Transform dir)
     {
-        this.dmg = dmg;
-        Vector2 Force = new Vector2(dir.localScale.x, 0);
+        this.dmg = dmg;        
+        Vector2 Force = dir.position - origin.position;
         return Force * 500;
     }
 

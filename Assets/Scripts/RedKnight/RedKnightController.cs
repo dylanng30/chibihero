@@ -36,7 +36,8 @@ public class RedKnightController : MonoBehaviour
     }
     private void LoadStates()
     {
-        LoadStateManager();
+        stateManager = GetComponent<StateManager>();
+
 
     }
 
@@ -82,11 +83,79 @@ public class RedKnightController : MonoBehaviour
         movementRedKnight = GetComponentInChildren<MovementRedKnight>();
     }
 
-    //Load State
-    protected virtual void LoadStateManager()
+
+    public RedKnightStats RedKnightStats
     {
-        if (stateManager != null) return;
-        stateManager = GetComponent<StateManager>();
+        get
+        {
+            return redKnightStats;
+        }
+    }
+    public AnimationManager AnimationManager
+    {
+        get
+        {
+            return animationManager;
+        }
+    }
+    public PhysicRedKnight PhysicRedKnight
+    {
+        get
+        {
+            return physicRedKnight;
+        }
+    }
+    public CollisionRedKnight CollisionRedKnight
+    {
+        get
+        {
+            return collisionRedKnight;
+        }
+    }
+    public AbiDetectRedKnight AbiDetectRedKnight
+    {
+        get
+        {
+            return abiDetectRedKnight;
+        }
+    }
+    public AbiRangeATKRedKnight AbiRangeATKRedKnight
+    {
+        get
+        {
+            return abiRangeATKRedKnight;
+        }
+    }
+    public AbiNormalATKRedKnight AbiNormalATKRedKnight
+    {
+        get
+        {
+            return abiNormalATKRedKnight;
+        }
+    }
+    public MovementRedKnight MovementRedKnight
+    {
+        get
+        {
+            return movementRedKnight;
+        }
+    }
+
+    //States
+    public StateManager StateManager
+    {
+        get
+        {
+            return stateManager;
+        }
+    }
+    //Target
+    public GameObject Target
+    {
+        get
+        {
+            return GameObject.FindGameObjectWithTag("Player");
+        }
     }
 
 }

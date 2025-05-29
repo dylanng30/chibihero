@@ -4,15 +4,72 @@ using UnityEngine;
 
 public class AbiRangeATKRedKnight : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] protected RedKnightController redKnightController;
+    [SerializeField] protected Transform ATKPoint;
+    [SerializeField] protected ProjectileType projectileType;
+    [SerializeField] protected float scale;
+    [SerializeField] protected float cooldownTime;
+
+    private ObjectPool pool;
+    private Transform target;
+    private float timer;
+    
+
+    private void Start()
     {
-        
+        LoadTarget();
+        LoadComponent();
+    }
+    private void Update()
+    {
+        timer -= Time.deltaTime;
+    }
+    protected void LoadComponent()
+    {
+        LoadController();
+        LoadPool();
+    }
+    protected virtual void LoadController()
+    {
+        if (this.redKnightController != null)
+            return;
+        this.redKnightController = transform.GetComponentInParent<RedKnightController>();
+    }
+    protected virtual void LoadPool()
+    {
+        if (this.pool != null)
+            return;
+        ObjectPool objPool = GameObject.FindObjectOfType<ObjectPool>();
+        this.pool = objPool.GetComponent<ObjectPool>();
+    }
+    protected void LoadTarget()
+    {
+        if (this.target != null)
+            return;
+        this.target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool CanShootPlayer()
     {
-        
+        if (cooldownTime > 0)
+            return false;
+
+        if (redKnightController == null || redKnightController.RedKnightStats == null)
+            return false;
+
+        float atkRange = redKnightController.RedKnightStats.ATKRange;
+        Vector2 origin = redKnightController.transform.position;
+        return Vector2.Distance(origin, this.target.position) < atkRange * scale;
+    }
+
+    public void Shoot()
+    {
+        StartCoroutine(Shooting(projectileType));
+        timer = cooldownTime;
+    }
+    public IEnumerator Shooting(ProjectileType projectileType)
+    {
+        yield return new WaitUntil(() => redKnightController != null && redKnightController.RedKnightStats != null);
+        pool.GetProjectile(projectileType, redKnightController.RedKnightStats.AttackPower, ATKPoint, target);
     }
 }

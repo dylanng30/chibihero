@@ -1,30 +1,23 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovementEnemy : MonoBehaviour
+public abstract class MovementBase : MonoBehaviour
 {
-    [SerializeField] protected LowEnemyController lowEnemyController;
-
-    private void Start()
+    protected virtual void Start()
     {
         LoadComponent();
     }
-    private void Update()
-    {
-        Flip();
-    }
-    protected void LoadComponent()
+    protected virtual void LoadComponent()
     {
         LoadController();
     }
     protected virtual void LoadController()
     {
-        if (this.lowEnemyController != null)
-            return;
-        this.lowEnemyController = GetComponentInParent<LowEnemyController>();
+
     }
-    public void Moving()
+
+    /*public void Moving()
     {
         Vector2 origin = lowEnemyController.transform.position;
         Vector2 target = lowEnemyController.Target.transform.position;
@@ -62,7 +55,5 @@ public class MovementEnemy : MonoBehaviour
             lowEnemyController.transform.localScale = new Vector3(1, 1, 1);
         if (direction.x < 0)
             lowEnemyController.transform.localScale = new Vector3(-1, 1, 1);
-    }
-
-
+    }*/
 }
