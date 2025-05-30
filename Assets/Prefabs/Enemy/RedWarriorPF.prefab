@@ -438,6 +438,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d61a05bcbb84f348b4afa6aa085f272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHP: 0
+  maxHP: 0
+  isDead: 0
+  redKnightController: {fileID: 0}
 --- !u!1 &6356980966422655040
 GameObject:
   m_ObjectHideFlags: 0

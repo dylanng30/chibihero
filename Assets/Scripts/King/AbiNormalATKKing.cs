@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbiNormalATKRedKnight : MonoBehaviour
+public class AbiNormalATKKing : MonoBehaviour
 {
-    [SerializeField] protected RedKnightController redKnightController;
+    [SerializeField] protected KingController kingController;
     [SerializeField] protected Transform ATKPoint;
 
     private void Start()
@@ -17,17 +17,17 @@ public class AbiNormalATKRedKnight : MonoBehaviour
     }
     protected virtual void LoadController()
     {
-        if (this.redKnightController != null)
+        if (this.kingController != null)
             return;
-        this.redKnightController = GetComponentInParent<RedKnightController>();
+        this.kingController = GetComponentInParent<KingController>();
     }
 
     public bool CanAttack()
     {
-        float atkRange = redKnightController.RedKnightStats.ATKRange;
+        float atkRange = kingController.KingStats.ATKRange;
         Transform player = GameObject.FindGameObjectWithTag("Player").transform;
         Vector2 target = player.position;
-        Vector2 origin = redKnightController.transform.position;
+        Vector2 origin = kingController.transform.position;
         return Vector2.Distance(origin, target) < atkRange;
     }
 
@@ -38,17 +38,17 @@ public class AbiNormalATKRedKnight : MonoBehaviour
 
     public IEnumerator CloseATK()
     {
-        yield return new WaitUntil(() => redKnightController != null && redKnightController.RedKnightStats != null);
+        yield return new WaitUntil(() => kingController != null && kingController.KingStats != null);
 
-        int dmg = redKnightController.RedKnightStats.AttackPower;
-        float atkRange = redKnightController.RedKnightStats.ATKRange;
+        int dmg = kingController.KingStats.AttackPower;
+        float atkRange = kingController.KingStats.ATKRange;
         LayerMask targetLayer = LayerMask.GetMask("Player");
 
         Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(ATKPoint.position, atkRange, targetLayer);
         foreach (Collider2D player in hitPlayers)
         {
             var p = player.GetComponentInParent<IDamagable>();
-            p.TakeDamage(dmg, redKnightController.gameObject);
+            p.TakeDamage(dmg, kingController.gameObject);
         }
     }
 }

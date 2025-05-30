@@ -58,6 +58,9 @@ public class RKRunState : IState
         if(redKnightController.AbiNormalATKRedKnight.CanAttack())
             redKnightController.StateManager.ChangeState(redKnightController.NormalATKState);
 
+        if(redKnightController.AnimationManager.CoolDown(currentAnimation, 10f))
+            redKnightController.RedKnightAI.RandomState(redKnightController.RunState);
+
         redKnightController.MovementRedKnight.Moving();        
     }
     public void Exit()

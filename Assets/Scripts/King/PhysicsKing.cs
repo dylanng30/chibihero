@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class PhysicsPirate : PhysicsBase
+public class PhysicsKing : PhysicsBase
 {
-    [SerializeField] protected PirateController pirateController;
+    [SerializeField] private KingController kingController;
     protected override void Awake()
     {
         base.Awake();
@@ -14,17 +13,18 @@ public class PhysicsPirate : PhysicsBase
     {
         base.LoadComponent();
     }
+    public override void LoadController()
+    {
+        base.LoadController();
+        if (kingController != null) return;
+        kingController = GetComponent<KingController>();
+    }
     public override void LoadRigidBody2D()
     {
         base.LoadRigidBody2D();
         SetRigidBody2D();
     }
-    public override void LoadController()
-    {
-        if (pirateController != null) return;
-        pirateController = GetComponent<PirateController>();
-    }
-    public void SetRigidBody2D()
+    private void SetRigidBody2D()
     {
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
@@ -32,13 +32,13 @@ public class PhysicsPirate : PhysicsBase
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         rb.gravityScale = 1;
     }
+
     public void KnockBack(GameObject player)
     {
-        Vector2 dir = pirateController.transform.position - player.transform.position;
-        int scaleKB = 200;
+        Vector2 dir = kingController.transform.position - player.transform.position;
         if (dir.x > 0)
-            this.rb.AddForce(new Vector2(1, 1) * scaleKB);
+            this.rb.AddForce(Vector2.right * 50);
         else
-            this.rb.AddForce(new Vector2(-1, 1) * scaleKB);
+            this.rb.AddForce(Vector2.left * 50);
     }
 }

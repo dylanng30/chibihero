@@ -43,14 +43,17 @@ public class ProjSwordSlash : ProjectileBase
         this.transform.position = origin.position;
 
         Vector2 Force = dir.position - origin.position;
-        return Force * 100;
+        return Force.normalized * 500;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(this.collision)
             return;
-        if (collision.gameObject.CompareTag("Enemy") ||
+        if (collision.transform == this.transform)
+            return;
+
+        if (collision.gameObject.CompareTag("Enemy")  ||
             collision.gameObject.CompareTag("Player"))
         {
             var p = collision.GetComponentInParent<IDamagable>();

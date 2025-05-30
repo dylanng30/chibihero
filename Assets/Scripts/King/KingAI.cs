@@ -1,10 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RedKnightAI : MonoBehaviour
+public class KingAI : MonoBehaviour
 {
-    [SerializeField] private RedKnightController redKnightController;
+    [SerializeField] private KingController kingController;
 
     private IState currentState;
 
@@ -19,9 +19,9 @@ public class RedKnightAI : MonoBehaviour
     }
     protected virtual void LoadController()
     {
-        if (redKnightController != null) return;
-        redKnightController = GetComponentInParent<RedKnightController>();
-        currentState = redKnightController.IdleState;
+        if (kingController != null) return;
+        kingController = GetComponentInParent<KingController>();
+        currentState = kingController.IdleState;
     }
     public virtual void RandomState(IState state)
     {
@@ -29,7 +29,7 @@ public class RedKnightAI : MonoBehaviour
         do
         {
             //Debug.Log("trung state truoc");
-            randomState = Random.Range(0, redKnightController.States.Count);
+            randomState = Random.Range(0, kingController.States.Count);
         } while (state == GetStateByIndex(randomState));
 
         this.currentState = GetStateByIndex(randomState);
@@ -41,18 +41,16 @@ public class RedKnightAI : MonoBehaviour
     {
         switch (index)
         {
-            case 0: return redKnightController.IdleState;
-            case 1: return redKnightController.RunState;
-            case 2: return redKnightController.FleeState;
-            case 3: return redKnightController.ShootState;
-            case 4: return redKnightController.ShootState;
-            default: return redKnightController.IdleState;
+            case 0: return kingController.IdleState;
+            case 1: return kingController.RunState;
+            case 2: return kingController.FleeState;
+            default: return kingController.IdleState;
         }
     }
 
     private void NextState(IState nextState)
     {
         //Debug.Log("Next State: " + nextState.GetType().Name);
-        redKnightController.StateManager.ChangeState(nextState);
+        kingController.StateManager.ChangeState(nextState);
     }
 }

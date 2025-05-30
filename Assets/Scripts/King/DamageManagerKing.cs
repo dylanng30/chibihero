@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageManagerRedKnight : DamageBase
+public class DamageManagerKing : DamageBase
 {
-    [SerializeField] protected RedKnightController redKnightController;
+    [SerializeField] protected KingController kingController;
 
     protected override void Awake()
     {
@@ -22,9 +22,9 @@ public class DamageManagerRedKnight : DamageBase
     protected override void LoadController()
     {
         base.LoadController();
-        if (this.redKnightController != null)
+        if (this.kingController != null)
             return;
-        this.redKnightController = this.GetComponentInParent<RedKnightController>();
+        this.kingController = this.GetComponentInParent<KingController>();
     }
     protected override void LoadStats()
     {
@@ -33,17 +33,17 @@ public class DamageManagerRedKnight : DamageBase
     }
     protected IEnumerator LoadStatsCoroutine()
     {
-        yield return new WaitUntil(() => redKnightController != null && redKnightController.RedKnightStats != null);
-        this.maxHP = redKnightController.RedKnightStats.MaxHP;
+        yield return new WaitUntil(() => kingController != null && kingController.KingStats != null);
+        this.maxHP = kingController.KingStats.MaxHP;
         this.currentHP = maxHP;
     }
 
     public override void TakeDamage(int damage, GameObject enemy)
     {
         base.TakeDamage(damage, enemy);
-        redKnightController.PhysicRedKnight.KnockBack(enemy);
+        kingController.PhysicsKing.KnockBack(enemy);
         CheckEnemyDied();
-        Debug.Log($"RedKnight took {damage} damage from {enemy}. Current HP: {currentHP}");
+        Debug.Log($"Enemy took {damage} damage. Current HP: {currentHP}");
     }
     private void CheckEnemyDied()
     {
@@ -52,7 +52,7 @@ public class DamageManagerRedKnight : DamageBase
         else
         {
             isDead = true;
-            //Destroy(redKnightController.gameObject);
+            Destroy(kingController.gameObject);
             //Debug.Log("Player is dead");
             //playerController.GetStateManager().ChangeState(playerController.GetDeathState());
         }

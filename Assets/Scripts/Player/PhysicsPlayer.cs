@@ -1,4 +1,6 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 
@@ -32,7 +34,7 @@ public class PhysicsPlayer : PhysicsBase
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
         rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        SetMode(PlayerMode.TopDown);
+        SetMode(PlayerMode.Platform);
     }
     public void SetMode(PlayerMode mode)
     {
@@ -47,8 +49,11 @@ public class PhysicsPlayer : PhysicsBase
     public void KnockBack(GameObject enemy)
     {
         Vector2 dir = playerController.gameObject.transform.position - enemy.transform.position;
-        dir.y = 0.3f;
-        this.rb.AddForce(dir * 200);
+        int scaleKB = 200;
+        if (dir.x > 0)
+            this.rb.AddForce(new Vector2(10, 1) * scaleKB);
+        else
+            this.rb.AddForce(new Vector2(-10, 1) * scaleKB);
     }
 
     public PlayerMode Mode

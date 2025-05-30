@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(StateManager))]
-public class RedKnightController : MonoBehaviour
+public class RedKnightController : MonoBehaviour, IDamagable
 {
     //Components
     [SerializeField] private AnimationManager animationManager;
@@ -15,6 +15,7 @@ public class RedKnightController : MonoBehaviour
     [SerializeField] private AbiNormalATKRedKnight abiNormalATKRedKnight;
     [SerializeField] private MovementRedKnight movementRedKnight;
     [SerializeField] private RedKnightAI redKnightAI;
+    [SerializeField] private DamageManagerRedKnight damageManager;
 
     //States
     [SerializeField] private StateManager stateManager;
@@ -42,6 +43,7 @@ public class RedKnightController : MonoBehaviour
         LoadAbiNormalATKRedKnight();
         LoadMovementRedKnight();
         LoadRedKnightAI();
+        LoadDamageManager();
     }
     private void LoadStates()
     {
@@ -58,6 +60,11 @@ public class RedKnightController : MonoBehaviour
         states.Add(idleState);
 
         stateManager.ChangeState(idleState);
+    }
+
+    public void TakeDamage(int damage, GameObject attacker)
+    {
+        damageManager.TakeDamage(damage, attacker);
     }
 
     //Load Components
@@ -105,6 +112,11 @@ public class RedKnightController : MonoBehaviour
     {
         if (redKnightAI != null) return;
         redKnightAI = GetComponentInChildren<RedKnightAI>();
+    }
+    protected virtual void LoadDamageManager()
+    {
+        if (damageManager != null) return;
+        damageManager = GetComponentInChildren<DamageManagerRedKnight>();
     }
 
     public RedKnightStats RedKnightStats
@@ -168,6 +180,13 @@ public class RedKnightController : MonoBehaviour
         get
         {
             return redKnightAI;
+        }
+    }
+    public DamageManagerRedKnight DamageManager
+    {
+        get
+        {
+            return damageManager;
         }
     }
 
