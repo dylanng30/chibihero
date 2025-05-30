@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8315598136873292293}
   - component: {fileID: 7121844030558455064}
   - component: {fileID: 1821560676491987967}
-  - component: {fileID: 7944442006334900624}
+  - component: {fileID: 8271075785651731389}
   m_Layer: 0
   m_Name: SwordSlash
   m_TagString: Untagged
@@ -148,8 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f4813e7f33c34340b7f13c4413609fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!68 &7944442006334900624
-EdgeCollider2D:
+--- !u!58 &8271075785651731389
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -180,17 +180,6 @@ EdgeCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: 0.3165779, y: 0.13170058}
-  - {x: -0.028342724, y: 0.52675706}
-  - {x: 0.12287855, y: 0.5353192}
-  - {x: 0.719471, y: 0.13470078}
-  - {x: -0.07367039, y: -0.540161}
-  - {x: -0.20861626, y: -0.53485954}
-  - {x: 0.31684017, y: 0.12542927}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
+  m_Offset: {x: 0.5, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.1

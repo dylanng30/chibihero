@@ -8,7 +8,7 @@ public class AbiRangeATKRedKnight : MonoBehaviour
     [SerializeField] protected Transform ATKPoint;
     [SerializeField] protected ProjectileType projectileType;
     [SerializeField] protected float scale;
-    [SerializeField] protected float cooldownTime;
+    //[SerializeField] protected float cooldownTime;
 
     private ObjectPool pool;
     private Transform target;

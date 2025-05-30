@@ -19,5 +19,5 @@ MonoBehaviour:
     Armor: 5
     Speed: 5
     ATKRange: 6
-    JumpPower: 5
+    JumpPower: 7
   EnemyType: 0

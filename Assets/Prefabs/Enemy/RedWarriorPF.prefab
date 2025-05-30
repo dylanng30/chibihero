@@ -301,6 +301,7 @@ MonoBehaviour:
   abiRangeATKRedKnight: {fileID: 0}
   abiNormalATKRedKnight: {fileID: 0}
   movementRedKnight: {fileID: 0}
+  redKnightAI: {fileID: 0}
   stateManager: {fileID: 0}
 --- !u!1 &2623494258522347267
 GameObject:
@@ -462,7 +463,7 @@ Transform:
   m_GameObject: {fileID: 6356980966422655040}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.499, y: 0, z: 0}
+  m_LocalPosition: {x: 0.58, y: 0.048, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -514,9 +515,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   redKnightController: {fileID: 0}
   ATKPoint: {fileID: 168333413815753700}
-  projectileType: 0
+  projectileType: 2
   scale: 5
-  cooldownTime: 5
 --- !u!1 &8071505857728928655
 GameObject:
   m_ObjectHideFlags: 0

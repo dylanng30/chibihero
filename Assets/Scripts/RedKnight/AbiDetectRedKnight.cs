@@ -33,7 +33,7 @@ public class AbiDetectRedKnight : MonoBehaviour
 
         if (hit.collider.CompareTag("Ground"))
         {
-            Debug.Log("Detect ground: ");
+            //Debug.Log("Detect ground");
             return true;
         }
 
@@ -50,7 +50,7 @@ public class AbiDetectRedKnight : MonoBehaviour
 
         if (hit.collider.CompareTag("Ground"))
         {
-            Debug.Log("Next to ground");
+            //Debug.Log("Next to ground");
             return true;
         }
             

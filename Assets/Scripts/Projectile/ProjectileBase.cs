@@ -8,7 +8,6 @@ public abstract class ProjectileBase : MonoBehaviour
     private Rigidbody2D rb;
 
     protected bool collision = false;
-
     protected ObjectPool pool;
     public void SetPool(ObjectPool pool) => this.pool = pool;
 
@@ -21,18 +20,10 @@ public abstract class ProjectileBase : MonoBehaviour
     {
         anim.Play(state);
 
-        switch (state)
+        if (state == "Explosion")
         {
-            case "PreFly":
-                yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-                StartCoroutine(ChangeStateCoroutine("Fly", projectile));
-                break;
-            case "Fly":
-                break;
-            case "Explosion":
-                yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-                pool.ReturnProjectile(projectile.GetComponent<ProjectileBase>());
-                break;
+            yield return anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f;
+            pool.ReturnProjectile(projectile.GetComponent<ProjectileBase>());
         }
     }
 
