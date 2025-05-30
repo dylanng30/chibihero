@@ -41,6 +41,7 @@ public class MovementRedKnight : MonoBehaviour
     }
     public void Flee()
     {
+        Debug.Log("Fleeing");
         Vector2 origin = redKnightController.transform.position;
         Vector2 target = redKnightController.Target.transform.position;
         int speed = redKnightController.RedKnightStats.MoveSpeed;
@@ -54,6 +55,14 @@ public class MovementRedKnight : MonoBehaviour
         redKnightController.PhysicRedKnight.Rigidbody2D.velocity = new Vector2(redKnightController.PhysicRedKnight.Rigidbody2D.velocity.x, jumpPower);
     }
     public void Flip()
+    {
+        float dirX = redKnightController.PhysicRedKnight.Rigidbody2D.velocity.x;
+        if (dirX > 0)
+            redKnightController.transform.localScale = new Vector3(1, 1, 1);
+        if (dirX < 0)
+            redKnightController.transform.localScale = new Vector3(-1, 1, 1);
+    }
+    public void FLipToPlayer()
     {
         Vector2 origin = redKnightController.transform.position;
         Vector2 target = redKnightController.Target.transform.position;

@@ -23,30 +23,37 @@ public class AbiDetectRedKnight : MonoBehaviour
         this.redKnightController = GetComponentInParent<RedKnightController>();
     }
 
-    public bool DetectObstacle()
+    public bool DetectGround()
     {
-        Vector2 direction = transform.right * Mathf.Sign(redKnightController.transform.localScale.x);
+        Vector2 direction = transform.right * redKnightController.transform.localScale.x;
         hit = Physics2D.Raycast(redKnightController.transform.position, direction, 2f, LayerMask.GetMask("Ground"));
 
         if (hit.collider == null)
             return false;
 
         if (hit.collider.CompareTag("Ground"))
+        {
+            Debug.Log("Detect ground: ");
             return true;
+        }
 
         return false;
     }
 
-    public bool NextToWall()
+    public bool NextToGround()
     {
-        Vector2 direction = transform.right * Mathf.Sign(transform.localScale.x);
-        hit = Physics2D.Raycast(redKnightController.transform.position, direction, 0.5f, LayerMask.GetMask("Ground"));
+        Vector2 direction = transform.right * transform.localScale.x;
+        hit = Physics2D.Raycast(redKnightController.transform.position, direction, 1f, LayerMask.GetMask("Ground"));
 
         if (hit.collider == null)
             return false;
 
         if (hit.collider.CompareTag("Ground"))
+        {
+            Debug.Log("Next to ground");
             return true;
+        }
+            
 
         return false;
     }

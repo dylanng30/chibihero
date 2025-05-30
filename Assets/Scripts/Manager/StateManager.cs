@@ -24,4 +24,9 @@ public class StateManager : MonoBehaviour
         if (_currentState != null)
             _currentState.Execute();
     }
+
+    public IState GetCurrentState()
+    {
+        return _currentState;
+    }
 }

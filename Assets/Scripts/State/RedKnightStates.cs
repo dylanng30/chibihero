@@ -4,26 +4,23 @@ using UnityEngine;
 
 public class RKIdleState : IState
 {
-    RedKnight redKnight;
-
+    RedKnightController redKnightController;
     private string currentAnimation = "Idle";
-    public RKIdleState(RedKnight redKnight)
+    public RKIdleState(RedKnightController redKnightController)
     {
-        this.redKnight = redKnight;
+        this.redKnightController = redKnightController;
     }
     public void Enter()
     {
         //Debug.Log("Idle");
-        //redKnight.AnimationPlayer.SetAnimation(currentAnimation);
+        redKnightController.AnimationManager.SetAnimation(currentAnimation);
     }
     public void Execute()
     {
-        /*if (redKnight.AbilityNormalATK.ATKTrigger)
-            redKnight.StateManager.ChangeState(redKnight.NormalATKState);
-        else if (Input.GetMouseButton(1))
-            redKnight.StateManager.ChangeState(redKnight.SkillState);
-        else if (_player.MovementPlayer.DirectionMove != Vector2.zero)
-            redKnight.StateManager.ChangeState(redKnight.RunState);*/
+        if (redKnightController.AnimationManager.CoolDown(currentAnimation, 2f))
+            return;
+
+        redKnightController.RedKnightAI.RandomState(redKnightController.IdleState);
     }
     public void Exit()
     {
@@ -32,83 +29,134 @@ public class RKIdleState : IState
 }
 public class RKRunState : IState
 {
-    RedKnight redKnight;
-
+    RedKnightController redKnightController;
     private string currentAnimation = "Run";
-    public RKRunState(RedKnight redKnight)
+    public RKRunState(RedKnightController redKnightController)
     {
-        this.redKnight = redKnight;
+        this.redKnightController = redKnightController;
     }
     public void Enter()
     {
-        //Debug.Log("Idle");
-        //redKnight.AnimationPlayer.SetAnimation(currentAnimation);
+        //Debug.Log("Run");
+        redKnightController.AnimationManager.SetAnimation(currentAnimation);
     }
     public void Execute()
     {
-        /*if (redKnight.AbilityNormalATK.ATKTrigger)
-            redKnight.StateManager.ChangeState(redKnight.NormalATKState);
-        else if (Input.GetMouseButton(1))
-            redKnight.StateManager.ChangeState(redKnight.SkillState);
-        else if (_player.MovementPlayer.DirectionMove != Vector2.zero)
-            redKnight.StateManager.ChangeState(redKnight.RunState);*/
+        redKnightController.MovementRedKnight.FLipToPlayer();
+        
+        if (redKnightController.AbiDetectRedKnight.NextToGround())
+        {
+            redKnightController.MovementRedKnight.Flee();
+            return;
+        }
+        else if (redKnightController.AbiDetectRedKnight.DetectGround() && !redKnightController.AbiDetectRedKnight.NextToGround())
+        {
+            redKnightController.MovementRedKnight.Jump();
+            return;
+        }
+
+        if(redKnightController.AbiNormalATKRedKnight.CanAttack())
+            redKnightController.StateManager.ChangeState(redKnightController.NormalATKState);
+
+        redKnightController.MovementRedKnight.Moving();        
     }
     public void Exit()
     {
 
+    }
+}
+
+public class RKFleeState : IState
+{
+    RedKnightController redKnightController;
+    private string currentAnimation = "Run";
+    public RKFleeState(RedKnightController redKnightController)
+    {
+        this.redKnightController = redKnightController;
+    }
+    public void Enter()
+    {
+        //Debug.Log("Flee");
+        redKnightController.AnimationManager.SetAnimation(currentAnimation);
+    }
+    public void Execute()
+    {
+        redKnightController.MovementRedKnight.Flip();
+        
+        if (redKnightController.AbiDetectRedKnight.NextToGround())
+        {
+            redKnightController.MovementRedKnight.Moving();
+            return;
+        }
+        else if (redKnightController.AbiDetectRedKnight.DetectGround() && !redKnightController.AbiDetectRedKnight.NextToGround())
+        {
+            redKnightController.MovementRedKnight.Jump();
+            return;
+        }
+
+        redKnightController.MovementRedKnight.Flee();
+
+        if (!redKnightController.AnimationManager.CoolDown(currentAnimation, 5f))
+            return;
+
+        redKnightController.RedKnightAI.RandomState(redKnightController.FleeState);        
+    }
+    public void Exit()
+    {
+        
     }
 }
 
 public class RKNormalATKState : IState
 {
-    RedKnight redKnight;
-    private string currentAnimation = "Attack";
-    public RKNormalATKState(RedKnight redKnight)
+    RedKnightController redKnightController;
+    private string currentAnimation = "NormalATK";
+    public RKNormalATKState(RedKnightController redKnightController)
     {
-        this.redKnight = redKnight;
+        this.redKnightController = redKnightController;
     }
     public void Enter()
     {
-        //Debug.Log("Idle");
-        //redKnight.AnimationPlayer.SetAnimation(currentAnimation);
+        //Debug.Log("NormalATK");
+        redKnightController.AnimationManager.SetAnimation(currentAnimation);
+        redKnightController.PhysicRedKnight.Rigidbody2D.velocity = Vector2.zero;
     }
     public void Execute()
     {
-        /*if (redKnight.AbilityNormalATK.ATKTrigger)
-            redKnight.StateManager.ChangeState(redKnight.NormalATKState);
-        else if (Input.GetMouseButton(1))
-            redKnight.StateManager.ChangeState(redKnight.SkillState);
-        else if (_player.MovementPlayer.DirectionMove != Vector2.zero)
-            redKnight.StateManager.ChangeState(redKnight.RunState);*/
+        redKnightController.MovementRedKnight.FLipToPlayer();
+
+        if (redKnightController.AnimationManager.FinishAnimation(currentAnimation))
+            redKnightController.RedKnightAI.RandomState(redKnightController.RunState);
     }
     public void Exit()
     {
+        redKnightController.AbiNormalATKRedKnight.NormalATK();
     }
 }
 
-public class RKSkillState : IState
+public class RKShootState : IState
 {
-    RedKnight redKnight;
-    private string currentAnimation = "Skill";
-    public RKSkillState(RedKnight redKnight)
+    RedKnightController redKnightController;
+    private string currentAnimation = "Shoot";
+    public RKShootState(RedKnightController redKnightController)
     {
-        this.redKnight = redKnight;
+        this.redKnightController = redKnightController;
     }
     public void Enter()
     {
-        //Debug.Log("Idle");
-        //redKnight.AnimationPlayer.SetAnimation(currentAnimation);
+        //Debug.Log("Shoot");
+        redKnightController.AnimationManager.SetAnimation(currentAnimation);
+        redKnightController.PhysicRedKnight.Rigidbody2D.velocity = Vector2.zero;
     }
     public void Execute()
     {
-        /*if (redKnight.AbilityNormalATK.ATKTrigger)
-            redKnight.StateManager.ChangeState(redKnight.NormalATKState);
-        else if (Input.GetMouseButton(1))
-            redKnight.StateManager.ChangeState(redKnight.SkillState);
-        else if (_player.MovementPlayer.DirectionMove != Vector2.zero)
-            redKnight.StateManager.ChangeState(redKnight.RunState);*/
+        redKnightController.MovementRedKnight.FLipToPlayer();
+
+        if (redKnightController.AnimationManager.FinishAnimation(currentAnimation))
+            redKnightController.RedKnightAI.RandomState(redKnightController.ShootState);
     }
     public void Exit()
     {
+        redKnightController.AbiRangeATKRedKnight.Shoot();
     }
 }

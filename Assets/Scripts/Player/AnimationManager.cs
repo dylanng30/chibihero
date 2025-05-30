@@ -45,9 +45,9 @@ public class AnimationManager : MonoBehaviour
         return stateInfo.IsName(animName) && stateInfo.normalizedTime >= 1f;
     }
 
-    public bool CoolDown(string animName)
+    public bool CoolDown(string animName, float timer)
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-        return stateInfo.IsName(animName) && stateInfo.normalizedTime >= 5f;
+        return stateInfo.IsName(animName) && stateInfo.normalizedTime >= timer;
     }
 }

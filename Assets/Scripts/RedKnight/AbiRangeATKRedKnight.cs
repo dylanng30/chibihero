@@ -12,18 +12,19 @@ public class AbiRangeATKRedKnight : MonoBehaviour
 
     private ObjectPool pool;
     private Transform target;
-    private float timer;
+    //private float timer;
     
 
     private void Start()
     {
         LoadTarget();
         LoadComponent();
+        //timer = cooldownTime;
     }
-    private void Update()
+    /*private void Update()
     {
         timer -= Time.deltaTime;
-    }
+    }*/
     protected void LoadComponent()
     {
         LoadController();
@@ -51,8 +52,8 @@ public class AbiRangeATKRedKnight : MonoBehaviour
 
     public bool CanShootPlayer()
     {
-        if (cooldownTime > 0)
-            return false;
+       /* if (timer > 0)
+            return false;*/
 
         if (redKnightController == null || redKnightController.RedKnightStats == null)
             return false;
@@ -65,7 +66,7 @@ public class AbiRangeATKRedKnight : MonoBehaviour
     public void Shoot()
     {
         StartCoroutine(Shooting(projectileType));
-        timer = cooldownTime;
+        //timer = cooldownTime;
     }
     public IEnumerator Shooting(ProjectileType projectileType)
     {

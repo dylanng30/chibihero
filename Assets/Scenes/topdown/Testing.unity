@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 169846171}
   - component: {fileID: 169846170}
   - component: {fileID: 169846169}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: w (3)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -247,7 +247,7 @@ Transform:
   m_GameObject: {fileID: 169846168}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.6366, y: 0.4616, z: 0}
+  m_LocalPosition: {x: 26.6366, y: 0.16, z: 0}
   m_LocalScale: {x: 12.991223, y: 3.9831078, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -434,7 +434,7 @@ Transform:
   m_GameObject: {fileID: 193452109}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.1824, y: -1.82, z: 0}
+  m_LocalPosition: {x: -23.1824, y: -2.06, z: 0}
   m_LocalScale: {x: 19.683506, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 801058220}
   - component: {fileID: 801058219}
   - component: {fileID: 801058218}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: w (4)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -656,7 +656,7 @@ Transform:
   m_GameObject: {fileID: 801058217}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.66, y: 1.19, z: 0}
+  m_LocalPosition: {x: -21.55, y: 0.31, z: 0}
   m_LocalScale: {x: 12.991223, y: 3.9831078, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -672,11 +672,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1392297030531493810, guid: 2eebae01f49cbc242bfd519e112b723a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.330597
+      value: -2.13
       objectReference: {fileID: 0}
     - target: {fileID: 1392297030531493810, guid: 2eebae01f49cbc242bfd519e112b723a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.19711351
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 1392297030531493810, guid: 2eebae01f49cbc242bfd519e112b723a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -730,7 +730,7 @@ GameObject:
   - component: {fileID: 969554576}
   - component: {fileID: 969554575}
   - component: {fileID: 969554574}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: w
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1051,6 +1051,10 @@ PrefabInstance:
     - target: {fileID: 2322590994162293849, guid: ada2d9b3468cdaf439e1266188586c8a, type: 3}
       propertyPath: m_Name
       value: RedWarriorPF
+      objectReference: {fileID: 0}
+    - target: {fileID: 2688587062685107508, guid: ada2d9b3468cdaf439e1266188586c8a, type: 3}
+      propertyPath: cooldownTime
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4012099735983515538, guid: ada2d9b3468cdaf439e1266188586c8a, type: 3}
       propertyPath: m_LocalPosition.x

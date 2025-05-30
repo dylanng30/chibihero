@@ -37,7 +37,7 @@ public class PhysicsPlayer : PhysicsBase
     public void SetMode(PlayerMode mode)
     {
         this.currentMode = mode;
-        Debug.Log("Set Player Mode: " + mode);
+        //Debug.Log("Set Player Mode: " + mode);
         if (mode == PlayerMode.TopDown)
             rb.gravityScale = 0;
         else if (mode == PlayerMode.Platform)

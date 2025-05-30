@@ -14,9 +14,17 @@ public class RedKnightController : MonoBehaviour
     [SerializeField] private AbiRangeATKRedKnight abiRangeATKRedKnight;
     [SerializeField] private AbiNormalATKRedKnight abiNormalATKRedKnight;
     [SerializeField] private MovementRedKnight movementRedKnight;
+    [SerializeField] private RedKnightAI redKnightAI;
 
     //States
     [SerializeField] private StateManager stateManager;
+    [SerializeField] private RKIdleState idleState;
+    [SerializeField] private RKRunState runState;
+    [SerializeField] private RKShootState shootState;
+    [SerializeField] private RKNormalATKState normalATKState;
+    [SerializeField] private RKFleeState fleeState;
+
+    private List<IState> states = new List<IState>();
 
     private void Awake()
     {
@@ -33,12 +41,23 @@ public class RedKnightController : MonoBehaviour
         LoadAbiRangeATKRedKnight();
         LoadAbiNormalATKRedKnight();
         LoadMovementRedKnight();
+        LoadRedKnightAI();
     }
     private void LoadStates()
     {
         stateManager = GetComponent<StateManager>();
+        idleState = new RKIdleState(this);
+        runState = new RKRunState(this);
+        shootState = new RKShootState(this);
+        normalATKState = new RKNormalATKState(this);
+        fleeState = new RKFleeState(this);
 
+        states.Add(runState);
+        states.Add(fleeState);
+        states.Add(shootState);
+        states.Add(idleState);
 
+        stateManager.ChangeState(idleState);
     }
 
     //Load Components
@@ -82,7 +101,11 @@ public class RedKnightController : MonoBehaviour
         if (movementRedKnight != null) return;
         movementRedKnight = GetComponentInChildren<MovementRedKnight>();
     }
-
+    protected virtual void LoadRedKnightAI()
+    {
+        if (redKnightAI != null) return;
+        redKnightAI = GetComponentInChildren<RedKnightAI>();
+    }
 
     public RedKnightStats RedKnightStats
     {
@@ -140,6 +163,13 @@ public class RedKnightController : MonoBehaviour
             return movementRedKnight;
         }
     }
+    public RedKnightAI RedKnightAI
+    {
+        get
+        {
+            return redKnightAI;
+        }
+    }
 
     //States
     public StateManager StateManager
@@ -149,6 +179,50 @@ public class RedKnightController : MonoBehaviour
             return stateManager;
         }
     }
+    public RKIdleState IdleState
+    {
+        get
+        {
+            return idleState;
+        }
+    }
+    public RKRunState RunState
+    {
+        get
+        {
+            return runState;
+        }
+    }
+    public RKShootState ShootState
+    {
+        get
+        {
+            return shootState;
+        }
+    }
+    public RKNormalATKState NormalATKState
+    {
+        get
+        {
+            return normalATKState;
+        }
+    }
+    public RKFleeState FleeState
+    {
+        get
+        {
+            return fleeState;
+        }
+    }
+
+    public List<IState> States
+    {
+        get
+        {
+            return states;
+        }
+    }
+
     //Target
     public GameObject Target
     {

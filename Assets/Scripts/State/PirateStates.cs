@@ -55,6 +55,7 @@ public class PirateRunState : IState
             pirateController.PirateMovement.Jump();
             return;
         }
+
         else if (pirateController.PirateATKAbility.PlayerInATKRange())
         {
             pirateController.StateManager.ChangeState(pirateController.NormalATKState);
@@ -91,13 +92,14 @@ public class PirateFleeState : IState
             pirateController.PirateMovement.Moving();
             return;
         }
-        else if (pirateController.PirateDetectObstacle.DetectObstacle() && !pirateController.PirateDetectObstacle.NextToWall())
+        else if (pirateController.PirateDetectObstacle.DetectObstacle() && pirateController.CollisionPirate.IsGrounded())
         {
             pirateController.PirateMovement.Jump();
             return;
         }
-        else if (pirateController.AnimationPirate.CoolDown(currentState))
+        else if (pirateController.AnimationPirate.CoolDown(currentState, 3f))
             pirateController.StateManager.ChangeState(pirateController.RangeATKState);
+
         pirateController.PirateMovement.Flee();
     }
 

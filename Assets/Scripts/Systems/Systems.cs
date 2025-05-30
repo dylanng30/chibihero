@@ -8,7 +8,7 @@ public class Systems : PersistentSingleton<Systems>
     protected override void Awake()
     {
         base.Awake();
-        Debug.Log("Systems Awake");
+        //Debug.Log("Systems Awake");
         LoadSystem();
     }
     protected virtual void LoadSystem()
