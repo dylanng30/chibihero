@@ -2,112 +2,77 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KingIdleState : IState
-{
-    private KingController kingController;
-    private string currentState = "Idle";
-    public KingIdleState(KingController kingController)
-    {
-        this.kingController = kingController;
-    }
-
-    public void Enter()
-    {
-        kingController.AnimationManager.SetAnimation(currentState);
-    }
-
-    public void Execute()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Exit()
-    {
-        throw new System.NotImplementedException();
-    }
-}
-public class KingRunState : IState
+public class KingChasePlayerState : IState
 {
     private KingController kingController;
     private string currentState = "Run";
-    public KingRunState(KingController kingController)
+    public KingChasePlayerState(KingController kingController)
     {
         this.kingController = kingController;
     }
     public void Enter()
     {
         kingController.AnimationManager.SetAnimation(currentState);
+        kingController.KingAI.SetStateBeforeHit(this);
     }
     public void Execute()
     {
-        throw new System.NotImplementedException();
+        kingController.MovementKing.FLipToPlayer();
+
+        if (kingController.AbiDetectKing.NextToWall())
+        {
+            kingController.MovementKing.Flee();
+            return;
+        }
+        else if (kingController.AbiDetectKing.DetectObstacle() && !kingController.AbiDetectKing.NextToWall())
+        {
+            kingController.MovementKing.Jump();
+            return;
+        }
+
+        if (kingController.AbiKingNormalATK.CanAttack())
+            kingController.StateManager.ChangeState(kingController.NormalATKState);
+
+        kingController.MovementKing.Moving();
     }
     public void Exit()
     {
-        throw new System.NotImplementedException();
+
     }
 }
-public class KingFleeState : IState
+public class KingRunToDoorState : IState
 {
     private KingController kingController;
     private string currentState = "Run";
-    public KingFleeState(KingController kingController)
+    public KingRunToDoorState(KingController kingController)
     {
         this.kingController = kingController;
     }
     public void Enter()
     {
         kingController.AnimationManager.SetAnimation(currentState);
+        kingController.KingAI.SetStateBeforeHit(this);
     }
     public void Execute()
     {
-        throw new System.NotImplementedException();
+        kingController.MovementKing.Flip();
+
+        if (kingController.AbiDetectKing.NextToWall())
+        {
+            kingController.MovementKing.Moving();
+            return;
+        }
+        else if (kingController.AbiDetectKing.DetectObstacle() && !kingController.AbiDetectKing.NextToWall())
+        {
+            kingController.MovementKing.Jump();
+            return;
+        }
+
+        kingController.MovementKing.Flee();
     }
     public void Exit()
     {
-        throw new System.NotImplementedException();
-    }
-}
-public class KingJumpState : IState
-{
-    private KingController kingController;
-    private string currentState = "Jump";
-    public KingJumpState(KingController kingController)
-    {
-        this.kingController = kingController;
-    }
-    public void Enter()
-    {
-        kingController.AnimationManager.SetAnimation(currentState);
-    }
-    public void Execute()
-    {
-        throw new System.NotImplementedException();
-    }
-    public void Exit()
-    {
-        throw new System.NotImplementedException();
-    }
-}
-public class KingFallState : IState
-{
-    private KingController kingController;
-    private string currentState = "Fall";
-    public KingFallState(KingController kingController)
-    {
-        this.kingController = kingController;
-    }
-    public void Enter()
-    {
-        kingController.AnimationManager.SetAnimation(currentState);
-    }
-    public void Execute()
-    {
-        throw new System.NotImplementedException();
-    }
-    public void Exit()
-    {
-        throw new System.NotImplementedException();
+
     }
 }
 
@@ -125,32 +90,12 @@ public class KingNormalATKState : IState
     }
     public void Execute()
     {
-        throw new System.NotImplementedException();
+        if(kingController.AnimationManager.FinishAnimation(currentState))
+            kingController.AbiKingNormalATK.NormalATK();
     }
     public void Exit()
     {
-        throw new System.NotImplementedException();
-    }
-}
-public class KingShootState : IState
-{
-    private KingController kingController;
-    private string currentState = "Shoot";
-    public KingShootState(KingController kingController)
-    {
-        this.kingController = kingController;
-    }
-    public void Enter()
-    {
-        kingController.AnimationManager.SetAnimation(currentState);
-    }
-    public void Execute()
-    {
-        throw new System.NotImplementedException();
-    }
-    public void Exit()
-    {
-        throw new System.NotImplementedException();
+
     }
 }
 public class KingDoorInState : IState
@@ -167,11 +112,12 @@ public class KingDoorInState : IState
     }
     public void Execute()
     {
-        throw new System.NotImplementedException();
+        if(kingController.AnimationManager.FinishAnimation(currentState))
+            kingController.StateManager.ChangeState(kingController.DoorOutState);
     }
     public void Exit()
     {
-        throw new System.NotImplementedException();
+
     }
 }
 public class KingDoorOutState : IState
@@ -188,11 +134,36 @@ public class KingDoorOutState : IState
     }
     public void Execute()
     {
-        throw new System.NotImplementedException();
+        if (kingController.AnimationManager.FinishAnimation(currentState))
+            kingController.StateManager.ChangeState(kingController.ChasePlayerState);
     }
     public void Exit()
     {
-        throw new System.NotImplementedException();
+
+    }
+}
+
+public class KingHitState : IState
+{
+    private KingController kingController;
+    private string currentState = "Hit";
+    public KingHitState(KingController kingController)
+    {
+        this.kingController = kingController;
+    }
+    public void Enter()
+    {
+        kingController.AnimationManager.SetAnimation(currentState);
+    }
+    public void Execute()
+    {
+        if(kingController.AnimationManager.FinishAnimation(currentState))
+            kingController.StateManager.ChangeState(kingController.KingAI.StateBeforeHit);
+
+    }
+    public void Exit()
+    {
+
     }
 }
 

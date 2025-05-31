@@ -16,17 +16,12 @@ public class KingController : MonoBehaviour
 
     //States
     [SerializeField] protected StateManager stateManager;
-    [SerializeField] protected KingIdleState idleState;
-    [SerializeField] protected KingRunState runState;
-    [SerializeField] protected KingFleeState fleeState;
+    [SerializeField] protected KingChasePlayerState chaseState;
+    [SerializeField] protected KingRunToDoorState runToDoorState;
     [SerializeField] protected KingNormalATKState normalATKState;
-    [SerializeField] protected KingJumpState jumpState;
-    [SerializeField] protected KingShootState rangeATKState;
-    [SerializeField] protected KingFallState fallState;
     [SerializeField] protected KingDoorInState doorInState;
     [SerializeField] protected KingDoorOutState doorOutState;
-
-    private List<IState> states = new List<IState>();
+    [SerializeField] protected KingHitState hitState;
 
     void Awake()
     {
@@ -36,21 +31,14 @@ public class KingController : MonoBehaviour
     protected void LoadState()
     {
         stateManager = this.GetComponent<StateManager>();
-        idleState = new KingIdleState(this);
-        runState = new KingRunState(this);
-        states.Add(runState);
-        fleeState = new KingFleeState(this);
-        states.Add(fleeState);
-        normalATKState = new KingNormalATKState(this);
-        states.Add(normalATKState);
-        jumpState = new KingJumpState(this);
-        states.Add(jumpState);
-        rangeATKState = new KingShootState(this);
-        states.Add(rangeATKState);
-        fallState = new KingFallState(this);
+        chaseState = new KingChasePlayerState(this);
+        runToDoorState = new KingRunToDoorState(this);        
+        normalATKState = new KingNormalATKState(this);        
         doorInState = new KingDoorInState(this);
         doorOutState = new KingDoorOutState(this);
-        stateManager.ChangeState(idleState);
+        hitState = new KingHitState(this);
+
+        stateManager.ChangeState(doorOutState);
     }
 
     private void LoadComponent()
@@ -151,39 +139,22 @@ public class KingController : MonoBehaviour
         get { return this.kingAI; }
     }
 
-
     //States
     public StateManager StateManager
     {
         get { return this.stateManager; }
     }
-    public KingIdleState IdleState
+    public KingChasePlayerState ChasePlayerState
     {
-        get { return this.idleState; }
+        get { return this.chaseState; }
     }
-    public KingRunState RunState
+    public KingRunToDoorState RunToDoorState
     {
-        get { return this.runState; }
-    }
-    public KingFleeState FleeState
-    {
-        get { return this.fleeState; }
+        get { return this.runToDoorState; }
     }
     public KingNormalATKState NormalATKState
     {
         get { return this.normalATKState; }
-    }
-    public KingJumpState JumpState
-    {
-        get { return this.jumpState; }
-    }
-    public KingShootState RangeATKState
-    {
-        get { return this.rangeATKState; }
-    }
-    public KingFallState FallState
-    {
-        get { return this.fallState; }
     }
     public KingDoorInState DoorInState
     {
@@ -192,10 +163,6 @@ public class KingController : MonoBehaviour
     public KingDoorOutState DoorOutState
     {
         get { return this.doorOutState; }
-    }
-    public List<IState> States
-    {
-        get { return this.states; }
     }
 
     // Target is the player

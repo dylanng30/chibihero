@@ -13,6 +13,7 @@ TagManager:
   - MainTopDown
   - RedKnight
   - Pirate
+  - King
   layers:
   - Default
   - TransparentFX

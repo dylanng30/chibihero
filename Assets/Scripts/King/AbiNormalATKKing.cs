@@ -36,12 +36,17 @@ public class AbiNormalATKKing : MonoBehaviour
         StartCoroutine(CloseATK());
     }
 
-    public IEnumerator CloseATK()
+    private IEnumerator CloseATK()
     {
         yield return new WaitUntil(() => kingController != null && kingController.KingStats != null);
-
         int dmg = kingController.KingStats.AttackPower;
         float atkRange = kingController.KingStats.ATKRange;
+        AttackPlayer(dmg, atkRange);
+
+
+    }
+    private void AttackPlayer(int dmg, float atkRange)
+    {        
         LayerMask targetLayer = LayerMask.GetMask("Player");
 
         Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(ATKPoint.position, atkRange, targetLayer);
@@ -51,4 +56,15 @@ public class AbiNormalATKKing : MonoBehaviour
             p.TakeDamage(dmg, kingController.gameObject);
         }
     }
+    /*private void AttackCannonBullet(int dmg, float atkRange)
+    {
+        LayerMask cannonBulletLayer = LayerMask.GetMask("CannonBullet");
+
+        Collider2D[] hitCannonBullets = Physics2D.OverlapCircleAll(ATKPoint.position, atkRange, cannonBulletLayer);
+        foreach (Collider2D cannonBullet in hitCannonBullets)
+        {
+            *//*var p = cannonBullet.GetComponentInParent<IDamagable>();
+            p.TakeDamage(dmg, kingController.gameObject);*//*
+        }
+    }*/
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer))]
+
 public class AnimationManager : MonoBehaviour
 {
     [SerializeField] protected Animator animator;
@@ -49,5 +51,10 @@ public class AnimationManager : MonoBehaviour
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         return stateInfo.IsName(animName) && stateInfo.normalizedTime >= timer;
+    }
+
+    public Animator Animator
+    {
+        get { return animator; }
     }
 }

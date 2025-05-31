@@ -2,30 +2,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorManager : MonoBehaviour
+public class DoorManager : Singleton<DoorManager>
 {
-    [SerializeField] protected Animator animator;
-    [SerializeField] protected BoxCollider2D hitbox;
+    [SerializeField] private List<Transform> doors = new List<Transform>();
 
-    void Start()
+    protected override void Awake()
     {
-        LoadComponents();
+        base.Awake();
     }
-
-    private void LoadComponents()
+    private void Start()
     {
-        LoadAnimator();
-        LoadCollision();
+        LoadDoors();
     }
-    protected void LoadAnimator()
+    private void LoadDoors()
     {
-        if (GetComponent<Animator>() != null) return;
-        animator = GetComponentInChildren<Animator>();
+        doors.Clear();
+        var doorObjects = GameObject.FindGameObjectsWithTag("Door");
+        foreach (var doorObject in doorObjects)
+        {
+            if (doorObject.transform != null)
+            {
+                doors.Add(doorObject.transform);
+            }
+        }
     }
-    protected void LoadCollision()
+    public Transform FindNearestDoor(Transform king)
     {
-        if (GetComponent<BoxCollider>() != null) return;
-        hitbox = GetComponentInChildren<BoxCollider2D>();
+        float dis = Mathf.Infinity;
+        foreach(Transform door in doors)
+        {
+            if (Vector2.Distance(king.position, door.position) < dis)
+            {
+                dis = Vector2.Distance(king.position, door.position);
+                return door;
+            }
+            else
+                return null;                
+        }
+        return null;
+    }
+    public Transform GetRandomDoor()
+    {
+        if (doors.Count == 0)
+            return null;
+        int randomIndex = Random.Range(0, doors.Count - 1);
+        return doors[randomIndex];
+    }
+    public List<Transform> Doors
+    {
+        get
+        {
+            return doors;
+        }
     }
 
 }
