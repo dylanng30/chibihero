@@ -38,7 +38,7 @@ public class AbiDetectKing : MonoBehaviour
 
     public bool NextToWall()
     {
-        Vector2 direction = transform.right * Mathf.Sign(transform.localScale.x);
+        Vector2 direction = Vector2.right * kingController.transform.localScale.x;
         hit = Physics2D.Raycast(kingController.transform.position, direction, 0.5f, LayerMask.GetMask("Ground"));
 
         if (hit.collider == null)
@@ -47,11 +47,16 @@ public class AbiDetectKing : MonoBehaviour
         if (hit.collider.CompareTag("Ground"))
         {
             Debug.Log("Hit: " + hit.collider.name);
-            Debug.DrawRay(kingController.transform.position, direction, Color.yellow, 2f);
+            Debug.DrawRay(kingController.transform.position, direction, Color.yellow, 0.5f);
             return true;
         }
 
 
         return false;
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Vector2 direction = Vector2.right * kingController.transform.localScale.x;
+        Debug.DrawRay(kingController.transform.position, direction, Color.red, 0.5f);
     }
 }

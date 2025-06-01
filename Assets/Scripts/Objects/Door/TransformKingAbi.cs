@@ -21,7 +21,7 @@ public class TransformKingAbi : MonoBehaviour
     }
     public void TransformKing(Transform king)
     {
-        king.position = DoorManager.Instance.GetRandomDoor().position;
+        king.position = DoorManager.Instance.GetRandomDoor().transform.position;
     }
 
 }

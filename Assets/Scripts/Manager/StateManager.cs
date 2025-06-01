@@ -25,8 +25,11 @@ public class StateManager : MonoBehaviour
             _currentState.Execute();
     }
 
-    public IState GetCurrentState()
+    public IState CurrentState
     {
-        return _currentState;
+        get
+        {
+            return _currentState;
+        }       
     }
 }

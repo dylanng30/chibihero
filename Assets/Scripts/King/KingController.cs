@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KingController : MonoBehaviour
+public class KingController : MonoBehaviour, IDamagable
 {
     [SerializeField] protected PhysicsKing physicsKing;
     [SerializeField] protected CollisionKing collisionKing;
@@ -28,6 +28,10 @@ public class KingController : MonoBehaviour
         this.LoadComponent();
         this.LoadState();
     }
+    public void TakeDamage(int damage, GameObject attacker)
+    {
+        damageManagerKing.TakeDamage(damage, attacker);
+    }
     protected void LoadState()
     {
         stateManager = this.GetComponent<StateManager>();
@@ -49,6 +53,7 @@ public class KingController : MonoBehaviour
         LoadPhysics();
         LoadDetectObstacle();
         LoadDamageManager();
+        LoadMovement();
         LoadAbilityNormalATK();
         LoadDetectObstacle();
         LoadKingAI();
@@ -97,10 +102,6 @@ public class KingController : MonoBehaviour
     {
         if (this.kingAI != null) return;
         this.kingAI = this.GetComponentInChildren<KingAI>();
-    }
-    public void TakeDamage(int damage, GameObject attacker)
-    {
-        damageManagerKing.TakeDamage(damage, attacker);
     }
     public AnimationManager AnimationManager
     {
@@ -168,7 +169,7 @@ public class KingController : MonoBehaviour
     // Target is the player
     public GameObject Target
     {
-        get { return GameObject.FindGameObjectWithTag("Player"); }
+        get { return FindObjectOfType<PlayerController>().gameObject; }
     }
 
 

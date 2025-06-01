@@ -59,13 +59,12 @@ public class GameManagerTest : PersistentSingleton<GameManagerTest>
     private void HandleMenuState()
     {
         // Logic for starting state
-        UIManager.Instance.ShowMenu();
+        //UIManager.Instance.ShowMenu();
     }
     private void HandleStartingState()
     {
         // Logic for starting state
-        //Set up environment, initialize variables, etc.
-        UIManager.Instance.ShowMenu();
+        //UIManager.Instance.ShowMenu();
     }
     private void HandleExploringState()
     {

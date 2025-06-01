@@ -27,13 +27,27 @@ public class MovementKing : MonoBehaviour
         int speed = kingController.KingStats.MoveSpeed;
         float atkRange = kingController.KingStats.ATKRange;
 
-        if (Vector2.Distance(origin, target) < atkRange)
+        //Debug.Log($"King is moving towards target: {target}, current position: {origin}, speed: {speed}, attack range: {atkRange}");
+        /*if (Vector2.Distance(origin, target) < atkRange)
         {
-            kingController.PhysicsKing.Rigidbody2D.velocity = Vector2.zero;
+*//*            kingController.PhysicsKing.Rigidbody2D.velocity = Vector2.zero;*//*
+            Debug.Log("King is within attack range, stopping movement.");
             return;
-        }
+        }*/
         Vector2 direction = (target - origin).normalized;
+        Debug.Log(direction);
+        Debug.Log(speed);
         kingController.PhysicsKing.Rigidbody2D.velocity = new Vector2(direction.x * speed, kingController.PhysicsKing.Rigidbody2D.velocity.y);
+    }
+    public void MoveToNearestDoor()
+    {
+        DoorManager doorManager = GameObject.FindObjectOfType<DoorManager>();
+        Vector2 door = doorManager.FindNearestDoor(kingController.transform).transform.position;
+        Vector2 origin = kingController.transform.position;
+        Vector2 direction = (door - origin).normalized;
+        int speed = kingController.KingStats.MoveSpeed;
+        kingController.PhysicsKing.Rigidbody2D.velocity = new Vector2(direction.x * speed, kingController.PhysicsKing.Rigidbody2D.velocity.y);
+
     }
     public void Flee()
     {
