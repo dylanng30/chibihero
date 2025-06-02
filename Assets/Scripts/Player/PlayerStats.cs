@@ -58,6 +58,11 @@ public class PlayerStats : MonoBehaviour
             return maxHP;
         }
     }
+    public void UpgradeMaxHP(int value)
+    {
+        maxHP += value;
+        Debug.Log($"Max HP upgraded to: {maxHP}");
+    }
     public int AttackPower
     {
         get
@@ -65,12 +70,22 @@ public class PlayerStats : MonoBehaviour
             return attackPower;
         }
     }
+    public void UpgradeAttackPower(int value)
+    {
+        attackPower += value;
+        Debug.Log($"Attack Power upgraded to: {attackPower}");
+    }
     public int Armor
     {
         get
         {
             return armor;
         }
+    }
+    public void UpgradeArmor(int value)
+    {
+        armor += value;
+        Debug.Log($"Armor upgraded to: {armor}");
     }
     public int MoveSpeed
     {

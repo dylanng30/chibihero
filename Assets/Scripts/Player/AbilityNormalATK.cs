@@ -40,7 +40,8 @@ public class AbilityNormalATK : MonoBehaviour
     public void NormalATK()
     {
         GetATKTrigger?.Invoke();
-        if(playerController.PhysicsPlayer.Mode == PlayerMode.TopDown)
+
+        if (playerController.PhysicsPlayer.Mode == PlayerMode.TopDown)
             return;
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(ATKPoint.position, 0.8f, LayerMask.GetMask("Enemy"));
@@ -48,7 +49,9 @@ public class AbilityNormalATK : MonoBehaviour
         {
             var e = enemy.GetComponentInParent<IDamagable>();
             e.TakeDamage(playerController.PlayerStats.AttackPower, playerController.gameObject);
+
         }
+        playerController.EXPManager.AddEXP(1000);
     }
 
     public bool ATKTrigger

@@ -13,6 +13,8 @@ public class PlayerController : PersistentSingleton<PlayerController>, IDamagabl
     [SerializeField] protected MovementPlayer movementPlayer;
     [SerializeField] protected AbilityNormalATK abilityNormalATK;
     [SerializeField] protected AbilitySkill abilitySkill;
+    [SerializeField] private EXPManager expManager;
+
 
     [SerializeField] Transform ATKPoint;
     [SerializeField] float PSpeed;
@@ -26,12 +28,20 @@ public class PlayerController : PersistentSingleton<PlayerController>, IDamagabl
 
     private bool Skill1Locked = true;
 
+    public void TakeDamage(int damage, GameObject attacker)
+    {
+        damageManager.TakeDamage(damage, attacker);
+    }
+    public void UpdateStats(int level)
+    {
+        Debug.Log("Updating stats for level: " + level);
+    }
+
     protected override void Awake()
     {
         base.Awake();
         LoadComponent();
     }
-
     void Start()
     {
         LoadState();
@@ -60,6 +70,12 @@ public class PlayerController : PersistentSingleton<PlayerController>, IDamagabl
     }
 
     //Load Component
+    public void LoadEXPManager(EXPManager expManager)
+    {
+        if (this.expManager != null)
+            return;
+        this.expManager = expManager;
+    }
     protected virtual void LoadPhysicsPlayer()
     {
         if (this.physicsPlayer != null) return;
@@ -101,10 +117,7 @@ public class PlayerController : PersistentSingleton<PlayerController>, IDamagabl
         this.abilitySkill = this.GetComponentInChildren<AbilitySkill>();
     }
 
-    public void TakeDamage(int damage, GameObject attacker)
-    {
-        damageManager.TakeDamage(damage, attacker);
-    }
+    
 
 
     //Components
@@ -139,6 +152,10 @@ public class PlayerController : PersistentSingleton<PlayerController>, IDamagabl
     public AbilitySkill AbilitySkill
     {
         get { return abilitySkill; }
+    }
+    public EXPManager EXPManager
+    {
+        get { return expManager; }
     }
 
     //State
