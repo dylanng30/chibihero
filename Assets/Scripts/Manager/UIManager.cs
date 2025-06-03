@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
@@ -10,26 +11,31 @@ public class UIManager : Singleton<UIManager>
     [Header("UpgradedStats")]
     [SerializeField] protected GameObject UpgradeStats;
 
+    [Header("EXP")]
+    [SerializeField] protected GameObject EXPBar;
+
     [Header("GameOver")]
     [SerializeField] protected GameObject PlayerDied;
 
     protected override void Awake()
     {
         base.Awake();
-        //GetCanvases();
+        GetCanvases();
     }
     private void GetCanvases()
     {
         Menu = GameObject.Find("MenuCanvas");
-        UpgradeStats = GameObject.Find("UpgradeStatsCanvas");
-        PlayerDied = GameObject.Find("PlayerDiedCanvas");
+        //UpgradeStats = FindObjectOfType<UpgradeStats>().gameObject;
+        EXPBar = FindObjectOfType<EXPManager>().gameObject;
+        //PlayerDied = GameObject.Find("PlayerDiedCanvas");
     }
 
     public void DeactivateAllUIs()
     {
         Menu.SetActive(false);
-        UpgradeStats.SetActive(false);
-        PlayerDied.SetActive(false);
+        //UpgradeStats.SetActive(false);
+        EXPBar.SetActive(false);
+        //PlayerDied.SetActive(false);
     }
     public void ShowMenu()
     {
@@ -45,6 +51,12 @@ public class UIManager : Singleton<UIManager>
     {
         DeactivateAllUIs();
         PlayerDied.SetActive(true);
+    }
+
+    public void ShowEXPBar()
+    {
+        DeactivateAllUIs();
+        EXPBar.SetActive(true);
     }
 
 

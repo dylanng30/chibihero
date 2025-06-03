@@ -34,7 +34,7 @@ public class PhysicsPlayer : PhysicsBase
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
         rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        SetMode(PlayerMode.Platform);
+        SetMode(PlayerMode.TopDown);
     }
     public void SetMode(PlayerMode mode)
     {

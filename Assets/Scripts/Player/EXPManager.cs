@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EXPManager : MonoBehaviour
+public class EXPManager : Singleton<EXPManager>
 {
     [Header("Experience")]
     [SerializeField] AnimationCurve expCurve;
@@ -18,7 +18,8 @@ public class EXPManager : MonoBehaviour
 
     [Header("Upgrade")]
     [SerializeField] GameObject upgradePanel;
-    private void Start()
+
+    public void Apply()
     {
         StartCoroutine(LoadPlayer());
         UpdateLevel();
@@ -28,6 +29,8 @@ public class EXPManager : MonoBehaviour
     private IEnumerator LoadPlayer()
     {
         yield return new WaitUntil(() => PlayerController.Instance != null);
+        if(PlayerController.Instance.EXPManager != null)
+            yield break;
         PlayerController.Instance.LoadEXPManager(this);
     }
     public void AddEXP(int exp)

@@ -59,16 +59,17 @@ public class GameManagerTest : PersistentSingleton<GameManagerTest>
     private void HandleMenuState()
     {
         // Logic for starting state
-        //UIManager.Instance.ShowMenu();
+        UIManager.Instance.ShowMenu();
+        
     }
     private void HandleStartingState()
     {
-        // Logic for starting state
-        //UIManager.Instance.ShowMenu();
+        
     }
     private void HandleExploringState()
     {
         StartCoroutine(HandleExploringStateCoroutine());
+
     }
 
     private IEnumerator HandleExploringStateCoroutine()
@@ -76,13 +77,16 @@ public class GameManagerTest : PersistentSingleton<GameManagerTest>
         LevelManager.Instance.LoadScene("MainTopDown");
         yield return new WaitUntil(() => PlayerController.Instance != null && PlayerController.Instance.PhysicsPlayer != null);
         EnemyManager.Instance.ActivatePool();
-        UIManager.Instance.DeactivateAllUIs();
+        UIManager.Instance.ShowEXPBar();
         PlayerController.Instance.PhysicsPlayer.SetMode(PlayerMode.TopDown);
+        EXPManager.Instance.Apply();
+              
     }
     private void HandleFightingState()
     {
         // Logic for fighting state
         EnemyManager.Instance.DeactivatePool();
+        UIManager.Instance.ShowEXPBar();
         PlayerController.Instance.PhysicsPlayer.SetMode(PlayerMode.Platform);
     }
         

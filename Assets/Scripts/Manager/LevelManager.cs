@@ -44,6 +44,7 @@ public class LevelManager : Singleton<LevelManager>
         await OnScenePreActivate(sceneName);
 
         loadingScreen.SetActive(false);
+
     }
 
     private async Task OnScenePreActivate(string sceneName)

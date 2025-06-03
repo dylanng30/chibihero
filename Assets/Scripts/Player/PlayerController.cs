@@ -75,6 +75,7 @@ public class PlayerController : PersistentSingleton<PlayerController>, IDamagabl
         if (this.expManager != null)
             return;
         this.expManager = expManager;
+        Debug.Log(this.expManager + " loaded successfully.");
     }
     protected virtual void LoadPhysicsPlayer()
     {
