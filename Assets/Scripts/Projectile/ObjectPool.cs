@@ -11,6 +11,11 @@ public class ObjectPool : MonoBehaviour
 
     private void Awake()
     {
+        LoadProjectile();
+    }
+
+    private void LoadProjectile()
+    {
         projectileFactory = GameObject.FindObjectOfType<ProjectileFactory>().GetComponent<ProjectileFactory>();
 
         foreach (ProjectileType type in System.Enum.GetValues(typeof(ProjectileType)))

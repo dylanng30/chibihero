@@ -14,6 +14,9 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] protected int armor;
     [SerializeField] protected int moveSpeed;
     [SerializeField] protected int jumpPower;
+    [SerializeField] protected float dashForce;
+    [SerializeField] protected float dashTime;
+    [SerializeField] protected float dashCooldown;
 
     void Awake()
     {
@@ -42,6 +45,10 @@ public class PlayerStats : MonoBehaviour
         armor = player._stats.Armor;
         moveSpeed = player._stats.Speed;
         jumpPower = player._stats.JumpPower;
+        dashForce = player._stats.DashForce;
+        dashTime = player._stats.DashTime;
+        dashCooldown = player._stats.DashCooldown;
+
         //Debug.Log($"Đã load stats cho {playerType} - HP: {maxHP}, ATK: {attackPower}, Armor: {armor}, Speed: {moveSpeed}");
     }
 
@@ -99,6 +106,27 @@ public class PlayerStats : MonoBehaviour
         get
         {
             return jumpPower;
+        }
+    }
+    public float DashForce
+    {
+        get
+        {
+            return dashForce;
+        }
+    }
+    public float DashTime
+    {
+        get
+        {
+            return dashTime;
+        }
+    }
+    public float DashCooldown
+    {
+        get
+        {
+            return dashCooldown;
         }
     }
 

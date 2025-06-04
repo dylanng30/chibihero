@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MovementPlayer : MonoBehaviour
@@ -11,9 +12,15 @@ public class MovementPlayer : MonoBehaviour
     [SerializeField] protected bool jumpPressed;
     [SerializeField] protected bool atkTrigger;
 
+    [SerializeField] private bool isDashing = false;
+    [SerializeField] private bool canDash = true;
+    [SerializeField] private Vector2 dashDirection;
+
+    [SerializeField] private GameObject dashEffect;
+
+
     private Action GetDirectionMove;
     private Action GetJumpingMove;
-    private Action GetATKTrigger;
     void Start()
     {
         LoadComponent();
@@ -60,14 +67,14 @@ public class MovementPlayer : MonoBehaviour
         {
             return direction;
         }
-    }    
+    }
     public bool JumpPressed
     {
         get
         {
             return jumpPressed;
         }
-    }    
+    }
 
     public virtual void Moving()
     {
@@ -94,40 +101,52 @@ public class MovementPlayer : MonoBehaviour
             playerController.transform.localScale = new Vector3(-1, 1, 1);
     }
 
-    public float dashForce = 200f;
-    public float dashDuration = 1f;
-    public float dashCooldown = 3f;
 
-    private bool isDashing = false;
-    private bool canDash = true;
-    private Vector2 dashDirection;
 
     public void Dash()
     {
-        StartCoroutine(DashCoroutine());
+        float dashForce = playerController.PlayerStats.DashForce;
+        float dashDuration = playerController.PlayerStats.DashTime;
+        float dashCooldown = playerController.PlayerStats.DashCooldown;
+        if (isDashing || !canDash)
+        {
+            Debug.Log("Cannot dash right now.");
+            return;
+        }
+        StartCoroutine(DashCoroutine(dashForce, dashDuration, dashCooldown));
     }
-    private IEnumerator DashCoroutine()
+    private IEnumerator DashCoroutine(float dashForce, float dashDuration, float dashCooldown)
     {
         Debug.Log("dash");
         isDashing = true;
         canDash = false;
+
+        
 
         float startTime = Time.time;
 
         while (Time.time < startTime + dashDuration)
         {
             dashDirection = playerController.transform.localScale;
-            dashDirection.y = 0;
-            playerController.PhysicsPlayer.Rigidbody2D.velocity = dashDirection * dashForce;
+            dashDirection.y = 0;  
+            playerController.PhysicsPlayer.Rigidbody2D.velocity += dashDirection * dashForce;          
+            StartCoroutine(DashEffectCoroutine());
             Debug.Log(playerController.PhysicsPlayer.Rigidbody2D.velocity);
-            yield return null;
+            yield return new WaitForSeconds((dashDuration / 5f)- 1f);
         }
 
-        playerController.PhysicsPlayer.Rigidbody2D.velocity = Vector3.zero; // dừng lại sau khi dash
         isDashing = false;
 
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
+    }
+
+    private IEnumerator DashEffectCoroutine()
+    {        
+        GameObject GhostEffect = Instantiate(dashEffect, playerController.transform.position, Quaternion.identity);
+        GhostEffect.transform.localScale = playerController.transform.localScale;
+        yield return new WaitForSeconds(0.5f);
+        Destroy(GhostEffect);       
     }
 
 }

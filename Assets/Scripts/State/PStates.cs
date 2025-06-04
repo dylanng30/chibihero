@@ -26,7 +26,7 @@ public class IdleState : IState
             _player.StateManager.ChangeState(_player.RunState);
 
         if (Input.GetKey(KeyCode.M))
-            _player.MovementPlayer.Dash();
+            _player.MovementPlayer.Dash();   
     }
     public void Exit()
     {
@@ -49,12 +49,15 @@ public class RunState : IState
     }
     public void Execute()
     {
-        if ( _player.MovementPlayer.DirectionMove == Vector2.zero)
+        if (_player.MovementPlayer.DirectionMove == Vector2.zero)
             _player.StateManager.ChangeState(_player.IdleState);
         else if (_player.AbilityNormalATK.ATKTrigger)
             _player.StateManager.ChangeState(_player.NormalATKState);
         else if (Input.GetMouseButton(1))
             _player.StateManager.ChangeState(_player.SkillState);
+            
+        if (Input.GetKey(KeyCode.M))
+            _player.MovementPlayer.Dash();   
     }
     public void Exit()
     {

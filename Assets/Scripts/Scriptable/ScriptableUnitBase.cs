@@ -23,4 +23,7 @@ public struct Stats
     public int Speed;
     public float ATKRange;
     public int JumpPower;
+    public float DashForce;
+    public float DashTime;
+    public float DashCooldown;
 }
