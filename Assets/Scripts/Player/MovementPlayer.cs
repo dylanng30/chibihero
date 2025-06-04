@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -92,6 +92,42 @@ public class MovementPlayer : MonoBehaviour
             playerController.transform.localScale = new Vector3(1, 1, 1);
         else if (direction.x < 0)
             playerController.transform.localScale = new Vector3(-1, 1, 1);
+    }
+
+    public float dashForce = 200f;
+    public float dashDuration = 1f;
+    public float dashCooldown = 3f;
+
+    private bool isDashing = false;
+    private bool canDash = true;
+    private Vector2 dashDirection;
+
+    public void Dash()
+    {
+        StartCoroutine(DashCoroutine());
+    }
+    private IEnumerator DashCoroutine()
+    {
+        Debug.Log("dash");
+        isDashing = true;
+        canDash = false;
+
+        float startTime = Time.time;
+
+        while (Time.time < startTime + dashDuration)
+        {
+            dashDirection = playerController.transform.localScale;
+            dashDirection.y = 0;
+            playerController.PhysicsPlayer.Rigidbody2D.velocity = dashDirection * dashForce;
+            Debug.Log(playerController.PhysicsPlayer.Rigidbody2D.velocity);
+            yield return null;
+        }
+
+        playerController.PhysicsPlayer.Rigidbody2D.velocity = Vector3.zero; // dừng lại sau khi dash
+        isDashing = false;
+
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
     }
 
 }

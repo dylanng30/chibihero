@@ -32,8 +32,10 @@ public class EnemyDetectObstacle : MonoBehaviour
             return false;
 
         if (hit.collider.CompareTag("Ground"))
+        {
+            Debug.Log("Obstacle detected: " + hit.collider.name);
             return true;
-
+        }            
         return false;
     }
 
@@ -46,8 +48,10 @@ public class EnemyDetectObstacle : MonoBehaviour
             return false;
 
         if (hit.collider.CompareTag("Ground"))
+        {
+            Debug.Log("Obstacle detected: " + hit.collider.name);
             return true;
-
+        }     
         return false;
     }
 }

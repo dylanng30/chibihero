@@ -1,4 +1,6 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections;
 
 public class IdleState : IState
 {
@@ -11,7 +13,7 @@ public class IdleState : IState
     }
     public void Enter()
     {
-        //Debug.Log("Idle");
+        Debug.Log("Idle");
         _player.AnimationPlayer.SetAnimation(currentAnimation);
     }
     public void Execute()
@@ -22,6 +24,9 @@ public class IdleState : IState
             _player.StateManager.ChangeState(_player.SkillState);
         else if (_player.MovementPlayer.DirectionMove != Vector2.zero)
             _player.StateManager.ChangeState(_player.RunState);
+
+        if (Input.GetKey(KeyCode.M))
+            _player.MovementPlayer.Dash();
     }
     public void Exit()
     {

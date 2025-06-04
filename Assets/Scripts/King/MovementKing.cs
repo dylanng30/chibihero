@@ -35,8 +35,6 @@ public class MovementKing : MonoBehaviour
             return;
         }*/
         Vector2 direction = (target - origin).normalized;
-        Debug.Log(direction);
-        Debug.Log(speed);
         kingController.PhysicsKing.Rigidbody2D.velocity = new Vector2(direction.x * speed, kingController.PhysicsKing.Rigidbody2D.velocity.y);
     }
     public void MoveToNearestDoor()
