@@ -15,6 +15,7 @@ public class KingChasePlayerState : IState
         Debug.Log("KingChasePlayerState: Enter");
         kingController.AnimationManager.SetAnimation(currentState);
         kingController.KingAI.SetStateBeforeHit(this);
+        DoorManager.Instance.LockDoor(false);
     }
     public void Execute()
     {
@@ -23,14 +24,12 @@ public class KingChasePlayerState : IState
         if (kingController.AbiDetectKing.NextToWall())
         {
             kingController.MovementKing.Flee();
-            Debug.Log("King is next to wall");
             return;
         }
 
         if (kingController.AbiDetectKing.DetectObstacle() && !kingController.AbiDetectKing.NextToWall())
         {
             kingController.MovementKing.Jump();
-            Debug.Log("King is jumping over obstacle");
             return;
         }
 
@@ -57,6 +56,7 @@ public class KingRunToDoorState : IState
         Debug.Log("KingRunToDoorState: Enter");
         kingController.AnimationManager.SetAnimation(currentState);
         kingController.KingAI.SetStateBeforeHit(this);
+        DoorManager.Instance.LockDoor(true);
     }
     public void Execute()
     {

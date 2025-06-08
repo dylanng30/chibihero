@@ -13,7 +13,7 @@ public class IdleState : IState
     }
     public void Enter()
     {
-        Debug.Log("Idle");
+        //Debug.Log("Idle");
         _player.AnimationPlayer.SetAnimation(currentAnimation);
     }
     public void Execute()
@@ -25,7 +25,7 @@ public class IdleState : IState
         else if (_player.MovementPlayer.DirectionMove != Vector2.zero)
             _player.StateManager.ChangeState(_player.RunState);
 
-        if (Input.GetKey(KeyCode.M))
+        if (_player.MovementPlayer.DashPressed)
             _player.MovementPlayer.Dash();   
     }
     public void Exit()
@@ -56,7 +56,7 @@ public class RunState : IState
         else if (Input.GetMouseButton(1))
             _player.StateManager.ChangeState(_player.SkillState);
             
-        if (Input.GetKey(KeyCode.M))
+        if (_player.MovementPlayer.DashPressed)
             _player.MovementPlayer.Dash();   
     }
     public void Exit()

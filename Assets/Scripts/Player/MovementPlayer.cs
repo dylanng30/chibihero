@@ -10,7 +10,7 @@ public class MovementPlayer : MonoBehaviour
 
     [SerializeField] protected Vector2 direction;
     [SerializeField] protected bool jumpPressed;
-    [SerializeField] protected bool atkTrigger;
+    [SerializeField] protected bool dashPressed;
 
     [SerializeField] private bool isDashing = false;
     [SerializeField] private bool canDash = true;
@@ -21,11 +21,13 @@ public class MovementPlayer : MonoBehaviour
 
     private Action GetDirectionMove;
     private Action GetJumpingMove;
+    private Action GetDashingMove;
     void Start()
     {
         LoadComponent();
         GetDirectionMove += GetDirection;
         GetJumpingMove += GetJumping;
+        GetDashingMove += GetDashing;
     }
 
     void FixedUpdate()
@@ -61,6 +63,10 @@ public class MovementPlayer : MonoBehaviour
         jumpPressed = InputManager.Instance.JumpPressed;
         //Debug.Log("Jump Pressed: " + jumpPressed);
     }
+    public void GetDashing()
+    {
+        dashPressed = InputManager.Instance.DashPressed;
+    }
     public Vector2 DirectionMove
     {
         get
@@ -73,6 +79,13 @@ public class MovementPlayer : MonoBehaviour
         get
         {
             return jumpPressed;
+        }
+    }
+    public bool DashPressed
+    {
+        get
+        {
+            return dashPressed;
         }
     }
 
@@ -105,48 +118,49 @@ public class MovementPlayer : MonoBehaviour
 
     public void Dash()
     {
+        GetDashingMove?.Invoke();
+
         float dashForce = playerController.PlayerStats.DashForce;
         float dashDuration = playerController.PlayerStats.DashTime;
         float dashCooldown = playerController.PlayerStats.DashCooldown;
-        if (isDashing || !canDash)
-        {
-            Debug.Log("Cannot dash right now.");
-            return;
-        }
-        StartCoroutine(DashCoroutine(dashForce, dashDuration, dashCooldown));
+        dashDirection = playerController.transform.localScale;
+        dashDirection.y = 0;
+
+        // if (!canDash || isDashing)
+        //     return;
+            
+        StartCoroutine(DashNew(dashDirection, dashForce, dashDuration, dashCooldown));
+        
     }
-    private IEnumerator DashCoroutine(float dashForce, float dashDuration, float dashCooldown)
+
+    public IEnumerator DashNew(Vector2 dashDirection, float dashForce, float dashDuration, float dashCooldown)
     {
-        Debug.Log("dash");
         isDashing = true;
         canDash = false;
+        int ghostCount = 5;
+        float interval = dashDuration / ghostCount;
 
-        
+        playerController.PhysicsPlayer.Rigidbody2D.velocity = dashDirection.normalized * dashForce;
 
-        float startTime = Time.time;
-
-        while (Time.time < startTime + dashDuration)
+        for (int i = 0; i < ghostCount; i++)
         {
-            dashDirection = playerController.transform.localScale;
-            dashDirection.y = 0;  
-            playerController.PhysicsPlayer.Rigidbody2D.velocity += dashDirection * dashForce;          
-            StartCoroutine(DashEffectCoroutine());
-            Debug.Log(playerController.PhysicsPlayer.Rigidbody2D.velocity);
-            yield return new WaitForSeconds((dashDuration / 5f)- 1f);
+            // if (playerController.PhysicsPlayer.Rigidbody2D.velocity == Vector2.zero)
+            //     yield break;
+
+            SpawnGhost(dashEffect, transform.position);
+            yield return new WaitForSeconds(interval);
         }
 
         isDashing = false;
-
-        yield return new WaitForSeconds(dashCooldown);
+        yield return new WaitForSeconds(dashDuration);
         canDash = true;
     }
 
-    private IEnumerator DashEffectCoroutine()
-    {        
-        GameObject GhostEffect = Instantiate(dashEffect, playerController.transform.position, Quaternion.identity);
-        GhostEffect.transform.localScale = playerController.transform.localScale;
-        yield return new WaitForSeconds(0.5f);
-        Destroy(GhostEffect);       
+    private void SpawnGhost(GameObject ghostPrefab, Vector3 pos)
+    {
+        GameObject ghost = Instantiate(ghostPrefab, pos, Quaternion.identity);
+        ghost.transform.localScale = playerController.transform.localScale;    
+        Destroy(ghost, 1f);
     }
 
 }

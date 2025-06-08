@@ -20,7 +20,7 @@ MonoBehaviour:
     Speed: 10
     ATKRange: 0.8
     JumpPower: 7
-    DashForce: 50
+    DashForce: 100
     DashTime: 1
     DashCooldown: 3
   PlayerType: 0

@@ -25,16 +25,9 @@ public class MovementKing : MonoBehaviour
         Vector2 origin = kingController.transform.position;
         Vector2 target = kingController.Target.transform.position;
         int speed = kingController.KingStats.MoveSpeed;
-        float atkRange = kingController.KingStats.ATKRange;
-
-        //Debug.Log($"King is moving towards target: {target}, current position: {origin}, speed: {speed}, attack range: {atkRange}");
-        /*if (Vector2.Distance(origin, target) < atkRange)
-        {
-*//*            kingController.PhysicsKing.Rigidbody2D.velocity = Vector2.zero;*//*
-            Debug.Log("King is within attack range, stopping movement.");
-            return;
-        }*/
         Vector2 direction = (target - origin).normalized;
+        Debug.Log(direction);
+        Debug.Log(new Vector2(direction.x * speed, kingController.PhysicsKing.Rigidbody2D.velocity.y));
         kingController.PhysicsKing.Rigidbody2D.velocity = new Vector2(direction.x * speed, kingController.PhysicsKing.Rigidbody2D.velocity.y);
     }
     public void MoveToNearestDoor()

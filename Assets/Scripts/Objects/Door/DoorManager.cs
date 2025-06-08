@@ -7,7 +7,7 @@ public class DoorManager : Singleton<DoorManager>
     [SerializeField] private List<DoorController> doors = new List<DoorController>();
     [SerializeField] private KingController kingController;
 
-    private bool isLocked = false;
+    private bool isLocked;
 
     protected override void Awake()
     {
@@ -17,14 +17,6 @@ public class DoorManager : Singleton<DoorManager>
     {
         LoadKing();
         LoadDoors();
-    }
-
-    private void Update()
-    {
-        if(kingController.StateManager.CurrentState != kingController.RunToDoorState)
-            isLocked = false;
-        else
-            isLocked = true;
     }
     private void LoadKing()
     {
@@ -73,6 +65,11 @@ public class DoorManager : Singleton<DoorManager>
         {
             return doors;
         }
+    }
+    public void LockDoor(bool isLocked)
+    {
+        this.isLocked = isLocked;
+        Debug.Log("Door is locked:" + isLocked);
     }
     public bool IsLocked
     {

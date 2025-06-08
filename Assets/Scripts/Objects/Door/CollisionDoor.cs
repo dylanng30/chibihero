@@ -28,15 +28,10 @@ public class CollisionDoor : CollisionBase
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("King"))
+        if (collision.gameObject.CompareTag("King") && DoorManager.Instance.IsLocked)
         {
             KingController kingController = collision.GetComponentInParent<KingController>();
-            Debug.Log("KingController: " + kingController);
-            /*if (kingController != null && !IsLocked)
-            {
-                SetKingState(kingController);
-            }*/
-
+            SetKingState(kingController);
         }
     }
 

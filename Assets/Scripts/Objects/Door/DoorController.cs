@@ -21,10 +21,9 @@ public class DoorController : MonoBehaviour
     }
     public void PlayerInFrontOfDoor(bool isOpened)
     {
-        if (isOpened)
-            this.stateManager.ChangeState(openState);
-        else
-            this.stateManager.ChangeState(idleState);
+        if (!isOpened)
+            return;
+        this.stateManager.ChangeState(openState);
     }   
 
     private void LoadStates()

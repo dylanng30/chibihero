@@ -19,9 +19,13 @@ public class TransformKingAbi : MonoBehaviour
         if (doorController != null) return;
         doorController = GetComponentInParent<DoorController>();
     }
-    public void TransformKing(Transform king)
+    private void TransformKing()
     {
-        king.position = DoorManager.Instance.GetRandomDoor().transform.position;
+        
     }
+    // public void GetNewDoor(Transform king)
+    // {
+    //     this.currentDoor = DoorManager.Instance.GetRandomDoor();
+    // }
 
 }

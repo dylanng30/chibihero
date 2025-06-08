@@ -54,9 +54,4 @@ public class AbiDetectKing : MonoBehaviour
 
         return false;
     }
-    private void OnDrawGizmosSelected()
-    {
-        Vector2 direction = Vector2.right * kingController.transform.localScale.x;
-        Debug.DrawRay(kingController.transform.position, direction, Color.red, 0.5f);
-    }
 }
