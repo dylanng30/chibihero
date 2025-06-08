@@ -76,8 +76,8 @@ public class MoveRandomly : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            GameManagerTest.Instance.ChangeState(GameState.Fighting);
-            GameManagerTest.Instance.NextScene(nextScene, gameObject);            
+            GameManager.Instance.ChangeState(GameState.Fighting);
+            GameManager.Instance.NextScene(nextScene, gameObject);            
         }            
     }
 

@@ -26,6 +26,6 @@ public class CheckEnemiesLeftInPlatForm : StaticInstance<CheckEnemiesLeftInPlatF
     private void CheckAnyEnemiesLeft()
     {
         if(enemiesInPlatform.Count == 0)
-            GameManagerTest.Instance.CompleteMap(true);
+            GameManager.Instance.CompleteMap(true);
     }
 }

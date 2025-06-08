@@ -6,7 +6,7 @@ public class Menu : MonoBehaviour
 {
     public void Play()
     {        
-        //Debug.Log("Play button clicked");
-        GameManagerTest.Instance.ChangeState(GameState.Exploring);
+        Debug.Log("Play button clicked");
+        GameManager.Instance.ChangeState(GameState.Exploring);
     }
 }

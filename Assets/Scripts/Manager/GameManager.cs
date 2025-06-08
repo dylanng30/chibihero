@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManagerTest : PersistentSingleton<GameManagerTest>
+public class GameManager : PersistentSingleton<GameManager>
 {
     private GameObject currentEnemy;
     public static event Action<GameState> OnBeforeStateChanged;
@@ -37,7 +37,7 @@ public class GameManagerTest : PersistentSingleton<GameManagerTest>
                 HandleStartingState();
                 break;
             case GameState.Exploring:
-                HandleExploringState();
+                StartCoroutine(HandleExploringStateCoroutine());
                 break;
             case GameState.Fighting:
                 HandleFightingState();
@@ -49,7 +49,7 @@ public class GameManagerTest : PersistentSingleton<GameManagerTest>
                 HandlePausedState();
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(CurrentState), CurrentState, null);
+                break;
         }
 
         OnAfterStateChanged?.Invoke(CurrentState);
@@ -59,19 +59,12 @@ public class GameManagerTest : PersistentSingleton<GameManagerTest>
     private void HandleMenuState()
     {
         // Logic for starting state
-        UIManager.Instance.ShowMenu();
-        
+        UIManager.Instance.DeactivateAllUIs();        
     }
     private void HandleStartingState()
     {
         
     }
-    private void HandleExploringState()
-    {
-        StartCoroutine(HandleExploringStateCoroutine());
-
-    }
-
     private IEnumerator HandleExploringStateCoroutine()
     {
         LevelManager.Instance.LoadScene("MainTopDown");

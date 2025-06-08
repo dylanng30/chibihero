@@ -57,7 +57,7 @@ public class EXPManager : Singleton<EXPManager>
     }
     private void UpdateInterface()
     {
-        levelText.text = "Level: " + currentLevel.ToString();
+        levelText.text = "Lv: " + currentLevel.ToString();
         expText.text = $"{totalEXP}/{nextLevelEXP} exp";
         expBar.fillAmount = (float)(totalEXP - previousLevelEXP) / (nextLevelEXP - previousLevelEXP);
     }

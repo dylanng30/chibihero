@@ -24,23 +24,16 @@ public class UIManager : Singleton<UIManager>
     }
     private void GetCanvases()
     {
-        Menu = GameObject.Find("MenuCanvas");
-        //UpgradeStats = FindObjectOfType<UpgradeStats>().gameObject;
+        UpgradeStats = FindObjectOfType<UpgradeStats>().gameObject;
         EXPBar = FindObjectOfType<EXPManager>().gameObject;
         //PlayerDied = GameObject.Find("PlayerDiedCanvas");
     }
 
     public void DeactivateAllUIs()
     {
-        Menu.SetActive(false);
-        //UpgradeStats.SetActive(false);
+        UpgradeStats.SetActive(false);
         EXPBar.SetActive(false);
         //PlayerDied.SetActive(false);
-    }
-    public void ShowMenu()
-    {
-        DeactivateAllUIs();
-        Menu.SetActive(true);
     }
     public void ShowUpgradeStats()
     {
