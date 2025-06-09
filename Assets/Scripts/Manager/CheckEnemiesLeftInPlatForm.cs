@@ -22,6 +22,7 @@ public class CheckEnemiesLeftInPlatForm : StaticInstance<CheckEnemiesLeftInPlatF
             if(!enemiesInPlatform.Contains(child.gameObject))
                 enemiesInPlatform.Add(child.gameObject);
         }
+        //Debug.Log(enemiesInPlatform.Count);
     }
     private void CheckAnyEnemiesLeft()
     {

@@ -53,7 +53,15 @@ public class EXPManager : Singleton<EXPManager>
         previousLevelEXP = (int)expCurve.Evaluate(currentLevel);
         nextLevelEXP = (int)expCurve.Evaluate(currentLevel + 1);
         UpdateInterface();
+        UpdateUpgradePanel();
+    }
+
+    private void UpdateUpgradePanel()
+    {
         upgradePanel.SetActive(true);
+        UpgradeStats upgradeStats = upgradePanel.GetComponent<UpgradeStats>();
+        upgradeStats.UpStatsPoints();
+        upgradeStats.UpdateStats();
     }
     private void UpdateInterface()
     {

@@ -301,15 +301,11 @@ PrefabInstance:
     - target: {fileID: 5495987212054684259, guid: 67ee990959857da4388048341f5b44d1, type: 3}
       propertyPath: upgradePanel
       value: 
-      objectReference: {fileID: 2972208276661906398}
+      objectReference: {fileID: 8300571847716717031}
     - target: {fileID: 7802510559008568396, guid: 67ee990959857da4388048341f5b44d1, type: 3}
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
-    - target: {fileID: 7926021176389285295, guid: 67ee990959857da4388048341f5b44d1, type: 3}
-      propertyPath: Menu
-      value: 
-      objectReference: {fileID: 5197941227616260988}
     - target: {fileID: 7926021176389285295, guid: 67ee990959857da4388048341f5b44d1, type: 3}
       propertyPath: PlayerDied
       value: 
@@ -323,18 +319,13 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67ee990959857da4388048341f5b44d1, type: 3}
---- !u!1 &2972208276661906398 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5577094567097335957, guid: 67ee990959857da4388048341f5b44d1, type: 3}
-  m_PrefabInstance: {fileID: 7231292657521240907}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5197941227616260988 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3204445663267747895, guid: 67ee990959857da4388048341f5b44d1, type: 3}
-  m_PrefabInstance: {fileID: 7231292657521240907}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5361003862793952524 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3331725599900513863, guid: 67ee990959857da4388048341f5b44d1, type: 3}
+  m_PrefabInstance: {fileID: 7231292657521240907}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8300571847716717031 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1687504359110404780, guid: 67ee990959857da4388048341f5b44d1, type: 3}
   m_PrefabInstance: {fileID: 7231292657521240907}
   m_PrefabAsset: {fileID: 0}

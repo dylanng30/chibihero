@@ -15,18 +15,12 @@ public class PlayerController : PersistentSingleton<PlayerController>, IDamagabl
     [SerializeField] protected AbilitySkill abilitySkill;
     [SerializeField] private EXPManager expManager;
 
-
-    [SerializeField] Transform ATKPoint;
-    [SerializeField] float PSpeed;
-    [SerializeField] GameObject prefab;
-
     private IdleState idleState;
     private RunState runState;
     private NormalATKState normalATKState;
     private SkillState skillState;
     private StateManager stateManager;
 
-    private bool Skill1Locked = true;
 
     public void TakeDamage(int damage, GameObject attacker)
     {

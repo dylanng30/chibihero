@@ -26,9 +26,8 @@ public class MovementKing : MonoBehaviour
         Vector2 target = kingController.Target.transform.position;
         int speed = kingController.KingStats.MoveSpeed;
         Vector2 direction = (target - origin).normalized;
-        Debug.Log(direction);
-        Debug.Log(new Vector2(direction.x * speed, kingController.PhysicsKing.Rigidbody2D.velocity.y));
         kingController.PhysicsKing.Rigidbody2D.velocity = new Vector2(direction.x * speed, kingController.PhysicsKing.Rigidbody2D.velocity.y);
+        Debug.Log(kingController.PhysicsKing.Rigidbody2D.velocity);
     }
     public void MoveToNearestDoor()
     {

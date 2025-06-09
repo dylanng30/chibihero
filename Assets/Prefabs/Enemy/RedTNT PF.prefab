@@ -93,6 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lowEnemyController: {fileID: 0}
   ATKPoint: {fileID: 8918219111826956161}
+  projectileType: 1
 --- !u!1 &3169372985548071483
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,6 +560,7 @@ MonoBehaviour:
   maxHP: 0
   isDead: 0
   lowEnemyController: {fileID: 0}
+  skull: {fileID: 4334585065909733642, guid: a6cd222cc72d6ab4eaaa54a849c42356, type: 3}
 --- !u!1 &8046634767076915298
 GameObject:
   m_ObjectHideFlags: 0

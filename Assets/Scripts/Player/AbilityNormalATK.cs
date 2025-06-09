@@ -49,9 +49,9 @@ public class AbilityNormalATK : MonoBehaviour
         {
             var e = enemy.GetComponentInParent<IDamagable>();
             e.TakeDamage(playerController.PlayerStats.AttackPower, playerController.gameObject);
-
+            playerController.EXPManager.AddEXP(1000);
         }
-        playerController.EXPManager.AddEXP(1000);
+       
     }
 
     public bool ATKTrigger

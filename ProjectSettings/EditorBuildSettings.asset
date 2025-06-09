@@ -39,7 +39,7 @@ EditorBuildSettings:
     path: Assets/Scenes/platform/MineENEMY/MineBOSS.unity
     guid: 03adf0caf70ac26468e891ff7a7e57c7
   - enabled: 1
-    path: Assets/Scenes/platform/MineENEMY/MineENEMY1.unity
+    path: Assets/Scenes/platform/MineENEMY/RedTNT.unity
     guid: 0b916980ef0187e4a80d402dff3c2869
   - enabled: 1
     path: Assets/Scenes/platform/YellowGrassENEMY 1/YellowGlassENEMY1.unity
@@ -48,7 +48,7 @@ EditorBuildSettings:
     path: Assets/Scenes/platform/YellowGrassENEMY 1/YellowGlassENEMY1 1.unity
     guid: ba110c84eef203b42ac29c07f240e739
   - enabled: 1
-    path: Assets/Scenes/platform/MineENEMY/MineENEMY2.unity
+    path: Assets/Scenes/platform/MineENEMY/RedTorch.unity
     guid: 9b75fd89af63d4a4db1a522a3e405b6e
   - enabled: 1
     path: Assets/Scenes/platform/SkillCollect/SkillCollect.unity

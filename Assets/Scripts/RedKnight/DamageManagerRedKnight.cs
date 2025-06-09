@@ -5,6 +5,7 @@ using UnityEngine;
 public class DamageManagerRedKnight : DamageBase
 {
     [SerializeField] protected RedKnightController redKnightController;
+    [SerializeField] private GameObject skull;
 
     protected override void Awake()
     {
@@ -52,9 +53,8 @@ public class DamageManagerRedKnight : DamageBase
         else
         {
             isDead = true;
-            //Destroy(redKnightController.gameObject);
-            //Debug.Log("Player is dead");
-            //playerController.GetStateManager().ChangeState(playerController.GetDeathState());
+            Instantiate(skull, redKnightController.transform.position, Quaternion.identity);
+            Destroy(redKnightController.gameObject);
         }
     }
     public override void Heal(int amount)

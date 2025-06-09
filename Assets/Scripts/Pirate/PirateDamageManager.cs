@@ -5,6 +5,7 @@ using UnityEngine;
 public class PirateDamageManager : DamageBase
 {
     [SerializeField] protected PirateController pirateController;
+    [SerializeField] protected GameObject skull;
 
     protected override void Awake()
     {
@@ -52,9 +53,8 @@ public class PirateDamageManager : DamageBase
         else
         {
             isDead = true;
+            Instantiate(skull, pirateController.transform.position, Quaternion.identity);
             Destroy(pirateController.gameObject);
-            //Debug.Log("Player is dead");
-            //playerController.GetStateManager().ChangeState(playerController.GetDeathState());
         }
     }
     public override void Heal(int amount)

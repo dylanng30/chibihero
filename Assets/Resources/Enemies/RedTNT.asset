@@ -20,4 +20,7 @@ MonoBehaviour:
     Speed: 5
     ATKRange: 6
     JumpPower: 5
+    DashForce: 0
+    DashTime: 0
+    DashCooldown: 0
   EnemyType: 3

@@ -33,7 +33,7 @@ public class EnemyDetectObstacle : MonoBehaviour
 
         if (hit.collider.CompareTag("Ground"))
         {
-            Debug.Log("Obstacle detected: " + hit.collider.name);
+            //Debug.Log("Obstacle detected: " + hit.collider.name);
             return true;
         }            
         return false;

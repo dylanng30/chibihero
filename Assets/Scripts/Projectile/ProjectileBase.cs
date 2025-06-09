@@ -22,7 +22,19 @@ public abstract class ProjectileBase : MonoBehaviour
 
         if (state == "Explosion")
         {
-            yield return anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f;
+            yield return null;
+
+            AnimatorClipInfo[] clipInfo = anim.GetCurrentAnimatorClipInfo(0);
+            if (clipInfo.Length > 0)
+            {
+                float duration = clipInfo[0].clip.length;
+                yield return new WaitForSeconds(duration);
+            }
+            else
+            {
+                yield return new WaitForSeconds(0.5f);
+            }                
+
             pool.ReturnProjectile(projectile.GetComponent<ProjectileBase>());
         }
     }

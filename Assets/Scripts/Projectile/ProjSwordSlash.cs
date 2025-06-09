@@ -53,8 +53,7 @@ public class ProjSwordSlash : ProjectileBase
         if (collision.transform == this.transform)
             return;
 
-        if (collision.gameObject.CompareTag("Enemy")  ||
-            collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             var p = collision.GetComponentInParent<IDamagable>();
             p.TakeDamage(dmg, this.gameObject);

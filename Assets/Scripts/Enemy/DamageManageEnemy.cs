@@ -5,6 +5,7 @@ using UnityEngine;
 public class DamageManagerEnemy : DamageBase
 {
     [SerializeField] protected LowEnemyController lowEnemyController;
+    [SerializeField] private GameObject skull;
 
     protected override void Awake()
     {
@@ -52,9 +53,8 @@ public class DamageManagerEnemy : DamageBase
         else
         {
             isDead = true;
+            Instantiate(skull, lowEnemyController.transform.position, Quaternion.identity);
             Destroy(lowEnemyController.gameObject);
-            //Debug.Log("Player is dead");
-            //playerController.GetStateManager().ChangeState(playerController.GetDeathState());
         }
     }
     public override void Heal(int amount)

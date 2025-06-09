@@ -44,7 +44,7 @@ public class EnemyStats : MonoBehaviour
         moveSpeed = enemy._stats.Speed;
         jumpPower = enemy._stats.JumpPower;
         atkRange = enemy._stats.ATKRange;
-        //Debug.Log($"Đã load stats cho {enemyType} - HP: {maxHP}, ATK: {attackPower}, Armor: {armor}, Speed: {moveSpeed}");
+        Debug.Log($"Đã load stats cho {enemyType} - HP: {maxHP}, ATK: {attackPower}, Armor: {armor}, Speed: {moveSpeed}");
     }
 
     protected virtual void LoadEnemyController()

@@ -62,10 +62,7 @@ public class MoveRandomly : MonoBehaviour
     private void Flip()
     {
         Vector2 dir = targetPosition - (Vector2)this.transform.position;
-        if (dir.x > 0)
-            this.transform.localScale = new Vector3(1, 1, 1);
-        if (dir.x < 0)
-            this.transform.localScale = new Vector3(-1, 1, 1);
+        this.transform.localScale = dir.x > 0 ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
     }
     private void ChangeTargetPosition()
     {
@@ -76,6 +73,7 @@ public class MoveRandomly : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("chuyenn sang map" + this.name);
             GameManager.Instance.ChangeState(GameState.Fighting);
             GameManager.Instance.NextScene(nextScene, gameObject);            
         }            

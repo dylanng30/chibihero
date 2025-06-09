@@ -24,12 +24,14 @@ public class KingChasePlayerState : IState
         if (kingController.AbiDetectKing.NextToWall())
         {
             kingController.MovementKing.Flee();
+            Debug.Log("k move");
             return;
         }
 
         if (kingController.AbiDetectKing.DetectObstacle() && !kingController.AbiDetectKing.NextToWall())
         {
             kingController.MovementKing.Jump();
+            Debug.Log("k move");
             return;
         }
 

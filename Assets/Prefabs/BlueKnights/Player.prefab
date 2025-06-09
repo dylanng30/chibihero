@@ -83,6 +83,9 @@ MonoBehaviour:
   armor: 0
   moveSpeed: 0
   jumpPower: 0
+  dashForce: 0
+  dashTime: 0
+  dashCooldown: 0
 --- !u!1 &2719962577706980999
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,7 +277,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3058148261214021191}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c41245b8dbf187143859cfdd13fcfaa7, type: 3}
   m_Name: 
@@ -327,7 +330,11 @@ MonoBehaviour:
   playerController: {fileID: 0}
   direction: {x: 0, y: 0}
   jumpPressed: 0
-  atkTrigger: 0
+  dashPressed: 0
+  isDashing: 0
+  canDash: 1
+  dashDirection: {x: 0, y: 0}
+  dashEffect: {fileID: 0}
 --- !u!1 &3517079395887341096
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,9 +411,7 @@ MonoBehaviour:
   movementPlayer: {fileID: 0}
   abilityNormalATK: {fileID: 0}
   abilitySkill: {fileID: 0}
-  ATKPoint: {fileID: 2520803847989927779}
-  PSpeed: 5
-  prefab: {fileID: 0}
+  expManager: {fileID: 0}
 --- !u!50 &6433472508347020716
 Rigidbody2D:
   serializedVersion: 4
@@ -587,7 +592,7 @@ MonoBehaviour:
   playerController: {fileID: 0}
   ATKPoint: {fileID: 115336976200172904}
   projectileFactory: {fileID: 0}
-  projectileType: 2
+  projectileType: 1
 --- !u!1 &5613326357927193543
 GameObject:
   m_ObjectHideFlags: 0

@@ -66,7 +66,6 @@ public class AbiRangeATKRedKnight : MonoBehaviour
     public void Shoot()
     {
         StartCoroutine(Shooting(projectileType));
-        //timer = cooldownTime;
     }
     public IEnumerator Shooting(ProjectileType projectileType)
     {

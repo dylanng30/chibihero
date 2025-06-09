@@ -1,9 +1,7 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class ProjArrow : ProjectileBase
 {
-    //public float Angle = 50f;
     void Awake()
     {
         this.Init();
@@ -71,11 +69,11 @@ public class ProjArrow : ProjectileBase
             p.TakeDamage(dmg, this.gameObject);
             Pool.ReturnProjectile(this);
         }
-        else if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground"))
         {            
             this.ChangeState("Explosion", this.gameObject);
+            Debug.Log("da trung ground");
             this.collision = true;
-
         }
     }
 }

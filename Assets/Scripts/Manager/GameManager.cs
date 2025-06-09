@@ -43,7 +43,7 @@ public class GameManager : PersistentSingleton<GameManager>
                 HandleFightingState();
                 break;
             case GameState.GameOver:
-                HandleGameOverState();
+                StartCoroutine(HandleGameOverStateCoroutine());
                 break;
             case GameState.Paused:
                 HandlePausedState();
@@ -83,14 +83,9 @@ public class GameManager : PersistentSingleton<GameManager>
         PlayerController.Instance.PhysicsPlayer.SetMode(PlayerMode.Platform);
     }
         
-    private void HandleGameOverState()
-    {
-        UIManager.Instance.ShowPlayerDied();
-        StartCoroutine(HandleGameOverStateCoroutine());
-        // Logic for game over state
-    }
     private IEnumerator HandleGameOverStateCoroutine()
     {
+        UIManager.Instance.ShowPlayerDied();
         yield return new WaitForSeconds(3f);
         this.ChangeState(GameState.Exploring);
     }
@@ -101,7 +96,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
     public void ChangeStateWithScene(string sceneName)
     {
-        if (sceneName.Contains("MainTopDown"))
+        if (sceneName.Contains("TopDown"))
             ChangeState(GameState.Exploring);
         else
             ChangeState(GameState.Fighting);
@@ -109,6 +104,11 @@ public class GameManager : PersistentSingleton<GameManager>
     public void NextScene(string nextScene, GameObject currentEnemy)
     {
         this.currentEnemy = currentEnemy;
+        LevelManager.Instance.LoadScene(nextScene);
+        ChangeStateWithScene(nextScene);
+    }
+    public void NextScene(string nextScene)
+    {
         LevelManager.Instance.LoadScene(nextScene);
         ChangeStateWithScene(nextScene);
     }
