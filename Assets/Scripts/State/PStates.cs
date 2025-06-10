@@ -23,10 +23,7 @@ public class IdleState : IState
         else if (Input.GetMouseButton(1))
             _player.StateManager.ChangeState(_player.SkillState);
         else if (_player.MovementPlayer.DirectionMove != Vector2.zero)
-            _player.StateManager.ChangeState(_player.RunState);
-
-        if (_player.MovementPlayer.DashPressed)
-            _player.MovementPlayer.Dash();   
+            _player.StateManager.ChangeState(_player.RunState);            
     }
     public void Exit()
     {
@@ -55,9 +52,6 @@ public class RunState : IState
             _player.StateManager.ChangeState(_player.NormalATKState);
         else if (Input.GetMouseButton(1))
             _player.StateManager.ChangeState(_player.SkillState);
-            
-        if (_player.MovementPlayer.DashPressed)
-            _player.MovementPlayer.Dash();   
     }
     public void Exit()
     {
@@ -107,7 +101,7 @@ public class SkillState : IState
     }
     public void Exit()
     {
-        Debug.Log(_player.AbilitySkill);
+        _player.MovementPlayer.FlipToEnemy();
         _player.AbilitySkill.Skill();
     }
 }

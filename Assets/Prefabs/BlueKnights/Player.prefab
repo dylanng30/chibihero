@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 4885021837050826210}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -334,7 +334,7 @@ MonoBehaviour:
   isDashing: 0
   canDash: 1
   dashDirection: {x: 0, y: 0}
-  dashEffect: {fileID: 0}
+  dashEffect: {fileID: 2828096162793079682, guid: 9e5810b52082ec048977411ed2b2b8d3, type: 3}
 --- !u!1 &3517079395887341096
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +350,7 @@ GameObject:
   - component: {fileID: 2643997289911408056}
   m_Layer: 10
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -590,9 +590,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
-  ATKPoint: {fileID: 115336976200172904}
-  projectileFactory: {fileID: 0}
-  projectileType: 1
+  ATKPoint: {fileID: 2520803847989927779}
+  projectileType: 2
+  pool: {fileID: 0}
 --- !u!1 &5613326357927193543
 GameObject:
   m_ObjectHideFlags: 0

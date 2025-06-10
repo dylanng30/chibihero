@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProjSwordSlash : ProjectileBase
 {
-    private float timer = 3f;
+    private float timer = 2f;
+    private Transform origin;
     void Awake()
     {
         this.Init();
@@ -13,18 +15,12 @@ public class ProjSwordSlash : ProjectileBase
 
     private void FixedUpdate()
     {
-        if (!this.collision)
-            this.Action();
+        this.Action();
+        if(timer > 0)
+            timer -= Time.deltaTime;
         else
-            this.Rigidbody2D.velocity = Vector2.zero;
-        timer -= Time.fixedDeltaTime;
-        if (timer <= 0)
-            this.ChangeState("Explosion", this.gameObject);
+            ChangeState("Explosion", this.gameObject);
 
-    }
-    private void Update()
-    {
-      
     }
     public override void Action()
     {
@@ -39,25 +35,35 @@ public class ProjSwordSlash : ProjectileBase
 
     public override Vector2 InitVelo(int dmg, Transform origin, Transform dir)
     {
-        this.dmg = dmg;     
+        this.dmg = dmg; 
+        this.origin = origin;
         this.transform.position = origin.position;
 
         Vector2 Force = dir.position - origin.position;
         return Force.normalized * 500;
     }
 
+    private void UpdateExpForPlayer()
+    {
+        PlayerController playerController = origin.parent.GetComponent<PlayerController>();
+        Debug.Log(playerController);
+        playerController.EXPManager.AddEXP(1000);
+    }
+
+    private void DoDamage(Collider2D collision)
+    {
+        var p = collision.GetComponentInParent<IDamagable>();
+        p.TakeDamage(dmg, this.gameObject);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(this.collision)
-            return;
-        if (collision.transform == this.transform)
-            return;
-
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            var p = collision.GetComponentInParent<IDamagable>();
-            p.TakeDamage(dmg, this.gameObject);
-            ChangeState("Explosion", this.gameObject);
+            DoDamage(collision);
+            UpdateExpForPlayer();
         }
+        else if(collision.gameObject.CompareTag("Player"))
+            DoDamage(collision);
     }
 }

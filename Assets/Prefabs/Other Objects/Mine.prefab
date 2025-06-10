@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -1129525760792333632}
   - component: {fileID: 2938514077772830691}
   - component: {fileID: 2101696937899075344}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mine
   m_TagString: Spawn
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0

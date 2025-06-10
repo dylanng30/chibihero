@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 2541422329112259357}
   - component: {fileID: 6984775794900613796}
   - component: {fileID: 3108449932176889758}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: RedArcher
-  m_TagString: RedArcher
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

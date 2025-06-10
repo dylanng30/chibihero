@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7594493194936419043}
   - component: {fileID: 3400995901173564039}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TeleportAbi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 2928964948376351398}
   - component: {fileID: 7608811402186695885}
   - component: {fileID: 1998708626297945581}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 2308147956838265304}
   - component: {fileID: 221944090402294922}
   - component: {fileID: 7749723578873869887}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 3297006422556121942}
   - component: {fileID: 3985887406444890106}
   - component: {fileID: 4188296670489545858}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}

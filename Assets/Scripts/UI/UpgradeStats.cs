@@ -16,7 +16,6 @@ public class UpgradeStats : MonoBehaviour
     {
         statsPoints = 0;
         statsPoints++;
-        Debug.Log(statsPoints);
     }
     public void UpgradeHealth()
     {

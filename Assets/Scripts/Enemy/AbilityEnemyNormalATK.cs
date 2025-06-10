@@ -29,7 +29,7 @@ public class AbilityEnemyNormalATK : MonoBehaviour
     {
         if (this.pool != null)
             return;
-        this.pool = GameObject.FindObjectOfType<ObjectPool>().GetComponent<ObjectPool>();
+        this.pool = GameObject.FindObjectOfType<ObjectPool>();
     }
 
     public bool PlayerInATKRange()

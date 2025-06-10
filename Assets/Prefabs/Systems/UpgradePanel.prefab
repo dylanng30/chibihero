@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6001055072356480814}
   - component: {fileID: 3198601095509912501}
   - component: {fileID: 5759569151659782964}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 419358380532555969}
   - component: {fileID: 6653736214506954506}
   - component: {fileID: 967688968612363641}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: UpgradeATK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 4161377456872501576}
   - component: {fileID: 7448065768650508198}
   - component: {fileID: 6675592809988140263}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: UpgradeArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 7121626372240288443}
   - component: {fileID: 6037636107198830109}
   - component: {fileID: 3962092649684889683}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -491,7 +491,7 @@ GameObject:
   - component: {fileID: 1712889063174275454}
   - component: {fileID: 4714086049751480949}
   - component: {fileID: 633347474463671866}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Upgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -566,7 +566,7 @@ GameObject:
   - component: {fileID: 7692242578331452917}
   - component: {fileID: 1704788659102061059}
   - component: {fileID: 2477613268971590384}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -701,7 +701,7 @@ GameObject:
   - component: {fileID: 6547061313882581561}
   - component: {fileID: 254632731352287996}
   - component: {fileID: 4036324417433612087}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -820,7 +820,7 @@ GameObject:
   - component: {fileID: 3858894118923552611}
   - component: {fileID: 6464325379499592481}
   - component: {fileID: 4330149265032019054}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -953,7 +953,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2967415978582248601}
   - component: {fileID: 1815694157675845458}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: UpgradePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -993,6 +993,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradePanel: {fileID: 2530352859378650308}
+  HpText: {fileID: 0}
+  DmgText: {fileID: 0}
+  ArmorText: {fileID: 0}
+  statsPoints: 0
 --- !u!1 &8961767486031867871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,7 +1009,7 @@ GameObject:
   - component: {fileID: 2656762919976864095}
   - component: {fileID: 2610653199538700970}
   - component: {fileID: 2273311168575959721}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: UpgradeHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}

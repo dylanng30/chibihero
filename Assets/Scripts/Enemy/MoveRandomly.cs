@@ -73,7 +73,6 @@ public class MoveRandomly : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("chuyenn sang map" + this.name);
             GameManager.Instance.ChangeState(GameState.Fighting);
             GameManager.Instance.NextScene(nextScene, gameObject);            
         }            

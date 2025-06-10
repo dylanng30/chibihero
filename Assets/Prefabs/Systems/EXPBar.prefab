@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8888276423008857837}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: MP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1483173830029896234}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4073700749826745561}
   - component: {fileID: 5760230187723892814}
   - component: {fileID: 5674507221279625186}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: BackEXP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 5855116843787869407}
   - component: {fileID: 711558625146886395}
   - component: {fileID: 7912709262112860516}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8773617699127812878}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: CurrentEXP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -271,7 +271,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2797556980090560388}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: EXP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 1551891826429589979}
   - component: {fileID: 5805017603781683148}
   - component: {fileID: 4789379657051969240}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: EXPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -433,7 +433,7 @@ GameObject:
   - component: {fileID: 5204646754081165995}
   - component: {fileID: 8427055963914297377}
   - component: {fileID: 3720427238638870665}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Level Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -508,7 +508,7 @@ GameObject:
   - component: {fileID: 8578107873965951032}
   - component: {fileID: 7682835389301723520}
   - component: {fileID: 7817325408627676341}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: MP Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -583,7 +583,7 @@ GameObject:
   - component: {fileID: 5041870088549395863}
   - component: {fileID: 7703267741234214774}
   - component: {fileID: 7679633190390897314}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: CurrentMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -658,7 +658,7 @@ GameObject:
   - component: {fileID: 6528016546181677744}
   - component: {fileID: 5225746416491014732}
   - component: {fileID: 2474686765050446328}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Avatar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -733,7 +733,7 @@ GameObject:
   - component: {fileID: 7433816394564078932}
   - component: {fileID: 1348299835610599350}
   - component: {fileID: 2743171424465422171}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: BackHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -808,7 +808,7 @@ GameObject:
   - component: {fileID: 2079425897828363122}
   - component: {fileID: 7704392122274795469}
   - component: {fileID: 742233438724316769}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -884,7 +884,7 @@ GameObject:
   - component: {fileID: 7082112808591777382}
   - component: {fileID: 311940752530268890}
   - component: {fileID: 1596329085333833748}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -959,7 +959,7 @@ GameObject:
   - component: {fileID: 6839094538604535679}
   - component: {fileID: 4104214980708678650}
   - component: {fileID: 3622767371576879914}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1093,7 +1093,7 @@ GameObject:
   - component: {fileID: 6221708357807638669}
   - component: {fileID: 6249102234006146630}
   - component: {fileID: 1018158576635623677}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: CurrentEXP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1168,7 +1168,7 @@ GameObject:
   - component: {fileID: 3053728182882900150}
   - component: {fileID: 3215615526799783187}
   - component: {fileID: 8921127803218264479}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1302,7 +1302,7 @@ GameObject:
   - component: {fileID: 3519878909121241575}
   - component: {fileID: 1516656724877331155}
   - component: {fileID: 891083612552612646}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: BackMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}

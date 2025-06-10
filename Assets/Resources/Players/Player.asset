@@ -22,5 +22,5 @@ MonoBehaviour:
     JumpPower: 7
     DashForce: 100
     DashTime: 1
-    DashCooldown: 3
+    DashCooldown: 1
   PlayerType: 0

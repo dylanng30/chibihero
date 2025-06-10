@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 548291003303619936}
   m_Layer: 9
   m_Name: Collision
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,9 +101,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1488669594267856187}
   - component: {fileID: 4233554005265709846}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stats
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 5893205734238599203}
   m_Layer: 9
   m_Name: Movement
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -302,6 +302,7 @@ MonoBehaviour:
   abiNormalATKRedKnight: {fileID: 0}
   movementRedKnight: {fileID: 0}
   redKnightAI: {fileID: 0}
+  damageManager: {fileID: 0}
   stateManager: {fileID: 0}
 --- !u!1 &2623494258522347267
 GameObject:
@@ -315,7 +316,7 @@ GameObject:
   - component: {fileID: 7999332442308872899}
   m_Layer: 9
   m_Name: AbiNormalATK
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -361,7 +362,7 @@ GameObject:
   - component: {fileID: 2389251754059145538}
   m_Layer: 9
   m_Name: AbiDetect
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -406,7 +407,7 @@ GameObject:
   - component: {fileID: 1452078203989718145}
   m_Layer: 9
   m_Name: DamageManager
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -442,6 +443,7 @@ MonoBehaviour:
   maxHP: 0
   isDead: 0
   redKnightController: {fileID: 0}
+  skull: {fileID: 0}
 --- !u!1 &6356980966422655040
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,9 +453,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 168333413815753700}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ATKPoint
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -485,7 +487,7 @@ GameObject:
   - component: {fileID: 2688587062685107508}
   m_Layer: 9
   m_Name: AbiRangeATK
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -531,9 +533,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3710282547970302928}
   - component: {fileID: 2725632249363891407}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DecisionAI
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -580,7 +582,7 @@ GameObject:
   - component: {fileID: 739943801462970570}
   m_Layer: 9
   m_Name: Animator
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

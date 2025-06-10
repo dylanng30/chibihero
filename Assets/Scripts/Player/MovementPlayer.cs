@@ -22,6 +22,7 @@ public class MovementPlayer : MonoBehaviour
     private Action GetDirectionMove;
     private Action GetJumpingMove;
     private Action GetDashingMove;
+
     void Start()
     {
         LoadComponent();
@@ -33,13 +34,20 @@ public class MovementPlayer : MonoBehaviour
     void FixedUpdate()
     {
         Moving();
+        GetDashing();
 
-        GetJumpingMove?.Invoke();
+        if (dashPressed)
+        {
+            Dash();
+            dashPressed = false;
+        }
+
         if (jumpPressed && playerController.CollisionPlayer.IsGrounded())
         {
             Jumping();
             jumpPressed = false;
         }
+
         Flip();
     }
     protected void LoadComponent()
@@ -61,9 +69,8 @@ public class MovementPlayer : MonoBehaviour
     protected void GetJumping()
     {
         jumpPressed = InputManager.Instance.JumpPressed;
-        //Debug.Log("Jump Pressed: " + jumpPressed);
     }
-    public void GetDashing()
+    protected void GetDashing()
     {
         dashPressed = InputManager.Instance.DashPressed;
     }
@@ -89,6 +96,13 @@ public class MovementPlayer : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        GetDirectionMove?.Invoke();
+        GetJumpingMove?.Invoke();
+        GetDashingMove?.Invoke();
+    }
+
     public virtual void Moving()
     {
         GetDirectionMove?.Invoke();
@@ -110,11 +124,19 @@ public class MovementPlayer : MonoBehaviour
     {
         if (direction.x > 0)
             playerController.transform.localScale = new Vector3(1, 1, 1);
-        else if (direction.x < 0)
+        if (direction.x < 0)
             playerController.transform.localScale = new Vector3(-1, 1, 1);
     }
 
+    public void FlipToEnemy()
+    {
+        if(playerController.AbilitySkill.NearestEnemy == null)
+            return;
 
+        Vector2 dir = playerController.AbilitySkill.NearestEnemy.position - playerController.transform.position;
+        playerController.transform.localScale = dir.x > 0 ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
+
+    }
 
     public void Dash()
     {
@@ -126,11 +148,10 @@ public class MovementPlayer : MonoBehaviour
         dashDirection = playerController.transform.localScale;
         dashDirection.y = 0;
 
-        // if (!canDash || isDashing)
-        //     return;
+        if (!canDash || isDashing)
+            return;
             
         StartCoroutine(DashNew(dashDirection, dashForce, dashDuration, dashCooldown));
-        
     }
 
     public IEnumerator DashNew(Vector2 dashDirection, float dashForce, float dashDuration, float dashCooldown)
@@ -149,6 +170,7 @@ public class MovementPlayer : MonoBehaviour
 
             SpawnGhost(dashEffect, transform.position);
             yield return new WaitForSeconds(interval);
+            
         }
 
         isDashing = false;

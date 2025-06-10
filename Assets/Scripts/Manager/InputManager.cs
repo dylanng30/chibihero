@@ -82,7 +82,7 @@ public class InputManager : Singleton<InputManager>
     }
     private void InputDash()
     {
-        dashPressed = Input.GetKeyDown(KeyCode.M);
+        dashPressed = Input.GetKey(KeyCode.M);
     }
 
 }

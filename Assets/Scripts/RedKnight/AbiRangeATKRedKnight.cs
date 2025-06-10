@@ -8,23 +8,16 @@ public class AbiRangeATKRedKnight : MonoBehaviour
     [SerializeField] protected Transform ATKPoint;
     [SerializeField] protected ProjectileType projectileType;
     [SerializeField] protected float scale;
-    //[SerializeField] protected float cooldownTime;
 
     private ObjectPool pool;
-    private Transform target;
-    //private float timer;
-    
+    private Transform target;    
 
     private void Start()
     {
         LoadTarget();
         LoadComponent();
-        //timer = cooldownTime;
     }
-    /*private void Update()
-    {
-        timer -= Time.deltaTime;
-    }*/
+
     protected void LoadComponent()
     {
         LoadController();
@@ -52,9 +45,6 @@ public class AbiRangeATKRedKnight : MonoBehaviour
 
     public bool CanShootPlayer()
     {
-       /* if (timer > 0)
-            return false;*/
-
         if (redKnightController == null || redKnightController.RedKnightStats == null)
             return false;
 

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1634616225918902888}
   - component: {fileID: 4262819061078771757}
   - component: {fileID: 5254228749518999155}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Barrel_Red_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &1634616225918902888

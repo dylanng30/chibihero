@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,12 +34,11 @@ public class ObjectPool : MonoBehaviour
 
     public void GetProjectile(ProjectileType type, int dmg, Transform origin, Transform dir)
     {
-        ProjectileBase projectile;
+        ProjectileBase projectile = null;
 
         if (projectilePools[type].Count > 0)
         {
             projectile = projectilePools[type].Dequeue();
-            //Debug.Log(projectile);
             projectile.gameObject.SetActive(true);
         }
         else
