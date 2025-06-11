@@ -27,18 +27,24 @@ public class MovementKing : MonoBehaviour
         int speed = kingController.KingStats.MoveSpeed;
         Vector2 direction = (target - origin).normalized;
         kingController.PhysicsKing.Rigidbody2D.velocity = new Vector2(direction.x * speed, kingController.PhysicsKing.Rigidbody2D.velocity.y);
-        Debug.Log(kingController.PhysicsKing.Rigidbody2D.velocity);
+        //Debug.Log(kingController.PhysicsKing.Rigidbody2D.velocity);
     }
     public void MoveToNearestDoor()
     {
-        DoorManager doorManager = GameObject.FindObjectOfType<DoorManager>();
-        Vector2 door = doorManager.FindNearestDoor(kingController.transform).transform.position;
+        Vector2 door = kingController.AbiDetectKing.NearestDoor.transform.position;
         Vector2 origin = kingController.transform.position;
         Vector2 direction = (door - origin).normalized;
         int speed = kingController.KingStats.MoveSpeed;
         kingController.PhysicsKing.Rigidbody2D.velocity = new Vector2(direction.x * speed, kingController.PhysicsKing.Rigidbody2D.velocity.y);
-
     }
+
+    public void TeleportToAnotherDoor()
+    {
+        DoorController nextDoor = kingController.AbiDetectKing.NextDoor;
+        kingController.transform.position = nextDoor.transform.position;
+        nextDoor.StateManager.ChangeState(nextDoor.OpenState);
+    }
+
     public void Flee()
     {
         Vector2 origin = kingController.transform.position;

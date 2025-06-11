@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class AbiDetectKing : MonoBehaviour
@@ -46,12 +47,39 @@ public class AbiDetectKing : MonoBehaviour
 
         if (hit.collider.CompareTag("Ground"))
         {
-            Debug.Log("Hit: " + hit.collider.name);
-            Debug.DrawRay(kingController.transform.position, direction, Color.yellow, 0.5f);
+            //Debug.Log("Hit: " + hit.collider.name);
+            //Debug.DrawRay(kingController.transform.position, direction, Color.yellow, 0.5f);
             return true;
         }
 
 
         return false;
+    }
+
+    public DoorManager FindDoorManager
+    {
+        get
+        {
+            DoorManager doorManager = GameObject.FindObjectOfType<DoorManager>();
+            return doorManager;
+        }
+    }
+
+    public DoorController NearestDoor
+    {
+        get
+        {
+            DoorController nearestDoor = FindDoorManager.FindNearestDoor(kingController.transform);
+            return nearestDoor;
+        }
+    }
+
+    public DoorController NextDoor
+    {
+        get
+        {
+            DoorController nextDoor = FindDoorManager.GetRandomDoor(NearestDoor);
+            return nextDoor;
+        }
     }
 }

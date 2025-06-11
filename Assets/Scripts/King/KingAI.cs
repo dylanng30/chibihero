@@ -7,7 +7,6 @@ public class KingAI : MonoBehaviour
 {
     [SerializeField] private KingController kingController;
 
-    private IState stateBeforeHit;
 
     protected virtual void Awake()
     {
@@ -24,13 +23,12 @@ public class KingAI : MonoBehaviour
         kingController = GetComponentInParent<KingController>();
     }
 
-    public void SetStateBeforeHit(IState stateBeforeHit)
+    public bool CanOpenTheDoor(Transform door)
     {
-        this.stateBeforeHit = stateBeforeHit;
-    }
-    public IState StateBeforeHit
-    { 
-        get { return stateBeforeHit; }
+        float xDistance = Mathf.Abs(kingController.transform.position.x - transform.position.x);
+        float allowedDistance = 0.1f;
+
+        return xDistance <= allowedDistance && kingController.CollisionKing.IsGrounded();
     }
 
 }

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class KingChasePlayerState : IState
@@ -12,10 +11,9 @@ public class KingChasePlayerState : IState
     }
     public void Enter()
     {
-        Debug.Log("KingChasePlayerState: Enter");
+        //Debug.Log("KingChasePlayerState: Enter");
         kingController.AnimationManager.SetAnimation(currentState);
-        kingController.KingAI.SetStateBeforeHit(this);
-        DoorManager.Instance.LockDoor(false);
+        DoorManager.Instance.LockDoor(true);
     }
     public void Execute()
     {
@@ -24,14 +22,12 @@ public class KingChasePlayerState : IState
         if (kingController.AbiDetectKing.NextToWall())
         {
             kingController.MovementKing.Flee();
-            Debug.Log("k move");
             return;
         }
 
         if (kingController.AbiDetectKing.DetectObstacle() && !kingController.AbiDetectKing.NextToWall())
         {
             kingController.MovementKing.Jump();
-            Debug.Log("k move");
             return;
         }
 
@@ -45,6 +41,33 @@ public class KingChasePlayerState : IState
 
     }
 }
+
+public class KingNormalATKState : IState
+{
+    private KingController kingController;
+    private string currentState = "NormalATK";
+    public KingNormalATKState(KingController kingController)
+    {
+        this.kingController = kingController;
+    }
+    public void Enter()
+    {
+        //Debug.Log("KingNormalATKState: Enter");
+        kingController.AnimationManager.SetAnimation(currentState);
+        kingController.PhysicsKing.Rigidbody2D.velocity = Vector2.zero;
+    }
+    public void Execute()
+    {
+        if (kingController.AnimationManager.FinishAnimation(currentState))
+            kingController.StateManager.ChangeState(kingController.RunToDoorState);
+
+    }
+    public void Exit()
+    {
+        kingController.AbiKingNormalATK.NormalATK();
+    }
+}
+
 public class KingRunToDoorState : IState
 {
     private KingController kingController;
@@ -55,10 +78,11 @@ public class KingRunToDoorState : IState
     }
     public void Enter()
     {
-        Debug.Log("KingRunToDoorState: Enter");
+        //Debug.Log("KingRunToDoorState: Enter");
         kingController.AnimationManager.SetAnimation(currentState);
-        kingController.KingAI.SetStateBeforeHit(this);
-        DoorManager.Instance.LockDoor(true);
+
+        DoorManager.Instance.LockDoor(false);
+        DoorManager.Instance.KingIsReadyToTransform(true);
     }
     public void Execute()
     {
@@ -82,31 +106,6 @@ public class KingRunToDoorState : IState
 
     }
 }
-
-public class KingNormalATKState : IState
-{
-    private KingController kingController;
-    private string currentState = "NormalATK";
-    public KingNormalATKState(KingController kingController)
-    {
-        this.kingController = kingController;
-    }
-    public void Enter()
-    {
-        Debug.Log("KingNormalATKState: Enter");
-        kingController.AnimationManager.SetAnimation(currentState);
-    }
-    public void Execute()
-    {
-        if (kingController.AnimationManager.FinishAnimation(currentState))
-            kingController.StateManager.ChangeState(kingController.RunToDoorState);
-
-    }
-    public void Exit()
-    {
-        kingController.AbiKingNormalATK.NormalATK();
-    }
-}
 public class KingDoorInState : IState
 {
     private KingController kingController;
@@ -117,17 +116,22 @@ public class KingDoorInState : IState
     }
     public void Enter()
     {
-        Debug.Log("KingDoorInState: Enter");
+        //Debug.Log("KingDoorInState: Enter");
         kingController.AnimationManager.SetAnimation(currentState);
+        kingController.PhysicsKing.Rigidbody2D.velocity = Vector2.zero;
+        DoorController lastDoor = kingController.AbiDetectKing.NearestDoor;
+        lastDoor.StateManager.ChangeState(lastDoor.OpenState);
     }
     public void Execute()
     {
-        if(kingController.AnimationManager.FinishAnimation(currentState))
-            kingController.StateManager.ChangeState(kingController.DoorOutState);
+        if (kingController.AnimationManager.FinishAnimation(currentState))
+            kingController.StateManager.ChangeState(kingController.DoorOutState);  
+                 
     }
     public void Exit()
     {
-
+        
+        kingController.MovementKing.TeleportToAnotherDoor();
     }
 }
 public class KingDoorOutState : IState
@@ -140,8 +144,9 @@ public class KingDoorOutState : IState
     }
     public void Enter()
     {
-        Debug.Log("KingDoorOutState: Enter");
+        //Debug.Log("KingDoorOutState: Enter");
         kingController.AnimationManager.SetAnimation(currentState);
+        DoorManager.Instance.KingIsReadyToTransform(false);
     }
     public void Execute()
     {
@@ -150,7 +155,7 @@ public class KingDoorOutState : IState
     }
     public void Exit()
     {
-
+        DoorManager.Instance.LockDoor(true);        
     }
 }
 
@@ -168,8 +173,6 @@ public class KingHitState : IState
     }
     public void Execute()
     {
-        if(kingController.AnimationManager.FinishAnimation(currentState))
-            kingController.StateManager.ChangeState(kingController.KingAI.StateBeforeHit);
 
     }
     public void Exit()

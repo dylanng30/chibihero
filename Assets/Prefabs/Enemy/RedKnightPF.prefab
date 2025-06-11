@@ -443,7 +443,7 @@ MonoBehaviour:
   maxHP: 0
   isDead: 0
   redKnightController: {fileID: 0}
-  skull: {fileID: 0}
+  skull: {fileID: 4334585065909733642, guid: a6cd222cc72d6ab4eaaa54a849c42356, type: 3}
 --- !u!1 &6356980966422655040
 GameObject:
   m_ObjectHideFlags: 0

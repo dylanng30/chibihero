@@ -5,9 +5,11 @@ using UnityEngine.XR;
 
 public class MoveRandomly : MonoBehaviour
 {
-    private float moveSpeed = 0.05f;
+    [SerializeField] private float moveSpeed;
+
     private float moveRange = 2f;
-    private float waitTime = 2f;
+     private float waitTime = 2f;
+
     private Vector2 centerPosition, targetPosition;
     private float timer;
     private string nextScene;

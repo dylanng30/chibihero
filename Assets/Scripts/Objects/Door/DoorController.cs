@@ -7,7 +7,6 @@ public class DoorController : MonoBehaviour
 {
     [SerializeField] protected AnimationManager animationManager;
     [SerializeField] protected CollisionDoor collisionDoor;
-    [SerializeField] protected TransformKingAbi transformKingAbi;
 
     [SerializeField] protected StateManager stateManager;
     [SerializeField] protected DoorIdleState idleState;
@@ -60,7 +59,6 @@ public class DoorController : MonoBehaviour
     {
         LoadAnimation();
         LoadCollision();
-        LoadTransformKingAbi();
     }
     protected virtual void LoadAnimation()
     {
@@ -71,15 +69,6 @@ public class DoorController : MonoBehaviour
     {
         if (this.collisionDoor != null) return;
         this.collisionDoor = this.GetComponentInChildren<CollisionDoor>();
-    }
-    protected virtual void LoadTransformKingAbi()
-    {
-        if (this.transformKingAbi != null) return;
-        this.transformKingAbi = this.GetComponentInChildren<TransformKingAbi>();
-    }
-    public TransformKingAbi TransformKingAbi
-    {
-        get { return transformKingAbi; }
     }
 
     public CollisionDoor CollisionDoor

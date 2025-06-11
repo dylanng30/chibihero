@@ -25,11 +25,15 @@ public class CollisionKing : CollisionBase
         kingController = GetComponentInParent<KingController>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        /*if (collision.gameObject.CompareTag("CanonBullet"))
+        if (collision.gameObject.CompareTag("Door")
+            && !DoorManager.Instance.IsLocked
+            && DoorManager.Instance.KingReady)
         {
-            kingController.StateManager.ChangeState(kingController.NormalATKState);
-        }*/
+            if(kingController.KingAI.CanOpenTheDoor(collision.transform))
+                kingController.StateManager.ChangeState(kingController.DoorInState);
+        }
+
     }
 }

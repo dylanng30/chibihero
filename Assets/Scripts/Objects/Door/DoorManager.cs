@@ -7,7 +7,7 @@ public class DoorManager : Singleton<DoorManager>
     [SerializeField] private List<DoorController> doors = new List<DoorController>();
     [SerializeField] private KingController kingController;
 
-    private bool isLocked;
+    [SerializeField] private bool isLocked, kingReady;
 
     protected override void Awake()
     {
@@ -35,6 +35,7 @@ public class DoorManager : Singleton<DoorManager>
             }
         }
     }
+
     public DoorController FindNearestDoor(Transform king)
     {
         float closestDistance = Mathf.Infinity;
@@ -49,14 +50,22 @@ public class DoorManager : Singleton<DoorManager>
                 nearestDoor = door;
             }
         }
+        
 
         return nearestDoor;
     }
-    public DoorController GetRandomDoor()
+    public DoorController GetRandomDoor(DoorController previousDoor)
     {
         if (doors.Count == 0)
             return null;
-        int randomIndex = Random.Range(0, doors.Count - 1);
+
+        int randomIndex;
+        do
+        {
+            randomIndex = Random.Range(0, doors.Count);
+        }
+        while (doors[randomIndex] == previousDoor);
+
         return doors[randomIndex];
     }
     public List<DoorController> Doors
@@ -66,16 +75,29 @@ public class DoorManager : Singleton<DoorManager>
             return doors;
         }
     }
+
+    public void KingIsReadyToTransform(bool kingReady)
+    {
+        this.kingReady = kingReady;
+        //Debug.Log("king is ready:" + kingReady);
+    }
     public void LockDoor(bool isLocked)
     {
         this.isLocked = isLocked;
-        Debug.Log("Door is locked:" + isLocked);
+        //Debug.Log("Door is locked:" + isLocked);
     }
     public bool IsLocked
     {
         get
         {
             return isLocked;
+        }
+    }
+    public bool KingReady
+    {
+        get
+        {
+            return kingReady;
         }
     }
 

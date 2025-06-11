@@ -25,6 +25,11 @@ public class KingController : MonoBehaviour, IDamagable
 
     void Awake()
     {
+        StartCoroutine(Load());
+    }
+    private IEnumerator Load()
+    {
+        yield return new WaitUntil(() => DoorManager.Instance != null);
         this.LoadComponent();
         this.LoadState();
     }
