@@ -1,0 +1,79 @@
+/* 
+ * Pause Menu UI Setup Instructions
+ * 
+ * To complete the pause menu implementation, you need to create the UI in Unity:
+ * 
+ * 1. Create a new Canvas for the Pause Menu:
+ *    - Right-click in Hierarchy > UI > Canvas
+ *    - Name it "PauseMenuCanvas"
+ *    - Set Canvas Scaler to "Scale With Screen Size"
+ *    - Set Reference Resolution to 1920x1080
+ * 
+ * 2. Create the Pause Menu Panel:
+ *    - Right-click on PauseMenuCanvas > UI > Panel
+ *    - Name it "PauseMenuPanel"
+ *    - Set Color to semi-transparent black (0, 0, 0, 180)
+ *    - Anchor to fill the entire screen
+ * 
+ * 3. Create the Menu Container:
+ *    - Right-click on PauseMenuPanel > Create Empty
+ *    - Name it "MenuContainer"
+ *    - Add Image component with the menu background sprite
+ *    - Position in center of screen
+ *    - Size approximately 400x300
+ * 
+ * 4. Add Menu Title:
+ *    - Right-click on MenuContainer > UI > Text - TextMeshPro
+ *    - Name it "MenuTitle"
+ *    - Set text to "MENU"
+ *    - Style with appropriate font and size
+ *    - Position at top of container
+ * 
+ * 5. Create Buttons:
+ *    a) Resume Button:
+ *       - Right-click on MenuContainer > UI > Button - TextMeshPro
+ *       - Name it "ResumeButton"
+ *       - Set text to "RESUME"
+ *       - In OnClick(), assign PauseMenu.Resume()
+ * 
+ *    b) Volume Button:
+ *       - Right-click on MenuContainer > UI > Button - TextMeshPro
+ *       - Name it "VolumeButton"
+ *       - Set text to "VOLUME"
+ *       - In OnClick(), assign PauseMenu.ToggleVolume()
+ * 
+ *    c) Quit Button:
+ *       - Right-click on MenuContainer > UI > Button - TextMeshPro
+ *       - Name it "QuitButton"
+ *       - Set text to "QUIT"
+ *       - In OnClick(), assign PauseMenu.QuitToMenu()
+ * 
+ * 6. Add Close Button (X):
+ *    - Right-click on MenuContainer > UI > Button - TextMeshPro
+ *    - Name it "CloseButton"
+ *    - Position at top-right corner
+ *    - Set text to "×" or use close icon
+ *    - In OnClick(), assign PauseMenu.Resume()
+ * 
+ * 7. Add PauseMenu Script:
+ *    - Select PauseMenuCanvas
+ *    - Add Component > PauseMenu script
+ *    - Assign PauseMenuPanel to the pauseMenuPanel field
+ * 
+ * 8. Add PauseController to GameManager:
+ *    - Select GameManager in the scene
+ *    - Add Component > PauseController script
+ * 
+ * 9. Update UIManager:
+ *    - Select UIManager in the scene
+ *    - Assign PauseMenuCanvas to the PauseMenu field
+ * 
+ * 10. Set Initial State:
+ *     - Make sure PauseMenuPanel is initially disabled
+ * 
+ * Controls:
+ * - Press ESC to pause/unpause the game
+ * - Only works during Exploring or Fighting states
+ * - Automatically pauses the game (Time.timeScale = 0)
+ * - Resume button or ESC returns to previous game state
+ */

@@ -17,6 +17,9 @@ public class UIManager : Singleton<UIManager>
     [Header("GameOver")]
     [SerializeField] protected GameObject PlayerDied;
 
+    [Header("PauseMenu")]
+    [SerializeField] protected GameObject PauseMenu;
+
     protected override void Awake()
     {
         base.Awake();
@@ -26,6 +29,7 @@ public class UIManager : Singleton<UIManager>
     {
         UpgradeStats = FindObjectOfType<UpgradeStats>().gameObject;
         EXPBar = FindObjectOfType<EXPManager>().gameObject;
+        PauseMenu = FindObjectOfType<PauseMenu>().gameObject;
         //PlayerDied = GameObject.Find("PlayerDiedCanvas");
     }
 
@@ -33,6 +37,8 @@ public class UIManager : Singleton<UIManager>
     {
         UpgradeStats.SetActive(false);
         EXPBar.SetActive(false);
+        if (PauseMenu != null)
+            PauseMenu.SetActive(false);
         //PlayerDied.SetActive(false);
     }
     public void ShowUpgradeStats()
@@ -51,6 +57,23 @@ public class UIManager : Singleton<UIManager>
     {
         DeactivateAllUIs();
         EXPBar.SetActive(true);
+    }
+
+    public void ShowPauseMenu()
+    {
+        if (PauseMenu != null)
+        {
+            PauseMenu.SetActive(true);
+            PauseMenu.GetComponent<PauseMenu>().ShowPauseMenu();
+        }
+    }
+
+    public void HidePauseMenu()
+    {
+        if (PauseMenu != null)
+        {
+            PauseMenu.GetComponent<PauseMenu>().HidePauseMenu();
+        }
     }
 
 

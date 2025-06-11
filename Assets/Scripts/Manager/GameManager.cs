@@ -7,9 +7,12 @@ public class GameManager : PersistentSingleton<GameManager>
 {
     private GameObject currentEnemy;
     private Vector3 lastPosition;
+    private GameState previousGameState; // Store previous state for pause functionality
+    
     public static event Action<GameState> OnBeforeStateChanged;
     public static event Action<GameState> OnAfterStateChanged;
     public GameState CurrentState { get; private set; }
+    public GameState PreviousState { get; private set; }
 
     protected override void Awake()
     {
@@ -27,6 +30,13 @@ public class GameManager : PersistentSingleton<GameManager>
 
         OnBeforeStateChanged?.Invoke(CurrentState);
 
+        // Store previous state for pause functionality
+        if (newState == GameState.Paused)
+        {
+            previousGameState = CurrentState;
+        }
+        
+        PreviousState = CurrentState;
         CurrentState = newState;
         switch (CurrentState)
         {
@@ -93,6 +103,21 @@ public class GameManager : PersistentSingleton<GameManager>
     private void HandlePausedState()
     {
         // Logic for paused state
+        UIManager.Instance.ShowPauseMenu();
+    }
+
+    public void ResumeFromPause()
+    {
+        // Resume to the previous game state
+        if (previousGameState != GameState.Paused)
+        {
+            ChangeState(previousGameState);
+        }
+        else
+        {
+            // Fallback to exploring state if no valid previous state
+            ChangeState(GameState.Exploring);
+        }
     }
 
     public void ChangeStateWithScene(string sceneName)

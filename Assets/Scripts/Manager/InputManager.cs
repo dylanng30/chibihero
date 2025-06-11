@@ -10,6 +10,7 @@ public class InputManager : Singleton<InputManager>
     [SerializeField] private bool attackPressed;
     [SerializeField] private bool skillPressed;
     [SerializeField] private bool dashPressed;
+    [SerializeField] private bool pausePressed;
 
     public float KeyHorizontal
     {
@@ -53,6 +54,13 @@ public class InputManager : Singleton<InputManager>
             return dashPressed;
         }
     }
+    public bool PausePressed
+    {
+        get
+        {
+            return pausePressed;
+        }
+    }
 
     void Update()
     {
@@ -61,6 +69,7 @@ public class InputManager : Singleton<InputManager>
         this.InputATK();
         this.InputSkill();
         this.InputDash();
+        this.InputPause();
     }
 
     private void InputHorizontalAndVertical()
@@ -83,6 +92,10 @@ public class InputManager : Singleton<InputManager>
     private void InputDash()
     {
         dashPressed = Input.GetKey(KeyCode.M);
+    }
+    private void InputPause()
+    {
+        pausePressed = Input.GetKeyDown(KeyCode.Escape);
     }
 
 }

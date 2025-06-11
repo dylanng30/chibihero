@@ -15,8 +15,7 @@ public class IdleState : IState
     {
         //Debug.Log("Idle");
         _player.AnimationPlayer.SetAnimation(currentAnimation);
-    }
-    public void Execute()
+    }    public void Execute()
     {
         if (_player.AbilityNormalATK.ATKTrigger)
             _player.StateManager.ChangeState(_player.NormalATKState);
