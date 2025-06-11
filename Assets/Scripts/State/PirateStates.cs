@@ -12,7 +12,7 @@ public class PirateIdleState : IState
     }
     public void Enter()
     {
-        Debug.Log("Idle");
+        //Debug.Log("Idle");
         pirateController.AnimationPirate.SetAnimation(currentState);
     }
 
@@ -37,7 +37,7 @@ public class PirateRunState : IState
     }
     public void Enter()
     {
-        Debug.Log("Run");
+        //Debug.Log("Run");
         pirateController.AnimationPirate.SetAnimation(currentState);
     }
 
@@ -79,7 +79,7 @@ public class PirateFleeState : IState
     }
     public void Enter()
     {
-        Debug.Log("Flee");
+        //Debug.Log("Flee");
         pirateController.AnimationPirate.SetAnimation(currentState);
     }
 
@@ -118,7 +118,7 @@ public class PirateNormalATKState : IState
     }
     public void Enter()
     {
-        Debug.Log("NormalATK");
+        //Debug.Log("NormalATK");
         pirateController.AnimationPirate.SetAnimation(currentState);
         pirateController.PhysicsPirate.Rigidbody2D.velocity = Vector2.zero;
     }
@@ -146,7 +146,7 @@ public class PirateRangeATKState : IState
     }
     public void Enter()
     {
-        Debug.Log("RangeATK");
+        //Debug.Log("RangeATK");
         pirateController.AnimationPirate.SetAnimation(currentState);
         pirateController.PhysicsPirate.Rigidbody2D.velocity = Vector2.zero;
     }

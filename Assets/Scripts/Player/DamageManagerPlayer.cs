@@ -57,7 +57,7 @@ public class DamageManagerPlayer : DamageBase
             return;
         }
             
-        GameObject HPText = Instantiate(floatingText, PlayerController.Instance.transform.position, Quaternion.identity);
+        GameObject HPText = Instantiate(floatingText, playerController.transform.position, Quaternion.identity);
         HPText.GetComponent<TextMeshPro>().text = damage.ToString();
     }
 

@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DamageManagerRedKnight : DamageBase
 {
     [SerializeField] protected RedKnightController redKnightController;
-    [SerializeField] private GameObject skull;
+    [SerializeField] private GameObject skull, floatingText;
 
     protected override void Awake()
     {
@@ -42,9 +43,21 @@ public class DamageManagerRedKnight : DamageBase
     public override void TakeDamage(int damage, GameObject enemy)
     {
         base.TakeDamage(damage, enemy);
+        CreateFloatingText(damage);
         redKnightController.PhysicRedKnight.KnockBack(enemy);
         CheckEnemyDied();
-        Debug.Log($"RedKnight took {damage} damage from {enemy}. Current HP: {currentHP}");
+        Debug.Log($"Enemy took {damage} damage. Current HP: {currentHP}");
+    }
+    private void CreateFloatingText(int damage)
+    {
+        if (floatingText == null)
+        {
+            Debug.Log("No Floating Text");
+            return;
+        }
+
+        GameObject HPText = Instantiate(floatingText, redKnightController.transform.position, Quaternion.identity);
+        HPText.GetComponent<TextMeshPro>().text = damage.ToString();
     }
     private void CheckEnemyDied()
     {

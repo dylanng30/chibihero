@@ -42,8 +42,9 @@ public class LevelManager : Singleton<LevelManager>
         scene.allowSceneActivation = true;
 
         await OnScenePreActivate(sceneName);
-
+        Debug.Log("da load xonng");
         loadingScreen.SetActive(false);
+        
 
     }
 
@@ -51,7 +52,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         Scene loadedScene = SceneManager.GetSceneByName(sceneName);
         while (!loadedScene.isLoaded)
-            await Task.Delay(100);
+            await Task.Delay(100);    
 
         GameObject spawnPoint = GameObject.Find("PlayerSpawn");
         PlayerController.Instance.transform.position = spawnPoint.transform.position;

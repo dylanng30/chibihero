@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DamageManagerKing : DamageBase
 {
     [SerializeField] protected KingController kingController;
+    [SerializeField] private GameObject skull, floatingText;
 
     protected override void Awake()
     {
@@ -34,6 +36,8 @@ public class DamageManagerKing : DamageBase
     protected IEnumerator LoadStatsCoroutine()
     {
         yield return new WaitUntil(() => kingController != null && kingController.KingStats != null);
+        yield return new WaitUntil(() => kingController.KingStats.MaxHP != 0);
+
         this.maxHP = kingController.KingStats.MaxHP;
         this.currentHP = maxHP;
     }
@@ -41,9 +45,21 @@ public class DamageManagerKing : DamageBase
     public override void TakeDamage(int damage, GameObject enemy)
     {
         base.TakeDamage(damage, enemy);
+        CreateFloatingText(damage);
         kingController.PhysicsKing.KnockBack(enemy);
         CheckEnemyDied();
         Debug.Log($"Enemy took {damage} damage. Current HP: {currentHP}");
+    }
+    private void CreateFloatingText(int damage)
+    {
+        if (floatingText == null)
+        {
+            Debug.Log("No Floating Text");
+            return;
+        }
+
+        GameObject HPText = Instantiate(floatingText, kingController.transform.position, Quaternion.identity);
+        HPText.GetComponent<TextMeshPro>().text = damage.ToString();
     }
     private void CheckEnemyDied()
     {

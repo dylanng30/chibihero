@@ -6,9 +6,9 @@ using UnityEngine;
 public class GameManager : PersistentSingleton<GameManager>
 {
     private GameObject currentEnemy;
+    private Vector3 lastPosition;
     public static event Action<GameState> OnBeforeStateChanged;
     public static event Action<GameState> OnAfterStateChanged;
-
     public GameState CurrentState { get; private set; }
 
     protected override void Awake()
@@ -69,6 +69,7 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         LevelManager.Instance.LoadScene("MainTopDown");
         yield return new WaitUntil(() => PlayerController.Instance != null && PlayerController.Instance.PhysicsPlayer != null);
+        PlayerController.Instance.transform.position = lastPosition;
         EnemyManager.Instance.ActivatePool();
         UIManager.Instance.ShowEXPBar();
         PlayerController.Instance.PhysicsPlayer.SetMode(PlayerMode.TopDown);
@@ -104,6 +105,7 @@ public class GameManager : PersistentSingleton<GameManager>
     public void NextScene(string nextScene, GameObject currentEnemy)
     {
         this.currentEnemy = currentEnemy;
+        this.lastPosition = currentEnemy.transform.position;
         LevelManager.Instance.LoadScene(nextScene);
         ChangeStateWithScene(nextScene);
     }
