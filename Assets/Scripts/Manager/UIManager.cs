@@ -39,6 +39,7 @@ public class UIManager : Singleton<UIManager>
     {
         DeactivateAllUIs();
         UpgradeStats.SetActive(true);
+        Time.timeScale = 0f;
     }
     public void ShowPlayerDied()
     {

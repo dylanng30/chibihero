@@ -50,6 +50,7 @@ public class UpgradeStats : MonoBehaviour
     public void NextButton()
     {
         upgradePanel.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     public void UpdateStats()

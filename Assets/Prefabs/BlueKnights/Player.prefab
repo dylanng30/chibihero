@@ -79,6 +79,7 @@ MonoBehaviour:
   player: {fileID: 0}
   playerController: {fileID: 0}
   maxHP: 0
+  currentHP: 0
   attackPower: 0
   armor: 0
   moveSpeed: 0
@@ -641,6 +642,7 @@ MonoBehaviour:
   maxHP: 0
   isDead: 0
   playerController: {fileID: 0}
+  floatingText: {fileID: 3140393086946627959, guid: 8c95482d552bddb4383c4071c21c4e5e, type: 3}
 --- !u!1 &6650008170491010328
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,7 +751,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 50
   m_Sprite: {fileID: -1818471123, guid: efd0e0de1431bd84795666daf8a1f528, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

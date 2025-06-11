@@ -10,6 +10,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] protected PlayerController playerController;
 
     [SerializeField] protected int maxHP;
+    [SerializeField] protected int currentHP;
     [SerializeField] protected int attackPower;
     [SerializeField] protected int armor;
     [SerializeField] protected int moveSpeed;
@@ -41,6 +42,7 @@ public class PlayerStats : MonoBehaviour
 
         player = Systems.Instance.ResourceSystem.GetPlayer(playerType);
         maxHP = player._stats.Health;
+        currentHP = maxHP;
         attackPower = player._stats.Attack;
         armor = player._stats.Armor;
         moveSpeed = player._stats.Speed;
@@ -64,6 +66,17 @@ public class PlayerStats : MonoBehaviour
         {
             return maxHP;
         }
+    }
+    public int CurrentHP
+    {
+        get
+        {
+            return currentHP;
+        }
+    }
+    public void SetCurrentHP(int currentHp)
+    {
+        this.currentHP = currentHp;
     }
     public void UpgradeMaxHP(int value)
     {
