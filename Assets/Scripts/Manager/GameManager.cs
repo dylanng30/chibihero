@@ -7,6 +7,8 @@ public class GameManager : PersistentSingleton<GameManager>
 {
     private GameObject currentEnemy;
     private Vector3 lastPosition;
+    private GameState previousState;
+
     public static event Action<GameState> OnBeforeStateChanged;
     public static event Action<GameState> OnAfterStateChanged;
     public GameState CurrentState { get; private set; }
@@ -17,7 +19,7 @@ public class GameManager : PersistentSingleton<GameManager>
     }
     void Start()
     {
-        CurrentState = GameState.Menu;
+        //CurrentState = GameState.Menu;
         HandleMenuState();
     }
 
@@ -86,13 +88,14 @@ public class GameManager : PersistentSingleton<GameManager>
         
     private IEnumerator HandleGameOverStateCoroutine()
     {
-        UIManager.Instance.ShowPlayerDied();
+        //UIManager.Instance.ShowPlayerDied();
         yield return new WaitForSeconds(3f);
         this.ChangeState(GameState.Exploring);
     }
     private void HandlePausedState()
     {
-        // Logic for paused state
+        // Logic for paused state - UI is handled by PauseManager
+        
     }
 
     public void ChangeStateWithScene(string sceneName)

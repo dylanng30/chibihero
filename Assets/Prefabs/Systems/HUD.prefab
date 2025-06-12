@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 1551891826429589979}
   - component: {fileID: 5805017603781683148}
   - component: {fileID: 4789379657051969240}
-  - component: {fileID: 7507628831732031127}
+  - component: {fileID: 1979296199076838084}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
@@ -423,7 +423,7 @@ MonoBehaviour:
   expText: {fileID: 3622767371576879914}
   expBar: {fileID: 1018158576635623677}
   upgradePanel: {fileID: 5565835756763725585}
---- !u!114 &7507628831732031127
+--- !u!114 &1979296199076838084
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8b2c1fbbf63fc4a80d50a5f4bda380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpBar: {fileID: 0}
+  hpBar: {fileID: 1596329085333833748}
 --- !u!1 &3463085963031531312
 GameObject:
   m_ObjectHideFlags: 0
