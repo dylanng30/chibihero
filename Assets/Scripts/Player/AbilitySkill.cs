@@ -64,6 +64,9 @@ public class AbilitySkill : MonoBehaviour
             Debug.Log("Khong co enemy");
             yield break;
         }
+        
+        // Play attack sound - bỏ random
+        AudioSystem.Instance.PlayAttackSound(1); // Cố định dùng attack sound 1
             
         pool.GetProjectile(projectileType, playerController.PlayerStats.AttackPower, ATKPoint, this.NearestEnemy);
     }

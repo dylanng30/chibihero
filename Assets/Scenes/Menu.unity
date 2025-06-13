@@ -131,6 +131,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      propertyPath: dashSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6eb87eb2f79e55748b8c5d50bd9d2d6c, type: 3}
+    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      propertyPath: jumpSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 48b9ea3a10f9a504d85f1286b847da95, type: 3}
+    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      propertyPath: musicVolume
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      propertyPath: attackSound1
+      value: 
+      objectReference: {fileID: 8300000, guid: 9589f8f5292eed3498114aff4f0273dc, type: 3}
+    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      propertyPath: attackSound2
+      value: 
+      objectReference: {fileID: 8300000, guid: e17f833a791fc224dbb0a3e1b7c95a71, type: 3}
+    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      propertyPath: attackSound3
+      value: 
+      objectReference: {fileID: 8300000, guid: b5ea2b3076a4eb74db57dac2a54ef11c, type: 3}
+    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      propertyPath: walkingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3cae9635daba5cb409ebbe92733eacaa, type: 3}
+    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      propertyPath: backgroundMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 6eb87eb2f79e55748b8c5d50bd9d2d6c, type: 3}
     - target: {fileID: 6747306567822038664, guid: a0f97f041a739b147a67128549c3311d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
