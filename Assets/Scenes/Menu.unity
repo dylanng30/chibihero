@@ -160,9 +160,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 3cae9635daba5cb409ebbe92733eacaa, type: 3}
     - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      propertyPath: footstepVolume
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
       propertyPath: backgroundMusic
       value: 
       objectReference: {fileID: 8300000, guid: 6eb87eb2f79e55748b8c5d50bd9d2d6c, type: 3}
+    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      propertyPath: soundEffectVolume
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6747306567822038664, guid: a0f97f041a739b147a67128549c3311d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -210,7 +218,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4594313001065286169, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 596050845}
   m_SourcePrefab: {fileID: 100100000, guid: a0f97f041a739b147a67128549c3311d, type: 3}
 --- !u!1 &285082222
 GameObject:
@@ -349,6 +360,49 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1 &596050843 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4594313001065286169, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+  m_PrefabInstance: {fileID: 12566198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &596050845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 596050843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 705a877ba0b8d8242bcc2d4f6344d4be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundMusicSource: {fileID: 0}
+  soundEffectSources: []
+  footstepSource: {fileID: 0}
+  backgroundMusic: {fileID: 8300000, guid: 6eb87eb2f79e55748b8c5d50bd9d2d6c, type: 3}
+  musicPitch: 0.67
+  musicLoop: 1
+  musicVolume: 0.007
+  enableMusic: 1
+  walkSound: {fileID: 8300000, guid: 3cae9635daba5cb409ebbe92733eacaa, type: 3}
+  walkPitch: 2
+  walkLoop: 1
+  jumpSound: {fileID: 8300000, guid: 48b9ea3a10f9a504d85f1286b847da95, type: 3}
+  jumpPitch: 2
+  attackSounds:
+  - {fileID: 8300000, guid: 9589f8f5292eed3498114aff4f0273dc, type: 3}
+  - {fileID: 8300000, guid: e17f833a791fc224dbb0a3e1b7c95a71, type: 3}
+  - {fileID: 8300000, guid: b5ea2b3076a4eb74db57dac2a54ef11c, type: 3}
+  attackPitch: 2
+  attackPitchVariation: 0.5
+  playerSoundVolume: 1
+  enablePlayerSounds: 1
+  menuSound: {fileID: 8300000, guid: f7f6ca747c1d3b94eab8b7f61c5e8f76, type: 3}
+  menuPitch: 1
+  uiSoundVolume: 1
+  enableUISounds: 1
+  masterVolume: 1
 --- !u!1 &657577842
 GameObject:
   m_ObjectHideFlags: 0

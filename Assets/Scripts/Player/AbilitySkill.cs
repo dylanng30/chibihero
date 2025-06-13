@@ -17,6 +17,10 @@ public class AbilitySkill : MonoBehaviour
     protected void GetSkill()
     {
         skillTrigger = InputManager.Instance.SkillPressed;
+        if (skillTrigger)
+        {
+            Debug.Log("🎯 Skill input detected! Calling Skill()");
+        }
         //Debug.Log("ATK Trigger: " + skillTrigger);
     }
 
@@ -28,6 +32,13 @@ public class AbilitySkill : MonoBehaviour
     void Update()
     {
         GetSkillTrigger?.Invoke();
+        
+        // Auto call Skill() when skillTrigger is true
+        if (skillTrigger)
+        {
+            Skill();
+            skillTrigger = false; // Reset để tránh spam
+        }
     }
 
     protected void LoadComponent()
@@ -49,6 +60,7 @@ public class AbilitySkill : MonoBehaviour
 
     public void Skill()
     {
+        Debug.Log("🎯 Skill() method called!");
         GetSkillTrigger?.Invoke();
         LoadPool();
         StartCoroutine(Shooting(projectileType));
@@ -65,8 +77,16 @@ public class AbilitySkill : MonoBehaviour
             yield break;
         }
         
-        // Play attack sound - bỏ random
-        AudioSystem.Instance.PlayAttackSound(1); // Cố định dùng attack sound 1
+        // Play attack sound with AudioManager
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayAttackSound();
+            Debug.Log("🎯 Attack triggered - attempting to play attack sound");
+        }
+        else
+        {
+            Debug.LogWarning("❌ AudioManager.Instance is null during attack!");
+        }
             
         pool.GetProjectile(projectileType, playerController.PlayerStats.AttackPower, ATKPoint, this.NearestEnemy);
     }

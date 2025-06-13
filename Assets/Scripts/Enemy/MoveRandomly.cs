@@ -13,10 +13,9 @@ public class MoveRandomly : MonoBehaviour
     private Vector2 centerPosition, targetPosition;
     private float timer;
     private string nextScene;
-    private bool isRunning = false;
-
-    //Component
+    private bool isRunning = false;    //Component
     private Animator anim;
+    private bool hasLoggedAnimatorWarning = false;
 
     private void Start()
     {
@@ -66,10 +65,14 @@ public class MoveRandomly : MonoBehaviour
         else if (anim == null)
         {
             Debug.LogWarning($"{gameObject.name}: Animator component is missing!");
-        }
-        else if (anim.runtimeAnimatorController == null)
+        }        else if (anim.runtimeAnimatorController == null)
         {
-            Debug.LogWarning($"{gameObject.name}: Animator does not have an AnimatorController assigned!");
+            // Only log once to avoid spam
+            if (!hasLoggedAnimatorWarning)
+            {
+                Debug.LogWarning($"{gameObject.name}: Animator does not have an AnimatorController assigned!");
+                hasLoggedAnimatorWarning = true;
+            }
         }
     }
     private void Flip()

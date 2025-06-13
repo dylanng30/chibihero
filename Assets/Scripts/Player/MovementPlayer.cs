@@ -115,14 +115,29 @@ public class MovementPlayer : MonoBehaviour
         else
             playerController.PhysicsPlayer.Rigidbody2D.velocity = new Vector2(direction.normalized.x * speed, playerController.PhysicsPlayer.Rigidbody2D.velocity.y);
         
-        // Handle walking sound
-        if (isMoving && playerController.CollisionPlayer.IsGrounded())
+        // Handle walking sound with AudioManager
+        if (isMoving)
         {
-            AudioSystem.Instance.PlayWalkingSound();
+            // TopDown mode: Luôn phát sound khi moving
+            // Platformer mode: Chỉ phát sound khi ở trên mặt đất
+            bool shouldPlayWalkSound = (playerController.PhysicsPlayer.Mode == PlayerMode.TopDown) || 
+                                     playerController.CollisionPlayer.IsGrounded();
+            
+            if (shouldPlayWalkSound && AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayWalkSound();
+                Debug.Log($"🚶 TopDown Mode: {playerController.PhysicsPlayer.Mode == PlayerMode.TopDown}, IsGrounded: {playerController.CollisionPlayer.IsGrounded()}, Playing walk sound");
+            }
+            else if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.StopWalkSound();
+                Debug.Log($"🛑 TopDown Mode: {playerController.PhysicsPlayer.Mode == PlayerMode.TopDown}, IsGrounded: {playerController.CollisionPlayer.IsGrounded()}, Stopping walk sound");
+            }
         }
         else
         {
-            AudioSystem.Instance.StopWalkingSound();
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.StopWalkSound();
         }
     }
 
@@ -130,8 +145,9 @@ public class MovementPlayer : MonoBehaviour
     {
         GetJumpingMove?.Invoke();
         
-        // Play jump sound
-        AudioSystem.Instance.PlayJumpSound();
+        // Play jump sound with AudioManager
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayJumpSound();
         
         playerController.PhysicsPlayer.Rigidbody2D.velocity = new Vector2(playerController.PhysicsPlayer.Rigidbody2D.velocity.y, playerController.PlayerStats.JumpPower);
     }
@@ -168,7 +184,8 @@ public class MovementPlayer : MonoBehaviour
             return;
             
         // Play dash sound
-        AudioSystem.Instance.PlayDashSound();
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayDashSound();
             
         StartCoroutine(DashNew(dashDirection, dashForce, dashDuration, dashCooldown));
     }

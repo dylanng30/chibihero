@@ -77,44 +77,41 @@ public class PauseMenu : MonoBehaviour
     // Audio Control Methods
     public void ToggleMusic()
     {
-        if (AudioSystem.Instance != null)
+        if (AudioManager.Instance != null)
         {
-            AudioSystem.Instance.ToggleMusic();
-            AudioSystem.Instance.SaveAudioSettings();
+            AudioManager.Instance.ToggleMusic(!AudioManager.Instance.enableMusic);
             UpdateAudioUI();
         }
     }
     
     public void ToggleSoundEffects()
     {
-        if (AudioSystem.Instance != null)
+        if (AudioManager.Instance != null)
         {
-            AudioSystem.Instance.ToggleSoundEffects();
-            AudioSystem.Instance.SaveAudioSettings();
+            AudioManager.Instance.TogglePlayerSounds(!AudioManager.Instance.enablePlayerSounds);
             UpdateAudioUI();
         }
     }
     
     public void SetMasterVolume(float volume)
     {
-        if (AudioSystem.Instance != null)
+        if (AudioManager.Instance != null)
         {
-            AudioSystem.Instance.SetMasterVolume(volume);
-            AudioSystem.Instance.SaveAudioSettings();
+            AudioManager.Instance.SetMasterVolume(volume);
         }
     }
     
     private void UpdateAudioUI()
     {
-        if (AudioSystem.Instance == null) return;
+        if (AudioManager.Instance == null) return;
         
         // Update music toggle text
         if (musicToggleText != null)
-            musicToggleText.text = AudioSystem.Instance.MusicEnabled ? "Music: ON" : "Music: OFF";
+            musicToggleText.text = AudioManager.Instance.enableMusic ? "Music: ON" : "Music: OFF";
             
         // Update sound toggle text
         if (soundToggleText != null)
-            soundToggleText.text = AudioSystem.Instance.SoundEffectsEnabled ? "Sound: ON" : "Sound: OFF";
+            soundToggleText.text = AudioManager.Instance.enablePlayerSounds ? "Sound: ON" : "Sound: OFF";
             
         // Update master volume slider
         if (masterVolumeSlider != null)
