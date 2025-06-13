@@ -15,6 +15,7 @@ public class PirateController : MonoBehaviour, IDamagable
     [SerializeField] protected PirateMovement pirateMovement;
     [SerializeField] protected PirateDetectObstacle pirateDetectObstacle;
     [SerializeField] protected PirateDamageManager pirateDamageManager;
+    [SerializeField] protected HealthBar healthBar;
 
     [SerializeField] protected StateManager stateManager;
     [SerializeField] protected PirateIdleState idleState;
@@ -50,6 +51,12 @@ public class PirateController : MonoBehaviour, IDamagable
         LoadDamageManagerPirate();
         LoadAbilityPirateATK();
         LoadMovementPirate();
+        LoadHealthBar();
+    }
+    protected virtual void LoadHealthBar()
+    {
+        if (healthBar != null) return;
+        healthBar = this.GetComponentInChildren<HealthBar>();
     }
     protected virtual void LoadAnimationPirate()
     {
@@ -128,6 +135,10 @@ public class PirateController : MonoBehaviour, IDamagable
     public PirateATKAbility PirateATKAbility
     {
         get { return this.pirateATKAbility; }
+    }
+    public HealthBar HealthBar
+    { 
+        get { return this.healthBar; }
     }
 
     //States

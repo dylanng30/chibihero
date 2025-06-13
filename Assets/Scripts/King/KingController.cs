@@ -13,6 +13,7 @@ public class KingController : MonoBehaviour, IDamagable
     [SerializeField] protected AbiNormalATKKing abiKingNormalATK;
     [SerializeField] protected AbiDetectKing abiDetectKing;
     [SerializeField] protected KingAI kingAI;
+    [SerializeField] protected HealthBar healthBar;
 
     //States
     [SerializeField] protected StateManager stateManager;
@@ -62,6 +63,13 @@ public class KingController : MonoBehaviour, IDamagable
         LoadAbilityNormalATK();
         LoadDetectObstacle();
         LoadKingAI();
+        LoadHeathBar();
+    }
+
+    protected virtual void LoadHeathBar()
+    {
+        if(this.healthBar != null) return;
+        healthBar = GetComponentInChildren<HealthBar>();
     }
     protected virtual void LoadAnimation()
     {
@@ -107,6 +115,11 @@ public class KingController : MonoBehaviour, IDamagable
     {
         if (this.kingAI != null) return;
         this.kingAI = this.GetComponentInChildren<KingAI>();
+    }
+
+    public HealthBar HealthBar
+    {
+        get { return this.healthBar; }
     }
     public AnimationManager AnimationManager
     {

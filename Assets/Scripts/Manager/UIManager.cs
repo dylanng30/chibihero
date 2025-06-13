@@ -11,8 +11,8 @@ public class UIManager : Singleton<UIManager>
     [Header("UpgradedStats")]
     [SerializeField] protected GameObject UpgradeStats;
 
-    [Header("EXP")]
-    [SerializeField] protected GameObject EXPBar;
+    [Header("HUD Player")]
+    [SerializeField] protected GameObject HUDPlayer;
 
     //[Header("GameOver")]
     //[SerializeField] protected GameObject PlayerDied;
@@ -24,22 +24,29 @@ public class UIManager : Singleton<UIManager>
     protected override void Awake()
     {
         base.Awake();
+        LoadAllCanvases();
+    }
+
+    private void LoadAllCanvases()
+    {
+
+
     }
 
     public void DeactivateAllUIs()
     {
         UpgradeStats.SetActive(false);
-        EXPBar.SetActive(false);
+        HUDPlayer.SetActive(false);
         //PlayerDied.SetActive(false);
         PauseMenu.SetActive(false);
 
     }
-    public void ShowUpgradeStats()
+    /*public void ShowUpgradeStats()
     {
         DeactivateAllUIs();
         UpgradeStats.SetActive(true);
         Time.timeScale = 0f;
-    }
+    }*/
     //public void ShowPlayerDied()
     //{
     //    DeactivateAllUIs();
@@ -49,7 +56,7 @@ public class UIManager : Singleton<UIManager>
     public void ShowEXPBar()
     {
         DeactivateAllUIs();
-        EXPBar.SetActive(true);
+        HUDPlayer.SetActive(true);
     }
     public void ShowPauseMenu()
     {

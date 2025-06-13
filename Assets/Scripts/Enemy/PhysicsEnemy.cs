@@ -11,10 +11,6 @@ public class PhysicsEnemy : PhysicsBase
     {
         base.LoadComponent();
     }
-    private void Update()
-    {
-        
-    }
     public override void LoadRigidBody2D()
     {
         base.LoadRigidBody2D();

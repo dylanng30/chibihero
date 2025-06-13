@@ -7,6 +7,8 @@ public class ProjSwordSlash : ProjectileBase
 {
     private float timer = 2f;
     private Transform origin;
+
+    private GameObject owner;
     void Awake()
     {
         this.Init();
@@ -37,6 +39,7 @@ public class ProjSwordSlash : ProjectileBase
     {
         this.dmg = dmg; 
         this.origin = origin;
+        this.owner = origin.parent.gameObject;
         this.transform.position = origin.position;
 
         Vector2 Force = dir.position - origin.position;
@@ -46,7 +49,7 @@ public class ProjSwordSlash : ProjectileBase
     private void UpdateExpForPlayer()
     {
         PlayerController playerController = origin.parent.GetComponent<PlayerController>();
-        Debug.Log(playerController);
+        //Debug.Log(playerController);
         playerController.EXPManager.AddEXP(1000);
     }
 
@@ -58,6 +61,9 @@ public class ProjSwordSlash : ProjectileBase
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.transform.parent == owner.transform)
+            return;
+
         if (collision.gameObject.CompareTag("Enemy"))
         {
             DoDamage(collision);

@@ -46,6 +46,7 @@ public class DamageManagerEnemy : DamageBase
     public override void TakeDamage(int damage, GameObject enemy)
     {
         base.TakeDamage(damage, enemy);
+        lowEnemyController.HealthBar.UpdateHeathBar(currentHP, maxHP);
         CreateFloatingText(damage);
         lowEnemyController.PhysicsEnemy.KnockBack(enemy);
         CheckEnemyDied();

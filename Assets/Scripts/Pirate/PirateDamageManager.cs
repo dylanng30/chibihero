@@ -47,6 +47,7 @@ public class PirateDamageManager : DamageBase
     public override void TakeDamage(int damage, GameObject enemy)
     {
         base.TakeDamage(damage, enemy);
+        pirateController.HealthBar.UpdateHeathBar(currentHP, maxHP);
         CreateFloatingText(damage);
         pirateController.PhysicsPirate.KnockBack(enemy);
         CheckEnemyDied();

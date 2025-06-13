@@ -72,7 +72,7 @@ public class ProjArrow : ProjectileBase
         if (collision.gameObject.CompareTag("Ground"))
         {            
             this.ChangeState("Explosion", this.gameObject);
-            Debug.Log("da trung ground");
+            //Debug.Log("da trung ground");
             this.collision = true;
         }
     }

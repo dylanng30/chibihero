@@ -48,6 +48,7 @@ public class AbilityNormalATK : MonoBehaviour
         foreach (Collider2D enemy in hitEnemies)
         {
             var e = enemy.GetComponentInParent<IDamagable>();
+            Debug.Log(e);
             e.TakeDamage(playerController.PlayerStats.AttackPower, playerController.gameObject);
             playerController.EXPManager.AddEXP(1000);
         }

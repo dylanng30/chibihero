@@ -43,6 +43,7 @@ public class DamageManagerRedKnight : DamageBase
     public override void TakeDamage(int damage, GameObject enemy)
     {
         base.TakeDamage(damage, enemy);
+        redKnightController.HealthBar.UpdateHeathBar(currentHP, maxHP);
         CreateFloatingText(damage);
         redKnightController.PhysicRedKnight.KnockBack(enemy);
         CheckEnemyDied();

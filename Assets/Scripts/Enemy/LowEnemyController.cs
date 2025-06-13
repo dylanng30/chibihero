@@ -13,17 +13,24 @@ public class LowEnemyController : MonoBehaviour, IDamagable
     [SerializeField] protected AbilityEnemyNormalATK abilityNormalATK;
     [SerializeField] protected EnemyDetectObstacle enemyDetectObstacle;
 
+    [SerializeField] protected HealthBar healthBar;
+
     private EIdleState idleState;
     private ERunState runState;
     private ENormalATKState normalATKState;
     private StateManager stateManager;
 
-
-
     void Awake()
     {
         this.LoadComponent();
         this.LoadState();
+    }
+    private void Update()
+    {
+        if(this.transform.localScale.x > 0)
+            this.HealthBar.FlipHealthBar(true);
+        else if (this.transform.localScale.x < 0)
+            this.HealthBar.FlipHealthBar(false);
     }
     protected void LoadState()
     {
@@ -44,6 +51,7 @@ public class LowEnemyController : MonoBehaviour, IDamagable
         LoadAnimationEnemy();
         LoadAbilityEnemyNormalATK();
         LoadEnemyDetectObstacle();
+        LoadHeathBar();
     }
 
     //Load Component
@@ -87,6 +95,12 @@ public class LowEnemyController : MonoBehaviour, IDamagable
         if (this.enemyDetectObstacle != null) return;
         this.enemyDetectObstacle = this.GetComponentInChildren<EnemyDetectObstacle>();
     }
+    
+    protected void LoadHeathBar()
+    {
+        if(this.healthBar != null) return;
+        this.healthBar = this.GetComponentInChildren<HealthBar>();
+    }
 
     public void TakeDamage(int damage, GameObject attacker)
     {
@@ -124,6 +138,10 @@ public class LowEnemyController : MonoBehaviour, IDamagable
     public EnemyDetectObstacle EnemyDetectObstacle
     {
         get { return enemyDetectObstacle; }
+    }
+    public HealthBar HealthBar
+    {
+        get { return healthBar; }
     }
     //States    
     public StateManager StateManager

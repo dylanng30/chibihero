@@ -45,6 +45,7 @@ public class DamageManagerKing : DamageBase
     public override void TakeDamage(int damage, GameObject enemy)
     {
         base.TakeDamage(damage, enemy);
+        kingController.HealthBar.UpdateHeathBar(currentHP, maxHP);
         CreateFloatingText(damage);
         kingController.PhysicsKing.KnockBack(enemy);
         CheckEnemyDied();

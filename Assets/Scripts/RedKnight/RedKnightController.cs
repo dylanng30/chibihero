@@ -16,6 +16,7 @@ public class RedKnightController : MonoBehaviour, IDamagable
     [SerializeField] private MovementRedKnight movementRedKnight;
     [SerializeField] private RedKnightAI redKnightAI;
     [SerializeField] private DamageManagerRedKnight damageManager;
+    [SerializeField] private HealthBar healthBar;
 
     //States
     [SerializeField] private StateManager stateManager;
@@ -44,6 +45,7 @@ public class RedKnightController : MonoBehaviour, IDamagable
         LoadMovementRedKnight();
         LoadRedKnightAI();
         LoadDamageManager();
+        LoadHeathBar();
     }
     private void LoadStates()
     {
@@ -68,6 +70,12 @@ public class RedKnightController : MonoBehaviour, IDamagable
     }
 
     //Load Components
+
+    protected virtual void LoadHeathBar()
+    {
+        if (healthBar != null) return;
+        healthBar = GetComponentInChildren<HealthBar>();
+    }
     protected virtual void LoadAnimator()
     {
         if (animationManager != null) return;
@@ -119,6 +127,10 @@ public class RedKnightController : MonoBehaviour, IDamagable
         damageManager = GetComponentInChildren<DamageManagerRedKnight>();
     }
 
+    public HealthBar HealthBar
+    { 
+        get { return healthBar; }
+    }
     public RedKnightStats RedKnightStats
     {
         get

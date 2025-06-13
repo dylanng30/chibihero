@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UpgradeStats : MonoBehaviour
@@ -12,10 +13,20 @@ public class UpgradeStats : MonoBehaviour
 
     [SerializeField] private int statsPoints;
 
+    private void OnEnable()
+    {
+        Time.timeScale = 0f;
+    }
+    private void OnDisable()
+    {
+        Time.timeScale = 1f;
+    }
+
     public void UpStatsPoints()
     {
         statsPoints = 0;
         statsPoints++;
+        Time.timeScale = 0f;
     }
     public void UpgradeHealth()
     {

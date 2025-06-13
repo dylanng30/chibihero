@@ -15,7 +15,7 @@ MonoBehaviour:
   _faction: 0
   _stats:
     Health: 250
-    Attack: 100
+    Attack: 25
     Armor: 10
     Speed: 10
     ATKRange: 0.8
