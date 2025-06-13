@@ -108,15 +108,31 @@ public class MovementPlayer : MonoBehaviour
         GetDirectionMove?.Invoke();
 
         int speed = playerController.PlayerStats.MoveSpeed;
+        bool isMoving = direction.magnitude > 0.1f;
+        
         if (playerController.PhysicsPlayer.Mode == PlayerMode.TopDown)
             playerController.PhysicsPlayer.Rigidbody2D.velocity = new Vector2(direction.normalized.x * speed, direction.normalized.y * speed);
         else
             playerController.PhysicsPlayer.Rigidbody2D.velocity = new Vector2(direction.normalized.x * speed, playerController.PhysicsPlayer.Rigidbody2D.velocity.y);
+        
+        // Handle walking sound
+        if (isMoving && playerController.CollisionPlayer.IsGrounded())
+        {
+            AudioSystem.Instance.PlayWalkingSound();
+        }
+        else
+        {
+            AudioSystem.Instance.StopWalkingSound();
+        }
     }
 
     public virtual void Jumping()
     {
         GetJumpingMove?.Invoke();
+        
+        // Play jump sound
+        AudioSystem.Instance.PlayJumpSound();
+        
         playerController.PhysicsPlayer.Rigidbody2D.velocity = new Vector2(playerController.PhysicsPlayer.Rigidbody2D.velocity.y, playerController.PlayerStats.JumpPower);
     }
 
@@ -150,6 +166,9 @@ public class MovementPlayer : MonoBehaviour
 
         if (!canDash || isDashing)
             return;
+            
+        // Play dash sound
+        AudioSystem.Instance.PlayDashSound();
             
         StartCoroutine(DashNew(dashDirection, dashForce, dashDuration, dashCooldown));
     }

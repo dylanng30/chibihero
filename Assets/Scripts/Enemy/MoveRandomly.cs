@@ -53,13 +53,24 @@ public class MoveRandomly : MonoBehaviour
     private void Move()
     {
         this.transform.position = Vector2.MoveTowards(this.transform.position, targetPosition, moveSpeed);
-    }
-    private void SetAnim()
+    }    private void SetAnim()
     {
-        if (isRunning)
-            anim.Play("Run");
-        else
-            anim.Play("Idle");
+        // Kiểm tra null và có AnimatorController
+        if (anim != null && anim.runtimeAnimatorController != null)
+        {
+            if (isRunning)
+                anim.Play("Run");
+            else
+                anim.Play("Idle");
+        }
+        else if (anim == null)
+        {
+            Debug.LogWarning($"{gameObject.name}: Animator component is missing!");
+        }
+        else if (anim.runtimeAnimatorController == null)
+        {
+            Debug.LogWarning($"{gameObject.name}: Animator does not have an AnimatorController assigned!");
+        }
     }
     private void Flip()
     {
