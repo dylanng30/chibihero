@@ -13,14 +13,16 @@ public class AudioSystem : Singleton<AudioSystem>
     [SerializeField] private AudioSource walkSource;
     [SerializeField] private AudioSource attackSource;
     [SerializeField] private AudioSource jumpSource;
-    
+    [SerializeField] private AudioSource hurtSource;
+
     [Header("Audio Clips - Assign in Inspector")]
     [SerializeField] private AudioClipSettings walkClipSettings;
     [SerializeField] private AudioClipSettings jumpClipSettings;
     [SerializeField] private AudioClipSettings attack1ClipSettings;
     [SerializeField] private AudioClipSettings attack2ClipSettings;
     [SerializeField] private AudioClipSettings attack3ClipSettings;
-    [SerializeField] private AudioClipSettings deathClipSettings;    [SerializeField] private AudioClipSettings hurtClipSettings;
+    [SerializeField] private AudioClipSettings deathClipSettings;
+    [SerializeField] private AudioClipSettings hurtClipSettings;
     
     [Header("Background Music - Assign in Inspector")]
     [SerializeField] private BackgroundMusicTrack[] backgroundMusicTracks;
@@ -142,6 +144,14 @@ public class AudioSystem : Singleton<AudioSystem>
             jumpSource.playOnAwake = false;
         }
 
+        if (hurtSource == null)
+        {
+            GameObject hurtGO = new GameObject("Hurt Source");
+            hurtGO.transform.SetParent(transform);
+            hurtSource = hurtGO.AddComponent<AudioSource>();
+            hurtSource.playOnAwake = false;
+        }
+
         UpdateVolumes();
     }
 
@@ -154,7 +164,8 @@ public class AudioSystem : Singleton<AudioSystem>
             if (!loadedClips.ContainsKey(clip.name))
             {
                 loadedClips.Add(clip.name, clip);
-            }        }
+            }        
+        }
     }
 
     public void PlayMusic(string clipName, bool fadeIn = true, float fadeTime = 1f)
@@ -306,7 +317,8 @@ public class AudioSystem : Singleton<AudioSystem>
             uiSource.PlayOneShot(clip, 
                 (clipData?.volume ?? 1f) * volumeMultiplier * audioSettings.uiVolume * audioSettings.masterVolume);
         }
-    }    public void PlayPlayerSound(PlayerSoundType soundType, Vector3 position = default)
+    }    
+    public void PlayPlayerSound(PlayerSoundType soundType, Vector3 position = default)
     {
         switch (soundType)
         {
@@ -316,9 +328,13 @@ public class AudioSystem : Singleton<AudioSystem>
             case PlayerSoundType.Jump:
                 PlayJumpSound();
                 break;
-            case PlayerSoundType.Attack1:            case PlayerSoundType.Attack2:
+            case PlayerSoundType.Attack1:            
+            case PlayerSoundType.Attack2:
             case PlayerSoundType.Attack3:
                 PlayAttackSound(soundType);
+                break;
+            case PlayerSoundType.Hurt:
+                PlayHurtSound();
                 break;
             default:
                 // For other sounds, use Inspector clips first
@@ -362,7 +378,8 @@ public class AudioSystem : Singleton<AudioSystem>
                 }
                 break;
         }
-    }    private void PlayWalkSound()
+    }    
+    private void PlayWalkSound()
     {
         // Only play if not already playing
         if (!walkSource.isPlaying)
@@ -399,7 +416,46 @@ public class AudioSystem : Singleton<AudioSystem>
                 walkSource.Play();
             }
         }
-    }    private void PlayJumpSound()
+    }
+    private void PlayHurtSound()
+    {
+        // Only play if not already playing
+        if (!hurtSource.isPlaying)
+        {
+            // Priority: Inspector clip -> Database -> Resources
+            AudioClip clip = hurtClipSettings?.clip;
+            AudioClipData clipData = null;
+
+            if (clip == null)
+            {
+                clipData = audioDatabase != null ? audioDatabase.GetAudioClip("HURT") : null;
+                clip = clipData?.audioClip ?? GetClipFromResources("HURT");
+            }
+
+            if (clip != null)
+            {
+                hurtSource.clip = clip;
+
+                // Use settings from Inspector if available, otherwise use database/default
+                if (walkClipSettings?.clip != null)
+                {
+                    hurtSource.volume = hurtClipSettings.volume * audioSettings.sfxVolume * audioSettings.masterVolume;
+                    hurtSource.pitch = hurtClipSettings.pitch;
+                    hurtSource.loop = hurtClipSettings.loop;
+                    ConfigureAudioSource3D(hurtSource, hurtClipSettings);
+                }
+                else
+                {
+                    hurtSource.volume = (clipData?.volume ?? 1f) * audioSettings.sfxVolume * audioSettings.masterVolume;
+                    hurtSource.pitch = clipData?.pitch ?? 1f;
+                    hurtSource.loop = true; // Default for walk
+                }
+
+                hurtSource.Play();
+            }
+        }
+    }
+    private void PlayJumpSound()
     {
         // Stop any previous jump sound and play new one
         if (jumpSource.isPlaying)
@@ -436,8 +492,10 @@ public class AudioSystem : Singleton<AudioSystem>
                 jumpSource.loop = false; // Default for jump
             }
             
-            jumpSource.Play();        }
-    }    private void PlayAttackSound(PlayerSoundType attackType)
+            jumpSource.Play();        
+        }
+    }    
+    private void PlayAttackSound(PlayerSoundType attackType)
     {
         Debug.Log($"PlayAttackSound called with type: {attackType}");
         
@@ -533,12 +591,21 @@ public class AudioSystem : Singleton<AudioSystem>
             attackSource.Stop();
         }
     }
+    public void StopHurtSound()
+    {
+        if (hurtSource != null && hurtSource.isPlaying)
+        {
+            hurtSource.Stop();
+        }
+    }
+
 
     public void StopAllPlayerSounds()
     {
         StopWalkSound();
         StopJumpSound();
         StopAttackSound();
+        StopHurtSound();
     }
 
     public void PlayEnemySound(string enemyType, EnemySoundType soundType, Vector3 position = default)

@@ -37,12 +37,12 @@ public class IdleState : IState
 public class RunState : IState
 {
     PlayerController _player;
-    private float leftRight;
     private string currentAnimation = "Run";
     public RunState(PlayerController player)
     {
         this._player = player;
-    }    public void Enter()
+    }    
+    public void Enter()
     {
         _player.AnimationPlayer.SetAnimation(currentAnimation);
         // Play walk sound when entering run state
@@ -54,7 +54,8 @@ public class RunState : IState
         if (_player.MovementPlayer.DirectionMove == Vector2.zero)
             _player.StateManager.ChangeState(_player.IdleState);
         else if (_player.AbilityNormalATK.ATKTrigger)
-            _player.StateManager.ChangeState(_player.NormalATKState);        else if (Input.GetMouseButton(1))
+            _player.StateManager.ChangeState(_player.NormalATKState);        
+        else if (Input.GetMouseButton(1))
             _player.StateManager.ChangeState(_player.SkillState);
     }
     public void Exit()
@@ -70,7 +71,8 @@ public class NormalATKState : IState
     public NormalATKState(PlayerController player)
     {
         this._player = player;
-    }    public void Enter()
+    }    
+    public void Enter()
     {
         _player.AnimationPlayer.SetAnimation(currentAnimation);
         // Stop any previous attack sound when starting new attack

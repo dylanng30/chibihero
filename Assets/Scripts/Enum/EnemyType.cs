@@ -9,4 +9,5 @@ public enum EnemyType
     Pirate,
     Shark,
     Star,
+    Barrel,
 }

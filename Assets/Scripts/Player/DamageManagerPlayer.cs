@@ -74,11 +74,11 @@ public class DamageManagerPlayer : DamageBase
         {
             isDead = true;
             // Play death sound
-            // AudioManager.PlayPlayerDeath(transform.position);
-            // Instantiate(skull, playerController.transform.position, Quaternion.identity);
-            // playerController.AnimationPlayer.SpriteRenderer.enabled = false;
-            // playerController.PlayerStats.Reset();
-            // GameManager.Instance.CompleteMap(false);
+            AudioManager.PlayPlayerDeath(transform.position);
+            Instantiate(skull, playerController.transform.position, Quaternion.identity);
+            playerController.AnimationPlayer.SpriteRenderer.enabled = false;
+            playerController.PlayerStats.Reset();
+            GameManager.Instance.CompleteMap(false);
         }
     }
     public override void Heal(int amount)
