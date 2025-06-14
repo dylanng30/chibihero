@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class AbiDetectKing : MonoBehaviour
@@ -25,14 +24,21 @@ public class AbiDetectKing : MonoBehaviour
     //Ground detection
     public bool DetectObstacle()
     {
-        Vector2 direction = transform.right * Mathf.Sign(kingController.transform.localScale.x);
-        hit = Physics2D.Raycast(kingController.transform.position, direction, 2f, LayerMask.GetMask("Ground"));
+        Vector2 direction = transform.right * Mathf.Sign(kingController.transform.localScale.x);        
+        Vector3 originRay = kingController.transform.position;
+        float offSet = kingController.CollisionKing.BoxCollider2D.size.y / 2 + kingController.CollisionKing.BoxCollider2D.offset.y;
+        originRay.y -= offSet;
+        hit = Physics2D.Raycast(originRay, direction, 2f, LayerMask.GetMask("Ground"));
 
         if (hit.collider == null)
             return false;
 
         if (hit.collider.CompareTag("Ground"))
+        {
+            Debug.DrawRay(originRay, direction, Color.yellow, 0.5f);
             return true;
+        }
+            
 
         return false;
     }
@@ -40,7 +46,10 @@ public class AbiDetectKing : MonoBehaviour
     public bool NextToWall()
     {
         Vector2 direction = Vector2.right * kingController.transform.localScale.x;
-        hit = Physics2D.Raycast(kingController.transform.position, direction, 0.5f, LayerMask.GetMask("Ground"));
+        Vector3 originRay = kingController.transform.position;
+        float offSet = kingController.CollisionKing.BoxCollider2D.size.y / 2 + kingController.CollisionKing.BoxCollider2D.offset.y;
+        originRay.y -= offSet;
+        hit = Physics2D.Raycast(originRay, direction, 1f, LayerMask.GetMask("Ground"));
 
         if (hit.collider == null)
             return false;

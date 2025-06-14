@@ -6,4 +6,6 @@ using UnityEngine;
 public class ScriptablePlayer : ScriptableUnitBase
 {
     public PlayerType PlayerType;
+
+    public int MP;
 }

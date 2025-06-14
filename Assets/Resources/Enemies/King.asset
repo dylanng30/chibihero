@@ -18,7 +18,7 @@ MonoBehaviour:
     Attack: 200
     Armor: 100
     Speed: 5
-    ATKRange: 0.8
+    ATKRange: 1
     JumpPower: 7
     DashForce: 20
     DashTime: 1

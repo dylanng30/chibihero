@@ -50,8 +50,12 @@ public class AbilitySkill : MonoBehaviour
     public void Skill()
     {
         GetSkillTrigger?.Invoke();
+        if (playerController.PlayerStats.CurrentMP <= 0)
+            return;
+
         LoadPool();
         StartCoroutine(Shooting(projectileType));
+        playerController.PlayerStats.CostMP(10);
     }
 
     public IEnumerator Shooting(ProjectileType projectileType)

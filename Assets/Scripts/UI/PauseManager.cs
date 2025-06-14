@@ -9,7 +9,7 @@ public class PauseManager : Singleton<PauseManager>
     protected override void Awake()
     {
         base.Awake();
-        Debug.Log("PauseManager initialized. Press ESC to pause during gameplay.");
+        //Debug.Log("PauseManager initialized. Press ESC to pause during gameplay.");
     }
 
     void Update()

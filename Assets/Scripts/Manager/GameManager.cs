@@ -52,9 +52,11 @@ public class GameManager : PersistentSingleton<GameManager>
                 break;
             default:
                 break;
-        }
+        }        
 
         OnAfterStateChanged?.Invoke(CurrentState);
+
+        ObserverManager.Instance.ChangeMap(CurrentState);
 
         Debug.Log("Current State: " + CurrentState);
     }
@@ -71,8 +73,8 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         LevelManager.Instance.LoadScene("MainTopDown");
         yield return new WaitUntil(() => PlayerController.Instance != null && PlayerController.Instance.PhysicsPlayer != null);
+        MineManager.Instance.MineSpawn();
         PlayerController.Instance.transform.position = lastPosition;
-        EnemyManager.Instance.ActivatePool();
         UIManager.Instance.ShowEXPBar();
         PlayerController.Instance.PhysicsPlayer.SetMode(PlayerMode.TopDown);
         EXPManager.Instance.Apply();
@@ -81,7 +83,7 @@ public class GameManager : PersistentSingleton<GameManager>
     private void HandleFightingState()
     {
         // Logic for fighting state
-        EnemyManager.Instance.DeactivatePool();
+        //EnemyManager.Instance.DeactivatePool();
         UIManager.Instance.ShowEXPBar();
         PlayerController.Instance.PhysicsPlayer.SetMode(PlayerMode.Platform);
     }
