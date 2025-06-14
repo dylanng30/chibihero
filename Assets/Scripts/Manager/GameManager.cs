@@ -47,14 +47,16 @@ public class GameManager : PersistentSingleton<GameManager>
             case GameState.GameOver:
                 StartCoroutine(HandleGameOverStateCoroutine());
                 break;
-            case GameState.Paused:
-                HandlePausedState();
+            case GameState.Win:
+                StartCoroutine(HandleWinState());
                 break;
             default:
                 break;
-        }
+        }        
 
         OnAfterStateChanged?.Invoke(CurrentState);
+
+        ObserverManager.Instance.ChangeMap(CurrentState);
 
         Debug.Log("Current State: " + CurrentState);
     }
@@ -71,8 +73,8 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         LevelManager.Instance.LoadScene("MainTopDown");
         yield return new WaitUntil(() => PlayerController.Instance != null && PlayerController.Instance.PhysicsPlayer != null);
+        MineManager.Instance.MineSpawn();
         PlayerController.Instance.transform.position = lastPosition;
-        EnemyManager.Instance.ActivatePool();
         UIManager.Instance.ShowEXPBar();
         PlayerController.Instance.PhysicsPlayer.SetMode(PlayerMode.TopDown);
         EXPManager.Instance.Apply();
@@ -81,21 +83,23 @@ public class GameManager : PersistentSingleton<GameManager>
     private void HandleFightingState()
     {
         // Logic for fighting state
-        EnemyManager.Instance.DeactivatePool();
+        //EnemyManager.Instance.DeactivatePool();
         UIManager.Instance.ShowEXPBar();
         PlayerController.Instance.PhysicsPlayer.SetMode(PlayerMode.Platform);
     }
         
     private IEnumerator HandleGameOverStateCoroutine()
     {
-        //UIManager.Instance.ShowPlayerDied();
+        UIManager.Instance.ShowGameOverPanel();
         yield return new WaitForSeconds(3f);
         this.ChangeState(GameState.Exploring);
+        PlayerController.Instance.AnimationPlayer.SpriteRenderer.enabled = true;
     }
-    private void HandlePausedState()
+    private IEnumerator HandleWinState()
     {
-        // Logic for paused state - UI is handled by PauseManager
-        
+        UIManager.Instance.ShowWinPanel();
+        yield return new WaitForSeconds(3f);
+        ChangeState(GameState.Exploring);
     }
 
     public void ChangeStateWithScene(string sceneName)
@@ -123,7 +127,7 @@ public class GameManager : PersistentSingleton<GameManager>
         if (CheckedComplete)
         {
             EnemyManager.Instance.UnregisterEnemy(this.currentEnemy);
-            ChangeState(GameState.Exploring);
+            ChangeState(GameState.Win);
         }
         else
             ChangeState(GameState.GameOver);

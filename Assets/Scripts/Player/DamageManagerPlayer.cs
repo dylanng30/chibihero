@@ -7,6 +7,7 @@ public class DamageManagerPlayer : DamageBase
 {
     [SerializeField] protected PlayerController playerController;
     [SerializeField] private GameObject floatingText;
+    [SerializeField] protected GameObject skull;
 
     protected override void Awake()
     {
@@ -51,7 +52,7 @@ public class DamageManagerPlayer : DamageBase
         playerController.PhysicsPlayer.KnockBack(enemy);
         playerController.PlayerStats.SetCurrentHP(currentHP);
         CheckPlayerDied();
-        //Debug.Log($"Player took {damage} damage from {enemy}. Current HP: {currentHP}");
+        Debug.Log($"Player took {damage} damage from {enemy}. Current HP: {currentHP}");
     }
     private void CreateFloatingText(int damage)
     {
@@ -73,9 +74,11 @@ public class DamageManagerPlayer : DamageBase
         {
             isDead = true;
             // Play death sound
-            AudioManager.PlayPlayerDeath(transform.position);
-            //GameManagerTest.Instance.CompleteMap(false);
-            //Debug.Log("Player is dead");
+            // AudioManager.PlayPlayerDeath(transform.position);
+            // Instantiate(skull, playerController.transform.position, Quaternion.identity);
+            // playerController.AnimationPlayer.SpriteRenderer.enabled = false;
+            // playerController.PlayerStats.Reset();
+            // GameManager.Instance.CompleteMap(false);
         }
     }
     public override void Heal(int amount)

@@ -50,6 +50,8 @@ public class AbilityEnemyNormalATK : MonoBehaviour
         switch (lowEnemyController.EnemyStats.EnemyType)
         {
             case EnemyType.RedPawn:
+            case EnemyType.Star:
+            case EnemyType.Shark:
                 StartCoroutine(CloseATK());
                 break;
             case EnemyType.RedTNT:

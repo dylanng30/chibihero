@@ -11,6 +11,8 @@ public class PlayerStats : MonoBehaviour
 
     [SerializeField] protected int maxHP;
     [SerializeField] protected int currentHP;
+    [SerializeField] protected int maxMP;
+    [SerializeField] protected int currentMP;
     [SerializeField] protected int attackPower;
     [SerializeField] protected int armor;
     [SerializeField] protected int moveSpeed;
@@ -50,6 +52,9 @@ public class PlayerStats : MonoBehaviour
         dashForce = player._stats.DashForce;
         dashTime = player._stats.DashTime;
         dashCooldown = player._stats.DashCooldown;
+        maxMP = player.MP;
+        currentMP = maxMP;
+        
 
         //Debug.Log($"Đã load stats cho {playerType} - HP: {maxHP}, ATK: {attackPower}, Armor: {armor}, Speed: {moveSpeed}");
     }
@@ -60,6 +65,16 @@ public class PlayerStats : MonoBehaviour
             return;
         this.playerController = transform.GetComponentInParent<PlayerController>();
     }
+
+    public void Reset()
+    {
+        this.currentHP = maxHP;
+        Debug.Log(currentHP);
+        this.currentMP = maxMP;
+        Debug.Log(currentMP);
+    }
+
+    //HP
     public int MaxHP
     {
         get
@@ -81,8 +96,29 @@ public class PlayerStats : MonoBehaviour
     public void UpgradeMaxHP(int value)
     {
         maxHP += value;
+        currentHP += value;
         Debug.Log($"Max HP upgraded to: {maxHP}");
     }
+    //MP
+    public int MaxMP
+    {
+        get
+        {
+            return maxMP;
+        }
+    }
+    public int CurrentMP
+    {
+        get
+        {
+            return currentMP;
+        }
+    }
+    public void CostMP(int value)
+    {
+        this.currentMP -= value;
+    }
+    //
     public int AttackPower
     {
         get

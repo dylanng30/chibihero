@@ -5,53 +5,46 @@ using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
-    //[Header("Menu")]
-    //[SerializeField] protected GameObject Menu;
-
     [Header("UpgradedStats")]
     [SerializeField] protected GameObject UpgradeStats;
 
     [Header("HUD Player")]
     [SerializeField] protected GameObject HUDPlayer;
 
-    //[Header("GameOver")]
-    //[SerializeField] protected GameObject PlayerDied;
-
     [Header("Pause")]
     [SerializeField] protected GameObject PauseMenu;
+
+    [Header("GameOver")]
+    [SerializeField] protected GameObject GameOverPanel;
+
+    [Header("Win")]
+    [SerializeField] protected GameObject WinPanel;
 
 
     protected override void Awake()
     {
         base.Awake();
-        LoadAllCanvases();
-    }
-
-    private void LoadAllCanvases()
-    {
-
-
     }
 
     public void DeactivateAllUIs()
     {
         UpgradeStats.SetActive(false);
         HUDPlayer.SetActive(false);
-        //PlayerDied.SetActive(false);
         PauseMenu.SetActive(false);
-
+        GameOverPanel.SetActive(false);
+        WinPanel.SetActive(false);
     }
-    /*public void ShowUpgradeStats()
+    public void ShowGameOverPanel()
     {
         DeactivateAllUIs();
-        UpgradeStats.SetActive(true);
-        Time.timeScale = 0f;
-    }*/
-    //public void ShowPlayerDied()
-    //{
-    //    DeactivateAllUIs();
-    //    PlayerDied.SetActive(true);
-    //}
+        GameOverPanel.SetActive(true);
+    }
+    public void ShowWinPanel()
+    {
+        DeactivateAllUIs();
+        WinPanel.SetActive(true);
+    }
+
 
     public void ShowEXPBar()
     {

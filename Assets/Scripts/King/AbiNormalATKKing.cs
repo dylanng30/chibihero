@@ -53,6 +53,7 @@ public class AbiNormalATKKing : MonoBehaviour
         foreach (Collider2D player in hitPlayers)
         {
             var p = player.GetComponentInParent<IDamagable>();
+            //Debug.Log(p);
             p.TakeDamage(dmg, kingController.gameObject);
         }
     }

@@ -15,6 +15,7 @@ TagManager:
   - Pirate
   - King
   - Door
+  - Background
   layers:
   - Default
   - TransparentFX

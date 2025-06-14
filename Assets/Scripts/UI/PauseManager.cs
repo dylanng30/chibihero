@@ -9,7 +9,7 @@ public class PauseManager : Singleton<PauseManager>
     protected override void Awake()
     {
         base.Awake();
-        Debug.Log("PauseManager initialized. Press ESC to pause during gameplay.");
+        //Debug.Log("PauseManager initialized. Press ESC to pause during gameplay.");
     }
 
     void Update()
@@ -25,7 +25,8 @@ public class PauseManager : Singleton<PauseManager>
         GameState currentState = GameManager.Instance.CurrentState;
         return currentState == GameState.Exploring ||
                currentState == GameState.Fighting ||
-               currentState == GameState.Paused;
+               currentState == GameState.Win ||
+               currentState == GameState.GameOver;
     }
 
     private void TogglePause()

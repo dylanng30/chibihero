@@ -8,7 +8,7 @@ public class DoorIdleState : IState
     private string currentState = "Idle";
     public DoorIdleState(DoorController doorController)
     {
-        Debug.Log("idle");
+        //Debug.Log("idle");
         this.doorController = doorController;
     }
     public void Enter()
@@ -36,7 +36,7 @@ public class DoorOpenState : IState
     }
     public void Enter()
     {
-        Debug.Log("Open");
+        //Debug.Log("Open");
         doorController.AnimationManager.SetAnimation(currentState);
     }
 
@@ -62,7 +62,7 @@ public class DoorCloseState : IState
     }
     public void Enter()
     {
-        Debug.Log("Close");
+        //Debug.Log("Close");
         doorController.AnimationManager.SetAnimation(currentState);
     }
 

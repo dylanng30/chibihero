@@ -7,4 +7,6 @@ public enum EnemyType
     RedTorch,
     King,
     Pirate,
+    Shark,
+    Star,
 }

@@ -8,6 +8,7 @@ using UnityEngine;
 public class AnimationManager : MonoBehaviour
 {
     [SerializeField] protected Animator animator;
+    [SerializeField] protected SpriteRenderer spriteRenderer;
 
     private string animName;
     void Start()
@@ -17,11 +18,17 @@ public class AnimationManager : MonoBehaviour
     protected void LoadComponent()
     {
         LoadAnimator();
+        LoadSpriteRenderer();
     }
     protected virtual void LoadAnimator()
     {
         if (animator != null) return;
         animator = GetComponent<Animator>();
+    }
+    protected virtual void LoadSpriteRenderer()
+    {
+        if (spriteRenderer != null) return;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void SetAnimation(string animName)
@@ -57,4 +64,9 @@ public class AnimationManager : MonoBehaviour
     {
         get { return animator; }
     }
+    public SpriteRenderer SpriteRenderer
+    {
+        get { return spriteRenderer; }
+    }
+
 }

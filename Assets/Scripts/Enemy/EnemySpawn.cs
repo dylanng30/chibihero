@@ -1,11 +1,16 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class EnemySpawn : MonoBehaviour
 {
     [SerializeField] GameObject[] LowEnemyPrefabs;
     [SerializeField] GameObject[] KnightPrefabs;
     [SerializeField] GameObject[] PiratePrefabs;
+    [SerializeField] GameObject[] StarPrefabs;
+    [SerializeField] GameObject[] SharkPrefabs;
 
     private Transform root;
 
@@ -14,51 +19,64 @@ public class EnemySpawn : MonoBehaviour
         root = GameObject.Find("EnemyManager").transform;
         if (root == null) return;
         if (root.childCount > 0) return;
-        LoadLowEnemySpawnPoint();
-        LoadKnightEnemySpawnPoint();
-        LoadPirateSpawnPoint();
+        StartCoroutine(LowEnemySpawn());
+        StartCoroutine(Spawn(EnemyType.RedKnight, KnightPrefabs));
+        StartCoroutine(Spawn(EnemyType.Pirate, PiratePrefabs));
+        StartCoroutine(Spawn(EnemyType.Star, StarPrefabs));
+        StartCoroutine(Spawn(EnemyType.Shark, SharkPrefabs));
     }
-    private void LoadLowEnemySpawnPoint()
+    private IEnumerator LowEnemySpawn()
     {
-        GameObject[] LowEnemySpawnPoints = GameObject.FindGameObjectsWithTag("Spawn");
-        if (LowEnemySpawnPoints.Length == 0)
-        {
-            Debug.Log("LowEnemy spawn points are empty !!!");
-            return;
-        }
-        Spawn(LowEnemySpawnPoints, LowEnemyPrefabs);
+        yield return new WaitUntil(() => Systems.Instance.ResourceSystem.Mines != null);
+        List<MineSO> mineSOs = Systems.Instance.ResourceSystem.Mines;
+        SpawnAtPositions<MineSO>(mineSOs, LowEnemyPrefabs);
     }
-    private void LoadKnightEnemySpawnPoint()
+    private IEnumerator Spawn(EnemyType type, GameObject[] Prefabs)
     {
-        GameObject[] KnightSpawnPoints = GameObject.FindGameObjectsWithTag("RedKnight");
-        if(KnightSpawnPoints.Length == 0)
+        yield return new WaitUntil(() => Systems.Instance.ResourceSystem.SpawnPoints != null);
+        List<SpawnPointsSO> spawnPointsSO = Systems.Instance.ResourceSystem.SpawnPoints;
+        List<SpawnPointsSO> spawnPoints = new();
+        foreach (SpawnPointsSO point in spawnPointsSO)
         {
-            Debug.Log("Knight spawn points are empty !!!");
-            return;
+            if (point.EnemyType == type)
+                spawnPoints.Add(point);
         }
-        Spawn(KnightSpawnPoints, KnightPrefabs);
-    }
-    private void LoadPirateSpawnPoint()
-    {
-        GameObject[] PirateSpawnPoints = GameObject.FindGameObjectsWithTag("Pirate");
-        if (PirateSpawnPoints.Length == 0)
-        {
-            Debug.Log("Pirate spawn points are empty !!!");
-            return;
-        }
-            
-        Spawn(PirateSpawnPoints, PiratePrefabs);
+        SpawnAtPositions<SpawnPointsSO>(spawnPoints, Prefabs);
     }
 
-    public void Spawn(GameObject[] spawnPoints, GameObject[] enemies)
-    {     
+    public void SpawnAtPositions<T>(List<T> positions, GameObject[] prefabs)
+    {
+        Debug.Log(positions.Count);
+        Debug.Log(prefabs);
+        if (positions == null || prefabs == null || prefabs.Length == 0) return;
 
-        for (int i = 0; i < spawnPoints.Length; i++)
+        foreach (var item in positions)
         {
-            int randomIndex = Random.Range(0, enemies.Length);
-            GameObject e = Instantiate(enemies[randomIndex], spawnPoints[i].transform.position, Quaternion.identity);
-            e.transform.SetParent(root);
-            EnemyManager.Instance.RegisterEnemy(e);
+            Vector3 position = Vector3.zero;
+
+            // Xác định vị trí từ kiểu của item
+            if (item is Transform transform)
+            {
+                position = transform.position;
+            }
+            else if (item is SpawnPointsSO spawnPoint)
+            {
+                position = spawnPoint.Position;
+            }
+            else if (item is MineSO mineSO)
+            {
+                position = mineSO.Position;
+            }
+            else
+            {
+                Debug.LogWarning($"Không thể lấy vị trí từ kiểu {typeof(T)}");
+                continue;
+            }
+
+            int randomIndex = Random.Range(0, prefabs.Length);
+            GameObject enemy = Instantiate(prefabs[randomIndex], position, Quaternion.identity);
+            enemy.transform.SetParent(root);
+            EnemyManager.Instance.RegisterEnemy(enemy);
         }
     }
 }

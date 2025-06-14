@@ -131,205 +131,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: jumpClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 33d9d1ff784da62469b41d0088077625, type: 3}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: walkClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 4bbda071980d4164b93fbab6099b4404, type: 3}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack1Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 1d37169e3fca53d4d9387cfa95832791, type: 3}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack2Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: f53dc05b9f1ff834dbf16642247f3c8a, type: 3}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack3Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 4642cfd2d43bdf449a47192080420c02, type: 3}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: inspectorUiVolume
-      value: 0.76
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: inspectorSfxVolume
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: inspectorMusicVolume
-      value: 0.012
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: inspectorMasterVolume
-      value: 0.883
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: jumpClipSettings.clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 33d9d1ff784da62469b41d0088077625, type: 3}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: jumpClipSettings.is3D
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: jumpClipSettings.loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: walkClipSettings.clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 4bbda071980d4164b93fbab6099b4404, type: 3}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: walkClipSettings.is3D
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: walkClipSettings.loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: jumpClipSettings.pitch
-      value: 2.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: walkClipSettings.pitch
-      value: 2.73
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: audioSettings.sfxVolume
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: jumpClipSettings.volume
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: walkClipSettings.volume
-      value: 1.96
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack1ClipSettings.clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 1d37169e3fca53d4d9387cfa95832791, type: 3}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack1ClipSettings.is3D
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack1ClipSettings.loop
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack2ClipSettings.clip
-      value: 
-      objectReference: {fileID: 8300000, guid: f53dc05b9f1ff834dbf16642247f3c8a, type: 3}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack2ClipSettings.is3D
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack3ClipSettings.clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 4642cfd2d43bdf449a47192080420c02, type: 3}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack3ClipSettings.is3D
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack3ClipSettings.loop
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack1ClipSettings.pitch
-      value: 2.78
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack2ClipSettings.pitch
-      value: 2.17
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack3ClipSettings.pitch
-      value: 0.59
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack1ClipSettings.volume
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack2ClipSettings.volume
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack3ClipSettings.volume
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack1ClipSettings.maxDistance
-      value: 433
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack2ClipSettings.maxDistance
-      value: 266
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: attack2ClipSettings.spatialBlend
-      value: 0.012007493
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: backgroundMusicTracks.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: defaultBackgroundMusic.audioSettings.clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 2a0de728e35a83c40b1df03623fe38b7, type: 3}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: defaultBackgroundMusic.audioSettings.is3D
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: defaultBackgroundMusic.audioSettings.loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: defaultBackgroundMusic.audioSettings.pitch
-      value: 0.42
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: defaultBackgroundMusic.audioSettings.volume
-      value: 0.008
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: backgroundMusicTracks.Array.data[0].trackName
-      value: Game Music
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: backgroundMusicTracks.Array.data[0].description
-      value: abc
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: backgroundMusicTracks.Array.data[0].isDefaultTrack
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: backgroundMusicTracks.Array.data[0].audioSettings.clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 2a0de728e35a83c40b1df03623fe38b7, type: 3}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: backgroundMusicTracks.Array.data[0].audioSettings.is3D
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: backgroundMusicTracks.Array.data[0].audioSettings.loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: backgroundMusicTracks.Array.data[0].audioSettings.volume
-      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 6747306567822038664, guid: a0f97f041a739b147a67128549c3311d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -375,13 +176,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Managers
       objectReference: {fileID: 0}
+    - target: {fileID: 8300571847716717031, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4594313001065286169, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1725614046}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0f97f041a739b147a67128549c3311d, type: 3}
 --- !u!1 &285082222
 GameObject:
@@ -520,6 +322,11 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1 &531921330 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5084173619520979735, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+  m_PrefabInstance: {fileID: 12566198}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &657577842
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,6 +459,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 657577842}
   m_CullTransparentMesh: 1
+--- !u!1001 &706319356
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1267292178571703211, guid: 132f3ae3a9976df44a096b2c8c8c9662, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267292178571703211, guid: 132f3ae3a9976df44a096b2c8c8c9662, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267292178571703211, guid: 132f3ae3a9976df44a096b2c8c8c9662, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267292178571703211, guid: 132f3ae3a9976df44a096b2c8c8c9662, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267292178571703211, guid: 132f3ae3a9976df44a096b2c8c8c9662, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267292178571703211, guid: 132f3ae3a9976df44a096b2c8c8c9662, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267292178571703211, guid: 132f3ae3a9976df44a096b2c8c8c9662, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267292178571703211, guid: 132f3ae3a9976df44a096b2c8c8c9662, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267292178571703211, guid: 132f3ae3a9976df44a096b2c8c8c9662, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267292178571703211, guid: 132f3ae3a9976df44a096b2c8c8c9662, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656067916974309512, guid: 132f3ae3a9976df44a096b2c8c8c9662, type: 3}
+      propertyPath: m_Name
+      value: System
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 132f3ae3a9976df44a096b2c8c8c9662, type: 3}
 --- !u!1 &715393874
 GameObject:
   m_ObjectHideFlags: 0
@@ -964,6 +828,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 831820417}
   m_CullTransparentMesh: 1
+--- !u!1 &1363013548 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8867553501370030326, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+  m_PrefabInstance: {fileID: 12566198}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1594050513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,28 +901,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1725614044 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4594313001065286169, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-  m_PrefabInstance: {fileID: 12566198}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1725614046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1725614044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79b921e591dca64ea3c0909c9b2f1e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  menuMusicName: Phoenix-Wright-Ace-Attorney-OST-Pressing-Pursuit-_-Cornered
-  gameplayMusicName: Phoenix-Wright-Ace-Attorney-OST-Pressing-Pursuit-_-Cornered
-  playMusicOnStart: 1
-  fadeTransitions: 1
-  fadeTime: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1062,3 +909,4 @@ SceneRoots:
   - {fileID: 1594050516}
   - {fileID: 793891020}
   - {fileID: 12566198}
+  - {fileID: 706319356}

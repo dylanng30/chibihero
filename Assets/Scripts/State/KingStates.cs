@@ -25,14 +25,20 @@ public class KingChasePlayerState : IState
             return;
         }
 
-        if (kingController.AbiDetectKing.DetectObstacle() && !kingController.AbiDetectKing.NextToWall())
+        if (kingController.AbiDetectKing.DetectObstacle()
+            && !kingController.AbiDetectKing.NextToWall()
+            )
         {
             kingController.MovementKing.Jump();
             return;
         }
 
         if (kingController.AbiKingNormalATK.CanAttack())
+        {
             kingController.StateManager.ChangeState(kingController.NormalATKState);
+            return;
+        }
+            
 
         kingController.MovementKing.Moving();
     }
@@ -58,12 +64,15 @@ public class KingNormalATKState : IState
     }
     public void Execute()
     {
+        kingController.MovementKing.FLipToPlayer();
+
         if (kingController.AnimationManager.FinishAnimation(currentState))
             kingController.StateManager.ChangeState(kingController.RunToDoorState);
 
     }
     public void Exit()
     {
+        
         kingController.AbiKingNormalATK.NormalATK();
     }
 }

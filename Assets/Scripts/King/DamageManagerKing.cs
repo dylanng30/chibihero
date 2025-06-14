@@ -69,6 +69,8 @@ public class DamageManagerKing : DamageBase
         else
         {
             isDead = true;
+            ObserverManager.Instance.KingIsDead();
+            Instantiate(skull, kingController.transform.position, Quaternion.identity);
             Destroy(kingController.gameObject);
             //Debug.Log("Player is dead");
             //playerController.GetStateManager().ChangeState(playerController.GetDeathState());

@@ -6,6 +6,10 @@ public class MovementKing : MonoBehaviour
 {
     [SerializeField] protected KingController kingController;
 
+    private Vector2 target;
+    private Vector2 origin;
+    private Vector2 direction;
+
     private void Start()
     {
         LoadComponent();
@@ -22,18 +26,18 @@ public class MovementKing : MonoBehaviour
     }
     public void Moving()
     {
-        Vector2 origin = kingController.transform.position;
-        Vector2 target = kingController.Target.transform.position;
+        origin = kingController.transform.position;
+        target = kingController.Target.transform.position;
         int speed = kingController.KingStats.MoveSpeed;
-        Vector2 direction = (target - origin).normalized;
+        direction = (target - origin).normalized;
         kingController.PhysicsKing.Rigidbody2D.velocity = new Vector2(direction.x * speed, kingController.PhysicsKing.Rigidbody2D.velocity.y);
         //Debug.Log(kingController.PhysicsKing.Rigidbody2D.velocity);
     }
     public void MoveToNearestDoor()
     {
-        Vector2 door = kingController.AbiDetectKing.NearestDoor.transform.position;
-        Vector2 origin = kingController.transform.position;
-        Vector2 direction = (door - origin).normalized;
+        target = kingController.AbiDetectKing.NearestDoor.transform.position;
+        origin = kingController.transform.position;
+        direction = (target - origin).normalized;
         int speed = kingController.KingStats.MoveSpeed;
         kingController.PhysicsKing.Rigidbody2D.velocity = new Vector2(direction.x * speed, kingController.PhysicsKing.Rigidbody2D.velocity.y);
     }
@@ -47,31 +51,33 @@ public class MovementKing : MonoBehaviour
 
     public void Flee()
     {
-        Vector2 origin = kingController.transform.position;
-        Vector2 target = kingController.Target.transform.position;
+        origin = kingController.transform.position;
+        target = kingController.Target.transform.position;
         int speed = kingController.KingStats.MoveSpeed;
-        Vector2 direction = (origin - target).normalized;
+        direction = (origin - target).normalized;
         kingController.PhysicsKing.Rigidbody2D.velocity = new Vector2(direction.x * speed, kingController.PhysicsKing.Rigidbody2D.velocity.y);
     }
 
     public void Jump()
     {
+        if(!kingController.CollisionKing.IsGrounded())
+            return;
+
         int jumpPower = kingController.KingStats.JumpPower;
         kingController.PhysicsKing.Rigidbody2D.velocity = new Vector2(kingController.PhysicsKing.Rigidbody2D.velocity.x, jumpPower);
     }
     public void Flip()
     {
-        float dirX = kingController.PhysicsKing.Rigidbody2D.velocity.x;
-        if (dirX > 0)
+        if (direction.x > 0)
             kingController.transform.localScale = new Vector3(1, 1, 1);
-        if (dirX < 0)
+        if (direction.x < 0)
             kingController.transform.localScale = new Vector3(-1, 1, 1);
     }
     public void FLipToPlayer()
     {
-        Vector2 origin = kingController.transform.position;
-        Vector2 target = kingController.Target.transform.position;
-        Vector2 direction = (target - origin).normalized;
+        origin = kingController.transform.position;
+        target = kingController.Target.transform.position;
+        direction = (target - origin).normalized;
         if (direction.x > 0)
             kingController.transform.localScale = new Vector3(1, 1, 1);
         if (direction.x < 0)
