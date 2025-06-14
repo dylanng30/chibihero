@@ -53,13 +53,15 @@ public class MoveRandomly : MonoBehaviour
     private void Move()
     {
         this.transform.position = Vector2.MoveTowards(this.transform.position, targetPosition, moveSpeed);
-    }
-    private void SetAnim()
+    }    private void SetAnim()
     {
-        if (isRunning)
-            anim.Play("Run");
-        else
-            anim.Play("Idle");
+        if (anim != null && anim.runtimeAnimatorController != null)
+        {
+            if (isRunning)
+                anim.Play("Run");
+            else
+                anim.Play("Idle");
+        }
     }
     private void Flip()
     {

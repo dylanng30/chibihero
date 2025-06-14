@@ -109,16 +109,6 @@ public class MovementPlayer : MonoBehaviour
 
         int speed = playerController.PlayerStats.MoveSpeed;
         
-        // Play walking sound when moving
-        if (direction.magnitude > 0 && playerController.CollisionPlayer.IsGrounded())
-        {
-            // Giảm tần suất phát âm thanh từ 0.5s xuống 0.7s để không spam
-            if (Time.time % 0.7f < 0.1f)
-            {
-                AudioManager.PlayPlayerWalk(transform.position);
-            }
-        }
-        
         if (playerController.PhysicsPlayer.Mode == PlayerMode.TopDown)
             playerController.PhysicsPlayer.Rigidbody2D.velocity = new Vector2(direction.normalized.x * speed, direction.normalized.y * speed);
         else
@@ -130,7 +120,7 @@ public class MovementPlayer : MonoBehaviour
         GetJumpingMove?.Invoke();
         // Play jump sound
         AudioManager.PlayPlayerJump(transform.position);
-        playerController.PhysicsPlayer.Rigidbody2D.velocity = new Vector2(playerController.PhysicsPlayer.Rigidbody2D.velocity.y, playerController.PlayerStats.JumpPower);
+        playerController.PhysicsPlayer.Rigidbody2D.velocity = new Vector2(playerController.PhysicsPlayer.Rigidbody2D.velocity.x, playerController.PlayerStats.JumpPower);
     }
 
     protected virtual void Flip()
