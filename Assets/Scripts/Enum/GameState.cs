@@ -5,5 +5,5 @@ public enum GameState
     Exploring,
     Fighting,
     GameOver,
-    Paused,
+    Win,
 }

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,16 +49,17 @@ public class MineManager : Singleton<MineManager>, IObserver
     {
         foreach (MineController mine in mineControllers)
         {
-            mine.gameObject.SetActive(false);
+            mine.SetVisible(false);
         }
     }
     private void ActivateMines()
     {
         foreach (MineController mine in mineControllers)
         {
-            mine.gameObject.SetActive(true);
+            mine.SetVisible(true);
         }
     }
+    
 
     public void KingIsDead()
     {

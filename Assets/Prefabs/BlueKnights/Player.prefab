@@ -80,6 +80,8 @@ MonoBehaviour:
   playerController: {fileID: 0}
   maxHP: 0
   currentHP: 0
+  maxMP: 0
+  currentMP: 0
   attackPower: 0
   armor: 0
   moveSpeed: 0
@@ -133,6 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
   ATKPoint: {fileID: 2520803847989927779}
+  currentAttackIndex: 1
 --- !u!1 &3058148261214021191
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,6 +416,7 @@ MonoBehaviour:
   abilityNormalATK: {fileID: 0}
   abilitySkill: {fileID: 0}
   expManager: {fileID: 0}
+  spriteRenderer: {fileID: 0}
 --- !u!50 &6433472508347020716
 Rigidbody2D:
   serializedVersion: 4
@@ -641,9 +645,9 @@ MonoBehaviour:
   currentHP: 0
   maxHP: 0
   isDead: 0
-  hpManager: {fileID: 0}
   playerController: {fileID: 0}
   floatingText: {fileID: 3140393086946627959, guid: 8c95482d552bddb4383c4071c21c4e5e, type: 3}
+  skull: {fileID: 4334585065909733642, guid: a6cd222cc72d6ab4eaaa54a849c42356, type: 3}
 --- !u!1 &6650008170491010328
 GameObject:
   m_ObjectHideFlags: 0

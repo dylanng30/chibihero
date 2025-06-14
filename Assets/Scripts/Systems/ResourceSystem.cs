@@ -8,6 +8,7 @@ public class ResourceSystem : MonoBehaviour
     public List<ScriptablePlayer> Players { get; private set; }
     public List<ScriptableEnemy> Enemies { get; private set; }
     public List<MineSO> Mines { get; private set; }
+    public List<SpawnPointsSO> SpawnPoints { get; private set; }
 
     public Dictionary<PlayerType, ScriptablePlayer> PlayerDictionary = new Dictionary<PlayerType, ScriptablePlayer>();
     public Dictionary<EnemyType, ScriptableEnemy> EnemyDictionary = new Dictionary<EnemyType, ScriptableEnemy>();
@@ -15,6 +16,7 @@ public class ResourceSystem : MonoBehaviour
     private ScriptablePlayer player;
     private ScriptableEnemy enemy;
     private MineSO mine;
+    private SpawnPointsSO spawnPoint;
     protected void Awake()
     {
         AssembleResource();
@@ -30,6 +32,7 @@ public class ResourceSystem : MonoBehaviour
         Players = Resources.LoadAll<ScriptablePlayer>("Players").ToList();
         Enemies = Resources.LoadAll<ScriptableEnemy>("Enemies").ToList();
         Mines = Resources.LoadAll<MineSO>("Mines").ToList();
+        SpawnPoints = Resources.LoadAll<SpawnPointsSO>("SpawnPoints").ToList();
     }
     private void TransformToDictionary()
     {

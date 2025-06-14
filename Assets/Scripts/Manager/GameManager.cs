@@ -47,8 +47,8 @@ public class GameManager : PersistentSingleton<GameManager>
             case GameState.GameOver:
                 StartCoroutine(HandleGameOverStateCoroutine());
                 break;
-            case GameState.Paused:
-                HandlePausedState();
+            case GameState.Win:
+                StartCoroutine(HandleWinState());
                 break;
             default:
                 break;
@@ -90,14 +90,16 @@ public class GameManager : PersistentSingleton<GameManager>
         
     private IEnumerator HandleGameOverStateCoroutine()
     {
-        //UIManager.Instance.ShowPlayerDied();
+        UIManager.Instance.ShowGameOverPanel();
         yield return new WaitForSeconds(3f);
         this.ChangeState(GameState.Exploring);
+        PlayerController.Instance.AnimationPlayer.SpriteRenderer.enabled = true;
     }
-    private void HandlePausedState()
+    private IEnumerator HandleWinState()
     {
-        // Logic for paused state - UI is handled by PauseManager
-        
+        UIManager.Instance.ShowWinPanel();
+        yield return new WaitForSeconds(3f);
+        ChangeState(GameState.Exploring);
     }
 
     public void ChangeStateWithScene(string sceneName)
@@ -125,7 +127,7 @@ public class GameManager : PersistentSingleton<GameManager>
         if (CheckedComplete)
         {
             EnemyManager.Instance.UnregisterEnemy(this.currentEnemy);
-            ChangeState(GameState.Exploring);
+            ChangeState(GameState.Win);
         }
         else
             ChangeState(GameState.GameOver);

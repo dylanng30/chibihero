@@ -18,50 +18,44 @@ public class EnemySpawn : MonoBehaviour
         if (root == null) return;
         if (root.childCount > 0) return;
         StartCoroutine(LowEnemySpawn());
-        LoadKnightEnemySpawnPoint();
-        LoadPirateSpawnPoint();
+        StartCoroutine(RedKnightSpawn());
+        StartCoroutine(PirateSpawn());
     }
     private IEnumerator LowEnemySpawn()
     {
         yield return new WaitUntil(() => Systems.Instance.ResourceSystem.Mines != null);
-        //Debug.Log(Systems.Instance.ResourceSystem.Mines.Count);
         List<MineSO> mineSOs = Systems.Instance.ResourceSystem.Mines;
         SpawnAtPositions<MineSO>(mineSOs, LowEnemyPrefabs);
     }
-    private void LoadKnightEnemySpawnPoint()
+    private IEnumerator RedKnightSpawn()
     {
-        GameObject[] KnightSpawnPoints = GameObject.FindGameObjectsWithTag("RedKnight");
-        if(KnightSpawnPoints.Length == 0)
+        yield return new WaitUntil(() => Systems.Instance.ResourceSystem.SpawnPoints != null);
+        List<SpawnPointsSO> spawnPointsSO = Systems.Instance.ResourceSystem.SpawnPoints;
+        List<SpawnPointsSO> redKnightSpawnPoints = new ();
+        foreach (SpawnPointsSO point in spawnPointsSO)
         {
-            Debug.Log("Knight spawn points are empty !!!");
-            return;
+            if (point.EnemyType != EnemyType.RedKnight)
+                yield break;
+            redKnightSpawnPoints.Add(point);
+            Debug.Log(redKnightSpawnPoints.Count);
         }
-        Spawn(KnightSpawnPoints, KnightPrefabs);
+        SpawnAtPositions<SpawnPointsSO>(redKnightSpawnPoints, KnightPrefabs);
     }
-    private void LoadPirateSpawnPoint()
+    private IEnumerator PirateSpawn()
     {
-        GameObject[] PirateSpawnPoints = GameObject.FindGameObjectsWithTag("Pirate");
-        if (PirateSpawnPoints.Length == 0)
+        yield return new WaitUntil(() => Systems.Instance.ResourceSystem.SpawnPoints != null);
+        //Debug.Log(Systems.Instance.ResourceSystem.Mines.Count);
+        List<SpawnPointsSO> spawnPointsSO = Systems.Instance.ResourceSystem.SpawnPoints;
+        List<SpawnPointsSO> pirateSpawnPoints = new();
+        foreach (SpawnPointsSO point in spawnPointsSO)
         {
-            Debug.Log("Pirate spawn points are empty !!!");
-            return;
+            if (point.EnemyType != EnemyType.Pirate)
+                yield break;
+            pirateSpawnPoints.Add(point);
+            Debug.Log(pirateSpawnPoints.Count);
         }
-            
-        Spawn(PirateSpawnPoints, PiratePrefabs);
+        SpawnAtPositions<SpawnPointsSO>(pirateSpawnPoints, PiratePrefabs);
     }
-
-    public void Spawn(GameObject[] spawnPoints, GameObject[] enemies)
-    {     
-
-        for (int i = 0; i < spawnPoints.Length; i++)
-        {
-            int randomIndex = Random.Range(0, enemies.Length);
-            GameObject e = Instantiate(enemies[randomIndex], spawnPoints[i].transform.position, Quaternion.identity);
-            e.transform.SetParent(root);
-            EnemyManager.Instance.RegisterEnemy(e);
-        }
-    }
-
     public void SpawnAtPositions<T>(List<T> positions, GameObject[] prefabs)
     {
         if (positions == null || prefabs == null || prefabs.Length == 0) return;
@@ -75,9 +69,9 @@ public class EnemySpawn : MonoBehaviour
             {
                 position = transform.position;
             }
-            else if (item is GameObject go)
+            else if (item is SpawnPointsSO spawnPoint)
             {
-                position = go.transform.position;
+                position = spawnPoint.Position;
             }
             else if (item is MineSO mineSO)
             {

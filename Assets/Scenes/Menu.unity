@@ -131,9 +131,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: inspectorMusicVolume
-      value: 0.251
+    - target: {fileID: 694772738846990052, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      propertyPath: WinPanel
+      value: 
+      objectReference: {fileID: 1363013548}
+    - target: {fileID: 694772738846990052, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      propertyPath: GameOverPanel
+      value: 
+      objectReference: {fileID: 531921330}
+    - target: {fileID: 4942239459089045594, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5008330452847291290, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6747306567822038664, guid: a0f97f041a739b147a67128549c3311d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -179,13 +191,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Managers
       objectReference: {fileID: 0}
+    - target: {fileID: 8300571847716717031, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4594313001065286169, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1725614046}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0f97f041a739b147a67128549c3311d, type: 3}
 --- !u!1 &285082222
 GameObject:
@@ -324,6 +337,11 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1 &531921330 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5084173619520979735, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+  m_PrefabInstance: {fileID: 12566198}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &657577842
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,6 +843,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 831820417}
   m_CullTransparentMesh: 1
+--- !u!1 &1363013548 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8867553501370030326, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+  m_PrefabInstance: {fileID: 12566198}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1594050513
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,28 +916,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1725614044 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4594313001065286169, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-  m_PrefabInstance: {fileID: 12566198}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1725614046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1725614044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79b921e591dca64ea3c0909c9b2f1e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  menuMusicName: Phoenix-Wright-Ace-Attorney-OST-Pressing-Pursuit-_-Cornered
-  gameplayMusicName: Phoenix-Wright-Ace-Attorney-OST-Pressing-Pursuit-_-Cornered
-  playMusicOnStart: 1
-  fadeTransitions: 1
-  fadeTime: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

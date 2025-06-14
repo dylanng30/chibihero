@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,6 +27,17 @@ public class MineController : MonoBehaviour
         if (this.animator != null) return;
         this.animator = GetComponent<Animator>();
     }
+    public void SetVisible(bool visible)
+    {
+        // Ẩn/hiện sprite
+        var sr = GetComponent<SpriteRenderer>();
+        if (sr != null) sr.enabled = visible;
+
+        // Nếu có collider, có thể disable collider khi ẩn
+        //var col = GetComponent<Collider2D>();
+        //if (col != null) col.enabled = visible;
+    }
+
     public void KingIsDead()
     {
         SetState(MineState.Active);

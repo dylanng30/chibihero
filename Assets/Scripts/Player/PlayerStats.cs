@@ -66,6 +66,14 @@ public class PlayerStats : MonoBehaviour
         this.playerController = transform.GetComponentInParent<PlayerController>();
     }
 
+    public void Reset()
+    {
+        this.currentHP = maxHP;
+        Debug.Log(currentHP);
+        this.currentMP = maxMP;
+        Debug.Log(currentMP);
+    }
+
     //HP
     public int MaxHP
     {

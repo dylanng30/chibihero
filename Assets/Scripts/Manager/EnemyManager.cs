@@ -14,7 +14,7 @@ public class EnemyManager : Singleton<EnemyManager>, IObserver
 
     public void ActivatePool()
     {
-        Debug.Log("Activate Pool");
+        //.Log("Activate Pool");
         foreach(var enemy in EnemiesTopDown)
         {
             if (enemy != null)
@@ -25,7 +25,7 @@ public class EnemyManager : Singleton<EnemyManager>, IObserver
 
     public void DeactivatePool()
     {
-        Debug.Log("Deactivate Pool");
+        //Debug.Log("Deactivate Pool");
         foreach (var enemy in EnemiesTopDown)
         {
             if (enemy != null)
