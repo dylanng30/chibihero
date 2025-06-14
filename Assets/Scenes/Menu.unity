@@ -131,6 +131,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 94103044503943472, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      propertyPath: inspectorMusicVolume
+      value: 0.251
+      objectReference: {fileID: 0}
     - target: {fileID: 6747306567822038664, guid: a0f97f041a739b147a67128549c3311d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -178,7 +182,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4594313001065286169, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1725614046}
   m_SourcePrefab: {fileID: 100100000, guid: a0f97f041a739b147a67128549c3311d, type: 3}
 --- !u!1 &285082222
 GameObject:
@@ -886,6 +893,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1725614044 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4594313001065286169, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+  m_PrefabInstance: {fileID: 12566198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1725614046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725614044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79b921e591dca64ea3c0909c9b2f1e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuMusicName: Phoenix-Wright-Ace-Attorney-OST-Pressing-Pursuit-_-Cornered
+  gameplayMusicName: Phoenix-Wright-Ace-Attorney-OST-Pressing-Pursuit-_-Cornered
+  playMusicOnStart: 1
+  fadeTransitions: 1
+  fadeTime: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

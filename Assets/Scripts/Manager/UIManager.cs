@@ -60,6 +60,9 @@ public class UIManager : Singleton<UIManager>
     }
     public void ShowPauseMenu()
     {
+        // Play UI sound
+        AudioManager.PlayUIClick();
+        
         if (PauseMenu != null)
             PauseMenu.SetActive(true);            
         else
@@ -68,6 +71,9 @@ public class UIManager : Singleton<UIManager>
 
     public void HidePauseMenu()
     {
+        // Play UI sound
+        AudioManager.PlayUIClick();
+        
         if (PauseMenu != null)
             PauseMenu.SetActive(false);
     }
