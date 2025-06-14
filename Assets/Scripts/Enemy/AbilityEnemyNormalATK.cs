@@ -43,6 +43,10 @@ public class AbilityEnemyNormalATK : MonoBehaviour
 
     public void NormalATK()
     {
+        // Play enemy attack sound based on enemy type
+        string enemyTypeName = lowEnemyController.EnemyStats.EnemyType.ToString().ToLower();
+        AudioManager.PlayEnemyAttack(enemyTypeName, transform.position);
+        
         switch (lowEnemyController.EnemyStats.EnemyType)
         {
             case EnemyType.RedPawn:

@@ -7,6 +7,7 @@ public class AbilityNormalATK : MonoBehaviour
 {
     [SerializeField] protected PlayerController playerController;
     [SerializeField] protected Transform ATKPoint;
+    [SerializeField] private int currentAttackIndex = 1; // Track current attack for sound variation
 
     private Action GetATKTrigger;
     private bool atkTrigger;
@@ -43,6 +44,12 @@ public class AbilityNormalATK : MonoBehaviour
 
         if (playerController.PhysicsPlayer.Mode == PlayerMode.TopDown)
             return;
+
+        // Play attack sound with variation
+        AudioManager.PlayPlayerAttack(currentAttackIndex, transform.position);
+        
+        // Cycle through attack sounds (1, 2, 3, then back to 1)
+        currentAttackIndex = (currentAttackIndex % 3) + 1;
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(ATKPoint.position, 0.8f, LayerMask.GetMask("Enemy"));
         foreach (Collider2D enemy in hitEnemies)

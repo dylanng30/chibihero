@@ -43,6 +43,10 @@ public class DamageManagerPlayer : DamageBase
     public override void TakeDamage(int damage, GameObject enemy)
     {
         base.TakeDamage(damage, enemy);
+        
+        // Play hurt sound
+        AudioManager.PlayPlayerHurt(transform.position);
+        
         CreateFloatingText(damage);
         playerController.PhysicsPlayer.KnockBack(enemy);
         playerController.PlayerStats.SetCurrentHP(currentHP);
@@ -68,6 +72,8 @@ public class DamageManagerPlayer : DamageBase
         else
         {
             isDead = true;
+            // Play death sound
+            AudioManager.PlayPlayerDeath(transform.position);
             //GameManagerTest.Instance.CompleteMap(false);
             //Debug.Log("Player is dead");
         }
