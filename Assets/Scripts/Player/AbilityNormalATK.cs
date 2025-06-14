@@ -45,6 +45,8 @@ public class AbilityNormalATK : MonoBehaviour
         if (playerController.PhysicsPlayer.Mode == PlayerMode.TopDown)
             return;
 
+        // Increment attack index for next attack
+        IncrementAttackIndex();
         // Play attack sound with variation
         AudioManager.PlayPlayerAttack(currentAttackIndex, transform.position);
 
@@ -56,7 +58,6 @@ public class AbilityNormalATK : MonoBehaviour
             e.TakeDamage(playerController.PlayerStats.AttackPower, playerController.gameObject);
             playerController.EXPManager.AddEXP(1000);
         }
-       
     }
 
     public bool ATKTrigger
@@ -65,6 +66,17 @@ public class AbilityNormalATK : MonoBehaviour
         {
             return atkTrigger;
         }
+    }
+
+    public int GetCurrentAttackIndex()
+    {
+        return currentAttackIndex;
+    }
+
+    public void IncrementAttackIndex()
+    {
+        // Cycle through attack sounds (1, 2, 3, then back to 1)
+        currentAttackIndex = (currentAttackIndex % 3) + 1;
     }
 
 }

@@ -3,8 +3,7 @@ using UnityEngine;
 public static class AudioManager
 {
     private static AudioSystem audioSystem;
-    
-    private static AudioSystem AudioSystem
+      private static AudioSystem AudioSystem
     {
         get
         {
@@ -20,7 +19,19 @@ public static class AudioManager
     public static void PlayBackgroundMusic(string musicName, bool fadeIn = true)
     {
         AudioSystem?.PlayMusic(musicName, fadeIn);
-    }    public static void StopBackgroundMusic(bool fadeOut = true)
+    }
+    
+    public static void PlayDefaultBackgroundMusic(bool fadeIn = true)
+    {
+        AudioSystem?.PlayDefaultBackgroundMusic(fadeIn);
+    }
+    
+    public static void PlayBackgroundMusicForScene(string sceneName, bool fadeIn = true)
+    {
+        AudioSystem?.PlayBackgroundMusicForScene(sceneName, fadeIn);
+    }
+    
+    public static void StopBackgroundMusic(bool fadeOut = true)
     {
         AudioSystem?.StopMusic(fadeOut);
     }
@@ -29,14 +40,17 @@ public static class AudioManager
     #region Player Sounds
     public static void PlayPlayerJump(Vector3 position = default)
     {
-        // Tăng volume cho âm thanh nhảy
-        AudioSystem?.PlaySFX("JUMP", position, 1.5f); // Thêm volume multiplier
+        AudioSystem?.PlayPlayerSound(PlayerSoundType.Jump, position);
     }
 
     public static void PlayPlayerWalk(Vector3 position = default)
     {
-        // Tăng volume cho âm thanh đi bộ
-        AudioSystem?.PlaySFX("Walking", position, 1.8f); // Tăng từ 1.5f lên 1.8f
+        AudioSystem?.PlayPlayerSound(PlayerSoundType.Walk, position);
+    }
+
+    public static void StopPlayerWalk()
+    {
+        AudioSystem?.StopWalkSound();
     }
 
     public static void PlayPlayerAttack(int attackIndex, Vector3 position = default)
@@ -49,6 +63,21 @@ public static class AudioManager
             _ => PlayerSoundType.Attack1
         };
         AudioSystem?.PlayPlayerSound(attackType, position);
+    }
+
+    public static void StopPlayerAttack()
+    {
+        AudioSystem?.StopAttackSound();
+    }
+
+    public static void StopPlayerJump()
+    {
+        AudioSystem?.StopJumpSound();
+    }
+
+    public static void StopAllPlayerSounds()
+    {
+        AudioSystem?.StopAllPlayerSounds();
     }
 
     public static void PlayPlayerDeath(Vector3 position = default)

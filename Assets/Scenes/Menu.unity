@@ -131,21 +131,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 694772738846990052, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: WinPanel
-      value: 
-      objectReference: {fileID: 1363013548}
-    - target: {fileID: 694772738846990052, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: GameOverPanel
-      value: 
-      objectReference: {fileID: 531921330}
-    - target: {fileID: 4942239459089045594, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5008330452847291290, guid: a0f97f041a739b147a67128549c3311d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6747306567822038664, guid: a0f97f041a739b147a67128549c3311d, type: 3}
       propertyPath: m_LocalPosition.x

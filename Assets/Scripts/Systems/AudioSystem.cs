@@ -3,13 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioSystem : Singleton<AudioSystem>
-{
-    [Header("Audio Sources")]
+{    [Header("Audio Sources")]
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AudioSource uiSource;
     [SerializeField] private AudioSource ambientSource;
-      [Header("Audio Database")]
+    
+    [Header("Player Audio Sources")]
+    [SerializeField] private AudioSource walkSource;
+    [SerializeField] private AudioSource attackSource;
+    [SerializeField] private AudioSource jumpSource;
+    
+    [Header("Audio Clips - Assign in Inspector")]
+    [SerializeField] private AudioClipSettings walkClipSettings;
+    [SerializeField] private AudioClipSettings jumpClipSettings;
+    [SerializeField] private AudioClipSettings attack1ClipSettings;
+    [SerializeField] private AudioClipSettings attack2ClipSettings;
+    [SerializeField] private AudioClipSettings attack3ClipSettings;
+    [SerializeField] private AudioClipSettings deathClipSettings;    [SerializeField] private AudioClipSettings hurtClipSettings;
+    
+    [Header("Background Music - Assign in Inspector")]
+    [SerializeField] private BackgroundMusicTrack[] backgroundMusicTracks;
+    [SerializeField] private BackgroundMusicTrack defaultBackgroundMusic;
+    
+    [Header("Audio Database")]
     [SerializeField] private AudioDatabase audioDatabase;
     
     [Header("Audio Settings - Editable in Inspector")]
@@ -63,9 +80,7 @@ public class AudioSystem : Singleton<AudioSystem>
             SetDefaultAudioSettings();
             UpdateVolumes();
         }
-    }
-
-    private void InitializeAudioSources()
+    }    private void InitializeAudioSources()
     {
         if (musicSource == null)
         {
@@ -101,6 +116,32 @@ public class AudioSystem : Singleton<AudioSystem>
             ambientSource.playOnAwake = false;
         }
 
+        // Initialize player audio sources
+        if (walkSource == null)
+        {
+            GameObject walkGO = new GameObject("Walk Source");
+            walkGO.transform.SetParent(transform);
+            walkSource = walkGO.AddComponent<AudioSource>();
+            walkSource.loop = true; // Walking sound should loop
+            walkSource.playOnAwake = false;
+        }
+
+        if (attackSource == null)
+        {
+            GameObject attackGO = new GameObject("Attack Source");
+            attackGO.transform.SetParent(transform);
+            attackSource = attackGO.AddComponent<AudioSource>();
+            attackSource.playOnAwake = false;
+        }
+
+        if (jumpSource == null)
+        {
+            GameObject jumpGO = new GameObject("Jump Source");
+            jumpGO.transform.SetParent(transform);
+            jumpSource = jumpGO.AddComponent<AudioSource>();
+            jumpSource.playOnAwake = false;
+        }
+
         UpdateVolumes();
     }
 
@@ -113,12 +154,21 @@ public class AudioSystem : Singleton<AudioSystem>
             if (!loadedClips.ContainsKey(clip.name))
             {
                 loadedClips.Add(clip.name, clip);
-            }
-        }
+            }        }
     }
 
     public void PlayMusic(string clipName, bool fadeIn = true, float fadeTime = 1f)
     {
+        // First check Inspector background music tracks
+        AudioClipSettings musicSettings = FindBackgroundMusicByName(clipName);
+        
+        if (musicSettings?.clip != null)
+        {
+            PlayMusic(musicSettings, fadeIn, fadeTime);
+            return;
+        }
+        
+        // Fallback to database/resources
         AudioClipData clipData = audioDatabase != null ? audioDatabase.GetAudioClip(clipName) : null;
         AudioClip clip = clipData?.audioClip ?? GetClipFromResources(clipName);
         
@@ -132,6 +182,26 @@ public class AudioSystem : Singleton<AudioSystem>
             {
                 PlayMusicDirect(clip, clipData);
             }
+        }
+    }
+
+    public void PlayMusic(AudioClipSettings musicSettings, bool fadeIn = true, float fadeTime = 1f)
+    {
+        if (musicSettings?.clip == null) return;
+        
+        if (fadeIn && musicSource.isPlaying)
+        {
+            StartCoroutine(FadeAndPlayMusic(musicSettings, fadeTime));
+        }
+        else
+        {
+            PlayMusicDirect(musicSettings);
+        }
+    }    public void PlayDefaultBackgroundMusic(bool fadeIn = true, float fadeTime = 1f)
+    {
+        if (defaultBackgroundMusic?.audioSettings?.clip != null)
+        {
+            PlayMusic(defaultBackgroundMusic.audioSettings, fadeIn, fadeTime);
         }
     }
 
@@ -160,12 +230,47 @@ public class AudioSystem : Singleton<AudioSystem>
         musicSource.volume = targetVolume;
     }
 
+    private IEnumerator FadeAndPlayMusic(AudioClipSettings musicSettings, float fadeTime)
+    {
+        // Fade out current music
+        float startVolume = musicSource.volume;
+        while (musicSource.volume > 0)
+        {
+            musicSource.volume -= startVolume * Time.deltaTime / fadeTime;
+            yield return null;
+        }
+        
+        musicSource.Stop();
+        
+        // Play new music and fade in
+        PlayMusicDirect(musicSettings);
+        musicSource.volume = 0;
+        
+        float targetVolume = musicSettings.volume * audioSettings.musicVolume * audioSettings.masterVolume;
+        while (musicSource.volume < targetVolume)
+        {
+            musicSource.volume += targetVolume * Time.deltaTime / fadeTime;
+            yield return null;
+        }
+        musicSource.volume = targetVolume;
+    }
+
     private void PlayMusicDirect(AudioClip clip, AudioClipData clipData)
     {
         musicSource.clip = clip;
         musicSource.volume = (clipData?.volume ?? 1f) * audioSettings.musicVolume * audioSettings.masterVolume;
         musicSource.pitch = clipData?.pitch ?? 1f;
         musicSource.loop = clipData?.loop ?? true;
+        musicSource.Play();
+    }
+
+    private void PlayMusicDirect(AudioClipSettings musicSettings)
+    {
+        musicSource.clip = musicSettings.clip;
+        musicSource.volume = musicSettings.volume * audioSettings.musicVolume * audioSettings.masterVolume;
+        musicSource.pitch = musicSettings.pitch;
+        musicSource.loop = musicSettings.loop;
+        ConfigureAudioSource3D(musicSource, musicSettings);
         musicSource.Play();
     }
 
@@ -201,24 +306,239 @@ public class AudioSystem : Singleton<AudioSystem>
             uiSource.PlayOneShot(clip, 
                 (clipData?.volume ?? 1f) * volumeMultiplier * audioSettings.uiVolume * audioSettings.masterVolume);
         }
-    }
-
-    public void PlayPlayerSound(PlayerSoundType soundType, Vector3 position = default)
+    }    public void PlayPlayerSound(PlayerSoundType soundType, Vector3 position = default)
     {
-        string clipName = soundType switch
+        switch (soundType)
         {
-            PlayerSoundType.Jump => "JUMP",
-            PlayerSoundType.Walk => "Walking",
+            case PlayerSoundType.Walk:
+                PlayWalkSound();
+                break;
+            case PlayerSoundType.Jump:
+                PlayJumpSound();
+                break;
+            case PlayerSoundType.Attack1:            case PlayerSoundType.Attack2:
+            case PlayerSoundType.Attack3:
+                PlayAttackSound(soundType);
+                break;
+            default:
+                // For other sounds, use Inspector clips first
+                AudioClipSettings clipSettings = soundType switch
+                {
+                    PlayerSoundType.Death => deathClipSettings,
+                    PlayerSoundType.Hurt => hurtClipSettings,
+                    _ => null
+                };
+
+                AudioClip clip = clipSettings?.clip;
+
+                string clipName = soundType switch
+                {
+                    PlayerSoundType.Death => "DEATH",
+                    PlayerSoundType.Hurt => "HURT",
+                    _ => ""
+                };
+                
+                if (clip != null)
+                {
+                    float volume = clipSettings.volume * audioSettings.sfxVolume * audioSettings.masterVolume;
+                    
+                    if (position != default)
+                    {
+                        AudioSource.PlayClipAtPoint(clip, position, volume);
+                    }
+                    else
+                    {
+                        sfxSource.clip = clip;
+                        sfxSource.volume = volume;
+                        sfxSource.pitch = clipSettings.pitch;
+                        sfxSource.loop = clipSettings.loop;
+                        ConfigureAudioSource3D(sfxSource, clipSettings);
+                        sfxSource.Play();
+                    }
+                }
+                else if (!string.IsNullOrEmpty(clipName))
+                {
+                    PlaySFX(clipName, position);
+                }
+                break;
+        }
+    }    private void PlayWalkSound()
+    {
+        // Only play if not already playing
+        if (!walkSource.isPlaying)
+        {
+            // Priority: Inspector clip -> Database -> Resources
+            AudioClip clip = walkClipSettings?.clip;
+            AudioClipData clipData = null;
+            
+            if (clip == null)
+            {
+                clipData = audioDatabase != null ? audioDatabase.GetAudioClip("Walking") : null;
+                clip = clipData?.audioClip ?? GetClipFromResources("Walking");
+            }
+            
+            if (clip != null)
+            {
+                walkSource.clip = clip;
+                
+                // Use settings from Inspector if available, otherwise use database/default
+                if (walkClipSettings?.clip != null)
+                {
+                    walkSource.volume = walkClipSettings.volume * audioSettings.sfxVolume * audioSettings.masterVolume;
+                    walkSource.pitch = walkClipSettings.pitch;
+                    walkSource.loop = walkClipSettings.loop;
+                    ConfigureAudioSource3D(walkSource, walkClipSettings);
+                }
+                else
+                {
+                    walkSource.volume = (clipData?.volume ?? 1f) * audioSettings.sfxVolume * audioSettings.masterVolume;
+                    walkSource.pitch = clipData?.pitch ?? 1f;
+                    walkSource.loop = true; // Default for walk
+                }
+                
+                walkSource.Play();
+            }
+        }
+    }    private void PlayJumpSound()
+    {
+        // Stop any previous jump sound and play new one
+        if (jumpSource.isPlaying)
+        {
+            jumpSource.Stop();
+        }
+
+        // Priority: Inspector clip -> Database -> Resources
+        AudioClip clip = jumpClipSettings?.clip;
+        AudioClipData clipData = null;
+        
+        if (clip == null)
+        {
+            clipData = audioDatabase != null ? audioDatabase.GetAudioClip("JUMP") : null;
+            clip = clipData?.audioClip ?? GetClipFromResources("JUMP");
+        }
+        
+        if (clip != null)
+        {
+            jumpSource.clip = clip;
+            
+            // Use settings from Inspector if available, otherwise use database/default
+            if (jumpClipSettings?.clip != null)
+            {
+                jumpSource.volume = jumpClipSettings.volume * audioSettings.sfxVolume * audioSettings.masterVolume;
+                jumpSource.pitch = jumpClipSettings.pitch;
+                jumpSource.loop = jumpClipSettings.loop;
+                ConfigureAudioSource3D(jumpSource, jumpClipSettings);
+            }
+            else
+            {
+                jumpSource.volume = (clipData?.volume ?? 1f) * audioSettings.sfxVolume * audioSettings.masterVolume;
+                jumpSource.pitch = clipData?.pitch ?? 1f;
+                jumpSource.loop = false; // Default for jump
+            }
+            
+            jumpSource.Play();        }
+    }    private void PlayAttackSound(PlayerSoundType attackType)
+    {
+        Debug.Log($"PlayAttackSound called with type: {attackType}");
+        
+        // Stop any previous attack sound and play new one
+        if (attackSource.isPlaying)
+        {
+            Debug.Log("Stopping previous attack sound");
+            attackSource.Stop();
+        }
+
+        // Priority: Inspector clip -> Database -> Resources
+        AudioClipSettings clipSettings = attackType switch
+        {
+            PlayerSoundType.Attack1 => attack1ClipSettings,
+            PlayerSoundType.Attack2 => attack2ClipSettings,
+            PlayerSoundType.Attack3 => attack3ClipSettings,
+            _ => null
+        };
+
+        AudioClip clip = clipSettings?.clip;
+        Debug.Log($"Inspector clip found: {clip != null}");
+
+        string clipName = attackType switch
+        {
             PlayerSoundType.Attack1 => "attack1",
             PlayerSoundType.Attack2 => "attack2",
             PlayerSoundType.Attack3 => "attack3",
             _ => ""
         };
+
+        AudioClipData clipData = null;
         
-        if (!string.IsNullOrEmpty(clipName))
+        if (clip == null && !string.IsNullOrEmpty(clipName))
         {
-            PlaySFX(clipName, position);
+            Debug.Log($"Looking for clip in database/resources: {clipName}");
+            clipData = audioDatabase != null ? audioDatabase.GetAudioClip(clipName) : null;
+            clip = clipData?.audioClip ?? GetClipFromResources(clipName);
+            Debug.Log($"Database/Resources clip found: {clip != null}");
         }
+        
+        if (clip != null)
+        {
+            Debug.Log($"Playing attack sound: {clip.name}");
+            attackSource.clip = clip;
+            
+            // Use settings from Inspector if available, otherwise use database/default
+            if (clipSettings?.clip != null)
+            {
+                attackSource.volume = clipSettings.volume * audioSettings.sfxVolume * audioSettings.masterVolume;
+                attackSource.pitch = clipSettings.pitch;
+                attackSource.loop = clipSettings.loop;
+                ConfigureAudioSource3D(attackSource, clipSettings);
+                Debug.Log($"Using Inspector settings - Volume: {attackSource.volume}, Pitch: {attackSource.pitch}");
+            }
+            else
+            {
+                attackSource.volume = (clipData?.volume ?? 1f) * audioSettings.sfxVolume * audioSettings.masterVolume;
+                attackSource.pitch = clipData?.pitch ?? 1f;
+                attackSource.loop = false; // Default for attack
+                Debug.Log($"Using default settings - Volume: {attackSource.volume}, Pitch: {attackSource.pitch}");
+            }
+            
+            attackSource.Play();
+            Debug.Log("Attack sound started playing");
+        }
+        else
+        {
+            Debug.LogWarning($"No attack clip found for {attackType} with name {clipName}");
+        }
+    }
+
+    // Methods to stop specific player sounds
+    public void StopWalkSound()
+    {
+        if (walkSource != null && walkSource.isPlaying)
+        {
+            walkSource.Stop();
+        }
+    }
+
+    public void StopJumpSound()
+    {
+        if (jumpSource != null && jumpSource.isPlaying)
+        {
+            jumpSource.Stop();
+        }
+    }
+
+    public void StopAttackSound()
+    {
+        if (attackSource != null && attackSource.isPlaying)
+        {
+            attackSource.Stop();
+        }
+    }
+
+    public void StopAllPlayerSounds()
+    {
+        StopWalkSound();
+        StopJumpSound();
+        StopAttackSound();
     }
 
     public void PlayEnemySound(string enemyType, EnemySoundType soundType, Vector3 position = default)
@@ -308,13 +628,27 @@ public class AudioSystem : Singleton<AudioSystem>
     {
         audioSettings.uiVolume = Mathf.Clamp01(volume);
         UpdateVolumes();
-    }
-
-    private void UpdateVolumes()
+    }    private void UpdateVolumes()
     {
         if (musicSource != null && musicSource.isPlaying)
         {
             musicSource.volume = audioSettings.musicVolume * audioSettings.masterVolume;
+        }
+        
+        // Update player audio sources volumes
+        if (walkSource != null && walkSource.isPlaying)
+        {
+            walkSource.volume = audioSettings.sfxVolume * audioSettings.masterVolume;
+        }
+        
+        if (attackSource != null && attackSource.isPlaying)
+        {
+            attackSource.volume = audioSettings.sfxVolume * audioSettings.masterVolume;
+        }
+        
+        if (jumpSource != null && jumpSource.isPlaying)
+        {
+            jumpSource.volume = audioSettings.sfxVolume * audioSettings.masterVolume;
         }
     }
 
@@ -341,5 +675,78 @@ public class AudioSystem : Singleton<AudioSystem>
         {
             sfxSource.PlayOneShot(clip, vol * audioSettings.sfxVolume * audioSettings.masterVolume);
         }
+    }
+
+    private void ConfigureAudioSource3D(AudioSource source, AudioClipSettings settings)
+    {
+        if (settings.is3D)
+        {
+            source.spatialBlend = settings.spatialBlend;
+            source.maxDistance = settings.maxDistance;
+            source.rolloffMode = AudioRolloffMode.Logarithmic;
+        }        else
+        {
+            source.spatialBlend = 0f; // 2D
+        }
+    }
+
+    private AudioClipSettings FindBackgroundMusicByName(string clipName)
+    {
+        if (string.IsNullOrEmpty(clipName) || backgroundMusicTracks == null || backgroundMusicTracks.Length == 0) 
+            return null;
+        
+        foreach (var musicTrack in backgroundMusicTracks)
+        {
+            if (musicTrack == null) continue;
+            
+            // Check track name first
+            if (!string.IsNullOrEmpty(musicTrack.trackName) && 
+                musicTrack.trackName.Equals(clipName, System.StringComparison.OrdinalIgnoreCase))
+            {
+                return musicTrack.audioSettings;
+            }
+            
+            // Then check clip name
+            if (musicTrack.audioSettings?.clip != null &&
+                musicTrack.audioSettings.clip.name.Equals(clipName, System.StringComparison.OrdinalIgnoreCase))
+            {
+                return musicTrack.audioSettings;
+            }
+        }        return null;
+    }
+
+    public void PlayBackgroundMusicForScene(string sceneName, bool fadeIn = true, float fadeTime = 1f)
+    {
+        if (string.IsNullOrEmpty(sceneName) || backgroundMusicTracks == null || backgroundMusicTracks.Length == 0) 
+        {
+            PlayDefaultBackgroundMusic(fadeIn, fadeTime);
+            return;
+        }
+        
+        foreach (var musicTrack in backgroundMusicTracks)
+        {
+            if (musicTrack?.scenesToPlayIn != null && musicTrack.scenesToPlayIn.Length > 0)
+            {
+                foreach (var scene in musicTrack.scenesToPlayIn)
+                {
+                    if (!string.IsNullOrEmpty(scene) && scene.Equals(sceneName, System.StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (musicTrack.audioSettings?.clip != null)
+                        {
+                            PlayMusic(musicTrack.audioSettings, fadeIn, fadeTime);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        
+        // If no specific track found for scene, play default
+        PlayDefaultBackgroundMusic(fadeIn, fadeTime);
+    }
+
+    public BackgroundMusicTrack[] GetAllBackgroundTracks()
+    {
+        return backgroundMusicTracks;
     }
 }
