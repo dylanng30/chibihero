@@ -26,7 +26,10 @@ public class EnemyDetectObstacle : MonoBehaviour
     public bool DetectObstacle()
     {
         Vector2 direction = transform.right * Mathf.Sign(lowEnemyController.transform.localScale.x);
-        hit = Physics2D.Raycast(lowEnemyController.transform.position, direction, 2f, LayerMask.GetMask("Ground"));
+        Vector3 originRay = lowEnemyController.transform.position;
+        float offSet = lowEnemyController.CollisionEnemy.BoxCollider2D.size.y / 2 + lowEnemyController.CollisionEnemy.BoxCollider2D.offset.y;
+        originRay.y -= offSet;
+        hit = Physics2D.Raycast(originRay, direction, 2f, LayerMask.GetMask("Ground"));
 
         if (hit.collider == null)
             return false;
@@ -41,8 +44,11 @@ public class EnemyDetectObstacle : MonoBehaviour
 
     public bool NextToWall()
     {
-        Vector2 direction = transform.right * Mathf.Sign(transform.localScale.x);
-        hit = Physics2D.Raycast(lowEnemyController.transform.position, direction, 0.5f, LayerMask.GetMask("Ground"));
+        Vector2 direction = Vector2.right * lowEnemyController.transform.localScale.x;
+        Vector3 originRay = lowEnemyController.transform.position;
+        float offSet = lowEnemyController.CollisionEnemy.BoxCollider2D.size.y / 2 + lowEnemyController.CollisionEnemy.BoxCollider2D.offset.y;
+        originRay.y -= offSet;
+        hit = Physics2D.Raycast(originRay, direction, 1f, LayerMask.GetMask("Ground"));
 
         if (hit.collider == null)
             return false;

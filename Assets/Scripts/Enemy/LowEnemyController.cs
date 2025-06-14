@@ -111,7 +111,7 @@ public class LowEnemyController : MonoBehaviour, IDamagable
     {
         get { return physicsEnemy; }
     }
-    public CollisionEnemy CollisionPlayer
+    public CollisionEnemy CollisionEnemy
     {
         get { return collisionEnemy; }
     }

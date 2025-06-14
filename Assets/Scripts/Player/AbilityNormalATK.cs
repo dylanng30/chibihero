@@ -47,15 +47,12 @@ public class AbilityNormalATK : MonoBehaviour
 
         // Play attack sound with variation
         AudioManager.PlayPlayerAttack(currentAttackIndex, transform.position);
-        
-        // Cycle through attack sounds (1, 2, 3, then back to 1)
-        currentAttackIndex = (currentAttackIndex % 3) + 1;
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(ATKPoint.position, 0.8f, LayerMask.GetMask("Enemy"));
         foreach (Collider2D enemy in hitEnemies)
         {
             var e = enemy.GetComponentInParent<IDamagable>();
-            Debug.Log(e);
+            //Debug.Log(e);
             e.TakeDamage(playerController.PlayerStats.AttackPower, playerController.gameObject);
             playerController.EXPManager.AddEXP(1000);
         }
