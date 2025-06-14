@@ -22,7 +22,6 @@ public class EnemyManager : Singleton<EnemyManager>, IObserver
         }
     }
 
-
     public void DeactivatePool()
     {
         //Debug.Log("Deactivate Pool");

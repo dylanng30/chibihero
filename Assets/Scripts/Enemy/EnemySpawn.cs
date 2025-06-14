@@ -9,6 +9,8 @@ public class EnemySpawn : MonoBehaviour
     [SerializeField] GameObject[] LowEnemyPrefabs;
     [SerializeField] GameObject[] KnightPrefabs;
     [SerializeField] GameObject[] PiratePrefabs;
+    [SerializeField] GameObject[] StarPrefabs;
+    [SerializeField] GameObject[] SharkPrefabs;
 
     private Transform root;
 
@@ -18,8 +20,10 @@ public class EnemySpawn : MonoBehaviour
         if (root == null) return;
         if (root.childCount > 0) return;
         StartCoroutine(LowEnemySpawn());
-        StartCoroutine(RedKnightSpawn());
-        StartCoroutine(PirateSpawn());
+        StartCoroutine(Spawn(EnemyType.RedKnight, KnightPrefabs));
+        StartCoroutine(Spawn(EnemyType.Pirate, PiratePrefabs));
+        StartCoroutine(Spawn(EnemyType.Star, StarPrefabs));
+        StartCoroutine(Spawn(EnemyType.Shark, SharkPrefabs));
     }
     private IEnumerator LowEnemySpawn()
     {
@@ -27,37 +31,23 @@ public class EnemySpawn : MonoBehaviour
         List<MineSO> mineSOs = Systems.Instance.ResourceSystem.Mines;
         SpawnAtPositions<MineSO>(mineSOs, LowEnemyPrefabs);
     }
-    private IEnumerator RedKnightSpawn()
+    private IEnumerator Spawn(EnemyType type, GameObject[] Prefabs)
     {
         yield return new WaitUntil(() => Systems.Instance.ResourceSystem.SpawnPoints != null);
         List<SpawnPointsSO> spawnPointsSO = Systems.Instance.ResourceSystem.SpawnPoints;
-        List<SpawnPointsSO> redKnightSpawnPoints = new ();
+        List<SpawnPointsSO> spawnPoints = new();
         foreach (SpawnPointsSO point in spawnPointsSO)
         {
-            if (point.EnemyType != EnemyType.RedKnight)
-                yield break;
-            redKnightSpawnPoints.Add(point);
-            Debug.Log(redKnightSpawnPoints.Count);
+            if (point.EnemyType == type)
+                spawnPoints.Add(point);
         }
-        SpawnAtPositions<SpawnPointsSO>(redKnightSpawnPoints, KnightPrefabs);
+        SpawnAtPositions<SpawnPointsSO>(spawnPoints, Prefabs);
     }
-    private IEnumerator PirateSpawn()
-    {
-        yield return new WaitUntil(() => Systems.Instance.ResourceSystem.SpawnPoints != null);
-        //Debug.Log(Systems.Instance.ResourceSystem.Mines.Count);
-        List<SpawnPointsSO> spawnPointsSO = Systems.Instance.ResourceSystem.SpawnPoints;
-        List<SpawnPointsSO> pirateSpawnPoints = new();
-        foreach (SpawnPointsSO point in spawnPointsSO)
-        {
-            if (point.EnemyType != EnemyType.Pirate)
-                yield break;
-            pirateSpawnPoints.Add(point);
-            Debug.Log(pirateSpawnPoints.Count);
-        }
-        SpawnAtPositions<SpawnPointsSO>(pirateSpawnPoints, PiratePrefabs);
-    }
+
     public void SpawnAtPositions<T>(List<T> positions, GameObject[] prefabs)
     {
+        Debug.Log(positions.Count);
+        Debug.Log(prefabs);
         if (positions == null || prefabs == null || prefabs.Length == 0) return;
 
         foreach (var item in positions)

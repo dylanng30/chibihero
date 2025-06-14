@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/platform/GreenGrassENEMY/RedKnight.unity
     guid: 3a4f23d9f8034a24fb74d3d05a524803
   - enabled: 1
-    path: Assets/Scenes/platform/Pumkin/pumkin.unity
+    path: Assets/Scenes/platform/Pumkin/Pumpkin.unity
     guid: c4488028a4af8f643ab7198fe16001ce
   - enabled: 1
     path: Assets/Scenes/platform/GreenGrassENEMY/Castle.unity
@@ -33,10 +33,10 @@ EditorBuildSettings:
     path: Assets/Scenes/platform/IsLandENEMY/Pirate.unity
     guid: ff2b580739133ef45a423216dd2c668f
   - enabled: 1
-    path: Assets/Scenes/platform/IsLandENEMY/IslandENEMY1.unity
+    path: Assets/Scenes/platform/IsLandENEMY/Shark.unity
     guid: 5cbe8beb564a7c349a9ce26ee179e991
   - enabled: 1
-    path: Assets/Scenes/platform/IsLandENEMY/IslandENEMY2.unity
+    path: Assets/Scenes/platform/IsLandENEMY/Star.unity
     guid: 7854e0ff1fb16ec42bdf7b8b2f48d68a
   - enabled: 1
     path: Assets/Scenes/platform/MineENEMY/MineBOSS.unity
@@ -45,10 +45,10 @@ EditorBuildSettings:
     path: Assets/Scenes/platform/MineENEMY/RedTNT.unity
     guid: 0b916980ef0187e4a80d402dff3c2869
   - enabled: 1
-    path: Assets/Scenes/platform/YellowGrassENEMY 1/Shark.unity
+    path: Assets/Scenes/platform/YellowGrassENEMY 1/1.unity
     guid: fac51e056c29ac74f9909c4e0c99247f
   - enabled: 1
-    path: Assets/Scenes/platform/YellowGrassENEMY 1/Star.unity
+    path: Assets/Scenes/platform/YellowGrassENEMY 1/2.unity
     guid: ba110c84eef203b42ac29c07f240e739
   - enabled: 1
     path: Assets/Scenes/platform/MineENEMY/RedTorch.unity

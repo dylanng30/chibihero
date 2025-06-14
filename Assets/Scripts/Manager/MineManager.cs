@@ -58,8 +58,7 @@ public class MineManager : Singleton<MineManager>, IObserver
         {
             mine.SetVisible(true);
         }
-    }
-    
+    }    
 
     public void KingIsDead()
     {
