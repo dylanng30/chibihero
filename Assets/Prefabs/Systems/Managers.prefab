@@ -153,6 +153,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3456752976065047973, guid: 68c462deeb380f044811dd1da7361746, type: 3}
   m_PrefabInstance: {fileID: 907523919695125175}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8867553501370030326 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8617581670171116097, guid: 68c462deeb380f044811dd1da7361746, type: 3}
+  m_PrefabInstance: {fileID: 907523919695125175}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3274105860022378531
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -226,6 +231,10 @@ PrefabInstance:
     - target: {fileID: 2622327589980345443, guid: 82d06693ad4a32449a146d0809f2f55c, type: 3}
       propertyPath: m_Name
       value: ProjectileFactory
+      objectReference: {fileID: 0}
+    - target: {fileID: 3971553238396451478, guid: 82d06693ad4a32449a146d0809f2f55c, type: 3}
+      propertyPath: poolSize
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6359309705841084822, guid: 82d06693ad4a32449a146d0809f2f55c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -374,6 +383,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 378d2c8a1468cce439f8904119399df3, type: 3}
+--- !u!1 &5084173619520979735 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 416008956232091255, guid: 378d2c8a1468cce439f8904119399df3, type: 3}
+  m_PrefabInstance: {fileID: 4849084912452339040}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6846847157175299745 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2040001163012484033, guid: 378d2c8a1468cce439f8904119399df3, type: 3}
@@ -573,11 +587,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1687504359110404780, guid: 67ee990959857da4388048341f5b44d1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2363522022326825745, guid: 67ee990959857da4388048341f5b44d1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2439715529515745489, guid: 67ee990959857da4388048341f5b44d1, type: 3}
       propertyPath: m_Name
@@ -585,7 +599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2439715529515745489, guid: 67ee990959857da4388048341f5b44d1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3002125986924927852, guid: 67ee990959857da4388048341f5b44d1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -598,7 +612,7 @@ PrefabInstance:
     - target: {fileID: 3002125986924927852, guid: 67ee990959857da4388048341f5b44d1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 4942239459089045594}
+      objectReference: {fileID: 8245868766570502589}
     - target: {fileID: 3002125986924927852, guid: 67ee990959857da4388048341f5b44d1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -728,6 +742,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5008330452847291290}
     - target: {fileID: 7926021176389285295, guid: 67ee990959857da4388048341f5b44d1, type: 3}
+      propertyPath: WinPanel
+      value: 
+      objectReference: {fileID: 8867553501370030326}
+    - target: {fileID: 7926021176389285295, guid: 67ee990959857da4388048341f5b44d1, type: 3}
       propertyPath: PauseMenu
       value: 
       objectReference: {fileID: 4942239459089045594}
@@ -739,6 +757,10 @@ PrefabInstance:
       propertyPath: UpgradeStats
       value: 
       objectReference: {fileID: 8300571847716717031}
+    - target: {fileID: 7926021176389285295, guid: 67ee990959857da4388048341f5b44d1, type: 3}
+      propertyPath: GameOverPanel
+      value: 
+      objectReference: {fileID: 5084173619520979735}
     - target: {fileID: 8501905856376665380, guid: 67ee990959857da4388048341f5b44d1, type: 3}
       propertyPath: m_fontSize
       value: 6

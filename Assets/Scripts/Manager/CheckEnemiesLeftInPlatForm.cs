@@ -10,11 +10,15 @@ public class CheckEnemiesLeftInPlatForm : StaticInstance<CheckEnemiesLeftInPlatF
     protected override void Awake()
     {
         base.Awake();
+        missionFailed = true;
     }
     private void Update()
     {
         EnemiesToList();
-        CheckAnyEnemiesLeft();
+        Debug.Log(missionFailed);
+        if(missionFailed)
+            CheckAnyEnemiesLeft();
+
         enemiesInPlatform.Clear();
     }
     

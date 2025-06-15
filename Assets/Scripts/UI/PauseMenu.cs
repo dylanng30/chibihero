@@ -5,9 +5,10 @@ public class PauseMenu : MonoBehaviour
 {
     [Header("Pause Menu Buttons")]
     [SerializeField] private Button resumeButton;
-    //[SerializeField] private Button settingsButton;
     [SerializeField] private Button mainMenuButton;
     [SerializeField] private Button quitButton;
+    [SerializeField] private GameObject muteButton;
+    [SerializeField] private GameObject unmuteButton;
 
     void Start()
     {
@@ -40,11 +41,18 @@ public class PauseMenu : MonoBehaviour
         PauseManager.Instance.ResumeGame();
     }
 
-    //public void OpenSettings()
-    //{
-    //    // TODO: Implement settings menu
-    //    Debug.Log("Settings menu not implemented yet");
-    //}
+    public void Mute()
+    {
+        AudioListener.volume = 0f;
+        muteButton.SetActive(false);
+        unmuteButton.SetActive(true);
+    }
+    public void Unmute()
+    {
+        AudioListener.volume = 1f;
+        muteButton.SetActive(true);
+        unmuteButton.SetActive(false);
+    }
     public void GoToMainMenu()
     {
         PauseManager.Instance.ForceResume(); // Force resume before going to menu
