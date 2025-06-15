@@ -40,6 +40,7 @@ public class DamageManagerKing : DamageBase
 
         this.maxHP = kingController.KingStats.MaxHP;
         this.currentHP = maxHP;
+        this.armor = kingController.KingStats.Armor;
     }
 
     public override void TakeDamage(int damage, GameObject enemy)

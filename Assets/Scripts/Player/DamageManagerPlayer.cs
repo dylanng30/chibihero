@@ -44,6 +44,7 @@ public class DamageManagerPlayer : DamageBase
         yield return new WaitUntil(() => playerController != null && playerController.PlayerStats != null);
         this.maxHP = playerController.PlayerStats.MaxHP;
         this.currentHP = maxHP;
+        this.armor = playerController.PlayerStats.Armor;
     }
 
     public override void TakeDamage(int damage, GameObject enemy)

@@ -6,6 +6,7 @@ public abstract class DamageBase : MonoBehaviour
 {
     [SerializeField] protected int currentHP;
     [SerializeField] protected int maxHP;
+    [SerializeField] protected int armor;
     [SerializeField] protected bool isDead = false;
 
     protected virtual void Awake()
@@ -31,7 +32,8 @@ public abstract class DamageBase : MonoBehaviour
 
     public virtual void Heal(int amount)
     {
-        currentHP += amount;
+
+        currentHP += (amount - armor);
         if (currentHP > maxHP)
             currentHP = maxHP;
     }
@@ -46,6 +48,10 @@ public abstract class DamageBase : MonoBehaviour
     public int MaxHP
     {
         get { return maxHP; }
+    }
+    public int Armor
+    {
+        get { return armor; }
     }
     public bool IsDead
     {

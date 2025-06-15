@@ -42,6 +42,7 @@ public class PirateDamageManager : DamageBase
         Debug.Log(pirateController.PirateStats.MaxHP);
         this.maxHP = pirateController.PirateStats.MaxHP;
         this.currentHP = maxHP;
+        this.armor = pirateController.PirateStats.Armor;
     }
 
     public override void TakeDamage(int damage, GameObject enemy)

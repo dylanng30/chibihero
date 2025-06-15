@@ -37,6 +37,7 @@ public class DamageManagerPumpkin : DamageBase
 
         this.maxHP = controller.Stats.MaxHP;
         this.currentHP = maxHP;
+        this.armor = controller.Stats.Armor;
     }
 
     public override void TakeDamage(int damage, GameObject enemy)

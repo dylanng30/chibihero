@@ -38,6 +38,7 @@ public class DamageManagerRedKnight : DamageBase
         yield return new WaitUntil(() => redKnightController != null && redKnightController.RedKnightStats != null);
         this.maxHP = redKnightController.RedKnightStats.MaxHP;
         this.currentHP = maxHP;
+        this.armor = redKnightController.RedKnightStats.Armor;
     }
 
     public override void TakeDamage(int damage, GameObject enemy)
