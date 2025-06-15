@@ -91,20 +91,14 @@ public class DamageManagerPlayer : DamageBase
             AudioManager.PlayPlayerDeath(transform.position);
             Instantiate(skull, playerController.transform.position, Quaternion.identity);
             playerController.AnimationPlayer.SpriteRenderer.enabled = false;
-            // Reset HP properly when player dies
-            ResetPlayerAfterDeath();
+            
+            // Only reset HP, don't start invincibility here
+            // GameManager will handle invincibility when respawning
+            this.currentHP = maxHP;
+            playerController.PlayerStats.SetCurrentHP(maxHP);
+            
             GameManager.Instance.CompleteMap(false);
         }
-    }
-
-    private void ResetPlayerAfterDeath()
-    {
-        // Reset HP to full
-        this.currentHP = maxHP;
-        playerController.PlayerStats.SetCurrentHP(maxHP);
-        
-        // Start invincibility after respawn
-        StartInvincibility();
     }
 
     public void StartInvincibility()

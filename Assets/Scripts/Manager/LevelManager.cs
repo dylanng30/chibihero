@@ -54,7 +54,16 @@ public class LevelManager : Singleton<LevelManager>
         while (!loadedScene.isLoaded)
             await Task.Delay(100);    
 
-        GameObject spawnPoint = GameObject.Find("PlayerSpawn");
-        PlayerController.Instance.transform.position = spawnPoint.transform.position;
+        // Only set PlayerSpawn for Platform scenes
+        // TopDown scenes will be handled entirely by GameManager
+        if (!sceneName.Contains("TopDown"))
+        {
+            GameObject spawnPoint = GameObject.Find("PlayerSpawn");
+            if (spawnPoint != null)
+            {
+                PlayerController.Instance.transform.position = spawnPoint.transform.position;
+            }
+        }
+        // Don't set any position for TopDown - let GameManager handle it completely
     }
 }
