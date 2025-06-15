@@ -62,10 +62,12 @@ public class BarrelPreExplosion : IState
     public void Enter()
     {
         controller.AnimationManager.SetAnimation(state);
+        
     }
 
     public void Execute()
     {
+        controller.Rigidbody2D.velocity = Vector2.zero;
         if (controller.AnimationManager.FinishAnimation(state))
             controller.StateManager.ChangeState(controller.ExplosionState);
     }
@@ -86,12 +88,13 @@ public class BarrelExplosion : IState
     public void Enter()
     {
         controller.AnimationManager.SetAnimation(state);
+        controller.BoomAbi.Boom();
     }
 
     public void Execute()
     {
         if (controller.AnimationManager.FinishAnimation(state))
-            controller.BoomAbi.Boom();
+            controller.BoomAbi.Eliminate();
     }
 
     public void Exit()

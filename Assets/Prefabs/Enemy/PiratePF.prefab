@@ -36,6 +36,7 @@ Transform:
   - {fileID: 1706240644535001754}
   - {fileID: 4290974442938872584}
   - {fileID: 6599524448829791027}
+  - {fileID: 2657277889042201460}
   - {fileID: 7105914234686632724}
   - {fileID: 6829864107931750221}
   - {fileID: 1822795511450194490}
@@ -61,6 +62,7 @@ MonoBehaviour:
   pirateStats: {fileID: 0}
   physicsPirate: {fileID: 0}
   pirateATKAbility: {fileID: 0}
+  pirateSpawnAbi: {fileID: 0}
   pirateMovement: {fileID: 0}
   pirateDetectObstacle: {fileID: 0}
   pirateDamageManager: {fileID: 0}
@@ -242,6 +244,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1076476025759923414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3184558492548724731
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2657277889042201460}
+  - component: {fileID: 2744901181145674617}
+  m_Layer: 0
+  m_Name: SpawnBarrel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2657277889042201460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3184558492548724731}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1076476025759923414}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2744901181145674617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3184558492548724731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a05727b94c5cae42a070bd1b2e9f558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pirateController: {fileID: 0}
+  BarrelPrefab: {fileID: 2204590915036573491, guid: a7cf667b5c5acbf4f8ecad8ab21ebc5e, type: 3}
 --- !u!1 &4954403079520721595
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,6 +405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  spriteRenderer: {fileID: 0}
 --- !u!212 &4581347518585004813
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -711,8 +760,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pirateController: {fileID: 0}
   ATKPoint: {fileID: 8745256260729869551}
-  projectileType: 1
-  pool: {fileID: 0}
 --- !u!1001 &541267581773763596
 PrefabInstance:
   m_ObjectHideFlags: 0

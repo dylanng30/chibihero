@@ -161,6 +161,6 @@ public class PirateRangeATKState : IState
 
     public void Exit()
     {
-        //pirateController.PirateATKAbility.RangeAttack();
+        pirateController.PirateSpawnAbi.Spawn();
     }
 }

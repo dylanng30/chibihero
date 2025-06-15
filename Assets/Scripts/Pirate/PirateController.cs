@@ -12,6 +12,7 @@ public class PirateController : MonoBehaviour, IDamagable
     [SerializeField] protected PirateStats pirateStats;
     [SerializeField] protected PhysicsPirate physicsPirate;
     [SerializeField] protected PirateATKAbility pirateATKAbility;
+    [SerializeField] protected PirateSpawnBarrel pirateSpawnAbi;
     [SerializeField] protected PirateMovement pirateMovement;
     [SerializeField] protected PirateDetectObstacle pirateDetectObstacle;
     [SerializeField] protected PirateDamageManager pirateDamageManager;
@@ -52,6 +53,7 @@ public class PirateController : MonoBehaviour, IDamagable
         LoadAbilityPirateATK();
         LoadMovementPirate();
         LoadHealthBar();
+        LoadPirateSpawnBarrel();
     }
     protected virtual void LoadHealthBar()
     {
@@ -98,6 +100,11 @@ public class PirateController : MonoBehaviour, IDamagable
         if (this.pirateDetectObstacle != null) return;
         this.pirateDetectObstacle = this.GetComponentInChildren<PirateDetectObstacle>();
     }
+    protected virtual void LoadPirateSpawnBarrel()
+    {
+        if (this.pirateSpawnAbi != null) return;
+        this.pirateSpawnAbi = this.GetComponentInChildren<PirateSpawnBarrel>();
+    }
 
     public void TakeDamage(int damage, GameObject attacker)
     {
@@ -139,6 +146,10 @@ public class PirateController : MonoBehaviour, IDamagable
     public HealthBar HealthBar
     { 
         get { return this.healthBar; }
+    }
+    public PirateSpawnBarrel PirateSpawnAbi
+    {
+        get { return this.pirateSpawnAbi; }
     }
 
     //States

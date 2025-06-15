@@ -37,6 +37,10 @@ public class BoomBarrel : MonoBehaviour
             p.TakeDamage(ATKPower, this.gameObject);
         }
 
+        
+    }
+    public void Eliminate()
+    {
         Destroy(this.transform.parent.gameObject);
     }
 }

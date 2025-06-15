@@ -6,10 +6,6 @@ public class PirateATKAbility : MonoBehaviour
 {
     [SerializeField] protected PirateController pirateController;
     [SerializeField] protected Transform ATKPoint;
-    [SerializeField] protected ProjectileType projectileType;
-
-    [SerializeField] protected ObjectPool pool;
-
     private float attackRange;
     private int dmg;
 
