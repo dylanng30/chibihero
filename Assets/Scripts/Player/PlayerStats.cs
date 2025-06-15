@@ -40,9 +40,12 @@ public class PlayerStats : MonoBehaviour
 
     private IEnumerator LoadPlayerStatsCouroutine()
     {
-        yield return new WaitUntil(() => Systems.Instance != null && Systems.Instance.ResourceSystem != null);
-
+        yield return new WaitUntil(
+            () => Systems.Instance != null &&
+                Systems.Instance.ResourceSystem != null
+        );
         player = Systems.Instance.ResourceSystem.GetPlayer(playerType);
+
         maxHP = player._stats.Health;
         currentHP = maxHP;
         attackPower = player._stats.Attack;

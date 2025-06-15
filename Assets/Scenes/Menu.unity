@@ -139,6 +139,10 @@ PrefabInstance:
       propertyPath: GameOverPanel
       value: 
       objectReference: {fileID: 531921330}
+    - target: {fileID: 1922045998857537439, guid: a0f97f041a739b147a67128549c3311d, type: 3}
+      propertyPath: poolSize
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4942239459089045594, guid: a0f97f041a739b147a67128549c3311d, type: 3}
       propertyPath: m_IsActive
       value: 1
