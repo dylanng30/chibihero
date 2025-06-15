@@ -8,6 +8,11 @@ public class DamageManagerPlayer : DamageBase
     [SerializeField] protected PlayerController playerController;
     [SerializeField] private GameObject floatingText;
     [SerializeField] protected GameObject skull;
+    
+    // Invincibility system
+    private bool isInvincible = false;
+    private float invincibilityDuration = 5f; // 5 seconds invincibility after respawn
+    private Coroutine invincibilityCoroutine;
 
     protected override void Awake()
     {
@@ -43,6 +48,13 @@ public class DamageManagerPlayer : DamageBase
 
     public override void TakeDamage(int damage, GameObject enemy)
     {
+        // Check if player is invincible
+        if (isInvincible)
+        {
+            Debug.Log("Player is invincible, damage ignored!");
+            return;
+        }
+
         base.TakeDamage(damage, enemy);
         
         // Play hurt sound
@@ -77,13 +89,84 @@ public class DamageManagerPlayer : DamageBase
             AudioManager.PlayPlayerDeath(transform.position);
             Instantiate(skull, playerController.transform.position, Quaternion.identity);
             playerController.AnimationPlayer.SpriteRenderer.enabled = false;
-            playerController.PlayerStats.Reset();
+            // Reset HP properly when player dies
+            ResetPlayerAfterDeath();
             GameManager.Instance.CompleteMap(false);
         }
+    }
+
+    private void ResetPlayerAfterDeath()
+    {
+        // Reset HP to full
+        this.currentHP = maxHP;
+        playerController.PlayerStats.SetCurrentHP(maxHP);
+        
+        // Start invincibility after respawn
+        StartInvincibility();
+    }
+
+    public void StartInvincibility()
+    {
+        if (invincibilityCoroutine != null)
+        {
+            StopCoroutine(invincibilityCoroutine);
+        }
+        invincibilityCoroutine = StartCoroutine(InvincibilityCoroutine());
+    }
+
+    private IEnumerator InvincibilityCoroutine()
+    {
+        isInvincible = true;
+        Debug.Log("Player is now invincible for " + invincibilityDuration + " seconds");
+        
+        // Visual feedback - make player blink
+        StartCoroutine(BlinkEffect());
+        
+        yield return new WaitForSeconds(invincibilityDuration);
+        
+        isInvincible = false;
+        Debug.Log("Player invincibility ended");
+    }
+
+    private IEnumerator BlinkEffect()
+    {
+        SpriteRenderer spriteRenderer = playerController.AnimationPlayer.SpriteRenderer;
+        float blinkInterval = 0.1f;
+        float elapsedTime = 0f;
+
+        while (isInvincible && elapsedTime < invincibilityDuration)
+        {
+            spriteRenderer.color = new Color(1f, 1f, 1f, 0.5f); // Semi-transparent
+            yield return new WaitForSeconds(blinkInterval);
+            spriteRenderer.color = Color.white; // Full opacity
+            yield return new WaitForSeconds(blinkInterval);
+            elapsedTime += blinkInterval * 2;
+        }
+
+        // Ensure player is visible at the end
+        spriteRenderer.color = Color.white;
     }
     public override void Heal(int amount)
     {
         base.Heal(amount);
+    }
+
+    // Public properties and methods for invincibility system
+    public bool IsInvincible
+    {
+        get { return isInvincible; }
+    }
+
+    public void SetInvincible(bool invincible)
+    {
+        isInvincible = invincible;
+        if (!invincible && invincibilityCoroutine != null)
+        {
+            StopCoroutine(invincibilityCoroutine);
+            invincibilityCoroutine = null;
+            // Reset sprite to normal
+            playerController.AnimationPlayer.SpriteRenderer.color = Color.white;
+        }
     }
     
 }

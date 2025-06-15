@@ -72,11 +72,18 @@ public class MoveRandomly : MonoBehaviour
     {
         Vector2 randomRange = Random.insideUnitCircle * moveRange;
         targetPosition = new Vector2(centerPosition.x + randomRange.x, centerPosition.y + randomRange.y);
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
+    }    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            // Check if player is invincible before allowing scene transition
+            PlayerController playerController = collision.GetComponentInParent<PlayerController>();
+            if (playerController != null && playerController.DamageManager.IsInvincible)
+            {
+                Debug.Log("Player is invincible, enemy collision ignored!");
+                return;
+            }
+
             GameManager.Instance.ChangeState(GameState.Fighting);
             GameManager.Instance.NextScene(nextScene, this.gameObject);            
         }            

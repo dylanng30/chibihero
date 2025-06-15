@@ -73,6 +73,14 @@ public class MineController : MonoBehaviour
     {
         if (currentState == MineState.Active && collision.gameObject.CompareTag("Player"))
         {
+            // Check if player is invincible before allowing scene transition
+            PlayerController playerController = collision.GetComponentInParent<PlayerController>();
+            if (playerController != null && playerController.DamageManager.IsInvincible)
+            {
+                Debug.Log("Player is invincible, mine collision ignored!");
+                return;
+            }
+
             GameManager.Instance.NextScene(mineName);
         }
     }

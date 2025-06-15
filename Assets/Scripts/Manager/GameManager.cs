@@ -78,7 +78,12 @@ public class GameManager : PersistentSingleton<GameManager>
         UIManager.Instance.ShowEXPBar();
         PlayerController.Instance.PhysicsPlayer.SetMode(PlayerMode.TopDown);
         EXPManager.Instance.Apply();
-              
+        
+        // Start invincibility when returning to top-down map (respawn scenario)
+        if (previousState == GameState.GameOver)
+        {
+            PlayerController.Instance.DamageManager.StartInvincibility();
+        }
     }
     private void HandleFightingState()
     {
@@ -92,6 +97,7 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         UIManager.Instance.ShowGameOverPanel();
         yield return new WaitForSeconds(3f);
+        previousState = GameState.GameOver; // Store previous state for respawn logic
         this.ChangeState(GameState.Exploring);
         PlayerController.Instance.AnimationPlayer.SpriteRenderer.enabled = true;
     }
@@ -99,6 +105,7 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         UIManager.Instance.ShowWinPanel();
         yield return new WaitForSeconds(3f);
+        previousState = GameState.Win; // Store previous state to avoid triggering invincibility
         ChangeState(GameState.Exploring);
     }
 
