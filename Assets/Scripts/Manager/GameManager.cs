@@ -56,7 +56,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
         OnAfterStateChanged?.Invoke(CurrentState);
 
-        // ObserverManager.Instance.ChangeMap(CurrentState); // Temporarily disabled to fix double loading
+        ObserverManager.Instance.ChangeMap(CurrentState); // Temporarily disabled to fix double loading
 
         Debug.Log("Current State: " + CurrentState);
     }
