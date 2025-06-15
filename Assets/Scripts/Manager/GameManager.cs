@@ -56,7 +56,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
         OnAfterStateChanged?.Invoke(CurrentState);
 
-        ObserverManager.Instance.ChangeMap(CurrentState);
+        // ObserverManager.Instance.ChangeMap(CurrentState); // Temporarily disabled to fix double loading
 
         Debug.Log("Current State: " + CurrentState);
     }
@@ -73,22 +73,48 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         LevelManager.Instance.LoadScene("MainTopDown");
         yield return new WaitUntil(() => PlayerController.Instance != null && PlayerController.Instance.PhysicsPlayer != null);
+        
+        // Wait a bit more to ensure LevelManager has finished
+        yield return new WaitForSeconds(0.1f);
+        
         MineManager.Instance.MineSpawn();
-        PlayerController.Instance.transform.position = lastPosition;
+        
+        // Set player position for TopDown scene
+        if (lastPosition != Vector3.zero)
+        {
+            // Returning from a fight - use saved position
+            Debug.Log("Setting player to lastPosition: " + lastPosition);
+            PlayerController.Instance.transform.position = lastPosition;
+        }
+        else
+        {
+            // First time or no saved position - use PlayerSpawn
+            Debug.Log("No lastPosition, finding PlayerSpawn");
+            GameObject spawnPoint = GameObject.Find("PlayerSpawn");
+            if (spawnPoint != null)
+            {
+                PlayerController.Instance.transform.position = spawnPoint.transform.position;
+                Debug.Log("Set player to PlayerSpawn: " + spawnPoint.transform.position);
+            }
+        }
+        
         UIManager.Instance.ShowEXPBar();
         PlayerController.Instance.PhysicsPlayer.SetMode(PlayerMode.TopDown);
         EXPManager.Instance.Apply();
         
-        // Start invincibility when returning to top-down map (respawn scenario)
+        // Start invincibility when returning to top-down map (both Win and Lose scenarios)
         if (previousState == GameState.GameOver)
         {
             PlayerController.Instance.DamageManager.StartInvincibility();
         }
+        
+        // Activate enemies for TopDown exploration
+        EnemyManager.Instance.ActivatePool();
     }
     private void HandleFightingState()
     {
         // Logic for fighting state
-        //EnemyManager.Instance.DeactivatePool();
+        EnemyManager.Instance.DeactivatePool(); // Deactivate TopDown enemies
         UIManager.Instance.ShowEXPBar();
         PlayerController.Instance.PhysicsPlayer.SetMode(PlayerMode.Platform);
     }
@@ -103,9 +129,13 @@ public class GameManager : PersistentSingleton<GameManager>
     }
     private IEnumerator HandleWinState()
     {
+        Debug.Log("HandleWinState started");
         UIManager.Instance.ShowWinPanel();
         yield return new WaitForSeconds(3f);
-        previousState = GameState.Win; // Store previous state to avoid triggering invincibility
+        
+        // Treat Win the same as GameOver for position logic
+        previousState = GameState.GameOver; // This will trigger invincibility and position restore
+        Debug.Log("HandleWinState - changing to Exploring state");
         ChangeState(GameState.Exploring);
     }
 
@@ -120,6 +150,7 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         this.currentEnemy = currentEnemy;
         this.lastPosition = currentEnemy.transform.position;
+        Debug.Log("NextScene - Saving lastPosition: " + lastPosition + " from enemy: " + currentEnemy.name);
         LevelManager.Instance.LoadScene(nextScene);
         ChangeStateWithScene(nextScene);
     }
@@ -131,6 +162,8 @@ public class GameManager : PersistentSingleton<GameManager>
 
     public void CompleteMap(bool CheckedComplete)
     {
+        Debug.Log("CompleteMap called with: " + CheckedComplete);
+        
         if (CheckedComplete)
         {
             EnemyManager.Instance.UnregisterEnemy(this.currentEnemy);
