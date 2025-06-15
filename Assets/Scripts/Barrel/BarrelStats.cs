@@ -2,15 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BarrelStats : MonoBehaviour
+public class BarrelStats : ObjectStats
 {
-    [SerializeField] private EnemyType enemyType;
-    [SerializeField] protected ScriptableEnemy enemy;
     [SerializeField] protected BarrelController controller;
-
-    protected int moveSpeed;
-    protected float range;
-    protected int atkPower;
 
     void Start()
     {
@@ -20,55 +14,31 @@ public class BarrelStats : MonoBehaviour
     protected void LoadComponent()
     {
         LoadController();
-        LoadEnemyStats();
+        LoadStats();
     }
-
-    protected virtual void LoadEnemyStats()
-    {
-        StartCoroutine(LoadEnemyStatsCouroutine());
-    }
-    private IEnumerator LoadEnemyStatsCouroutine()
-    {
-        yield return new WaitUntil(() => Systems.Instance != null && Systems.Instance.ResourceSystem != null);
-
-        enemy = Systems.Instance.ResourceSystem.GetEnemy(enemyType);
-        moveSpeed = enemy._stats.Speed;
-        atkPower = enemy._stats.Attack;
-        range = enemy._stats.ATKRange;
-    }
-
     protected virtual void LoadController()
     {
         if (this.controller != null)
             return;
         this.controller = this.GetComponentInParent<BarrelController>();
     }
-    public float Range
+
+    protected virtual void LoadStats()
     {
-        get
-        {
-            return range;
-        }
+        StartCoroutine(LoadStatsCouroutine());
     }
-    public int MoveSpeed
+    protected IEnumerator LoadStatsCouroutine()
     {
-        get
-        {
-            return moveSpeed;
-        }
-    }
-    public int ATKPower
-    {
-        get
-        {
-            return atkPower;
-        }
-    }
-    public EnemyType EnemyType
-    {
-        get
-        {
-            return enemyType;
-        }
+        yield return new WaitUntil(() => Systems.Instance != null && Systems.Instance.ResourceSystem != null);
+
+        enemy = Systems.Instance.ResourceSystem.GetEnemy(enemyType);
+        maxHP = enemy._stats.Health;
+        currentHP = maxHP;
+        attackPower = enemy._stats.Attack;
+        armor = enemy._stats.Armor;
+        moveSpeed = enemy._stats.Speed;
+        jumpPower = enemy._stats.JumpPower;
+        atkRange = enemy._stats.ATKRange;
+        Debug.Log($"Đã load stats cho {enemyType} - HP: {maxHP}, ATK: {attackPower}, Armor: {armor}, Speed: {moveSpeed}");
     }
 }

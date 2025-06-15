@@ -19,6 +19,7 @@ public class PlayerController : PersistentSingleton<PlayerController>, IDamagabl
     private RunState runState;
     private NormalATKState normalATKState;
     private SkillState skillState;
+    private HitState hitState;
     private StateManager stateManager;
 
 
@@ -48,6 +49,7 @@ public class PlayerController : PersistentSingleton<PlayerController>, IDamagabl
         runState = new RunState(this);
         normalATKState = new NormalATKState(this);
         skillState = new SkillState(this);
+        hitState = new HitState(this);
         this.stateManager.ChangeState(idleState);
     }
 
@@ -173,5 +175,9 @@ public class PlayerController : PersistentSingleton<PlayerController>, IDamagabl
     public SkillState SkillState
     {
         get { return skillState; }
+    }
+    public HitState HitState
+    {
+        get { return hitState; }
     }
 }

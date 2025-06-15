@@ -46,7 +46,7 @@ public class MovementBarrel : MonoBehaviour
     {
         get
         {
-            float range = controller.BarrelStats.Range;
+            float range = controller.BarrelStats.ATKRange;
             return Vector3.Distance(this.transform.position, player.transform.position) < range;
         }
     }

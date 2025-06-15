@@ -27,8 +27,8 @@ public class BoomBarrel : MonoBehaviour
     {
 
         LayerMask targetLayer = LayerMask.GetMask("Player");
-        float Range = barrelController.BarrelStats.Range;
-        int ATKPower = barrelController.BarrelStats.ATKPower;
+        float Range = barrelController.BarrelStats.ATKRange;
+        int ATKPower = barrelController.BarrelStats.AttackPower;
 
         Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(this.transform.position, Range, targetLayer);
         foreach (Collider2D player in hitPlayers)

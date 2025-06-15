@@ -10,4 +10,5 @@ public enum EnemyType
     Shark,
     Star,
     Barrel,
+    Pumpkin,
 }

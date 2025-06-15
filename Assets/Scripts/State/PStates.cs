@@ -119,3 +119,28 @@ public class SkillState : IState
     }
 }
 
+public class HitState : IState
+{
+    PlayerController _player;
+    private string currentAnimation = "Hit";
+    public HitState(PlayerController player)
+    {
+        this._player = player;
+    }
+    public void Enter()
+    {
+        //Debug.Log("Skill1");
+        _player.AnimationPlayer.SetAnimation(currentAnimation);
+    }
+    public void Execute()
+    {
+        if (_player.AnimationPlayer.FinishAnimation(currentAnimation))
+            _player.StateManager.ChangeState(_player.IdleState);
+    }
+    public void Exit()
+    {
+
+    }
+}
+
+

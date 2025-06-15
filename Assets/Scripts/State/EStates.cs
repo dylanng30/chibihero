@@ -94,5 +94,28 @@ public class ENormalATKState : IState
     }
 }
 
+public class EHitState : IState
+{
+    LowEnemyController enemyController;
+    private string currentAnimation = "Hit";
+    public EHitState(LowEnemyController enemyController)
+    {
+        this.enemyController = enemyController;
+    }
+    public void Enter()
+    {
+        enemyController.AnimationEnemy.SetAnimation(currentAnimation);
+    }
+    public void Execute()
+    {
+        if (enemyController.AnimationEnemy.FinishAnimation(currentAnimation))
+            enemyController.StateManager.ChangeState(enemyController.IdleState);
+
+    }
+    public void Exit()
+    {
+
+    }
+}
 
 

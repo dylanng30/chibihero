@@ -18,6 +18,7 @@ public class LowEnemyController : MonoBehaviour, IDamagable
     private EIdleState idleState;
     private ERunState runState;
     private ENormalATKState normalATKState;
+    private EHitState hitState;
     private StateManager stateManager;
 
     void Awake()
@@ -38,6 +39,7 @@ public class LowEnemyController : MonoBehaviour, IDamagable
         idleState = new EIdleState(this);
         runState = new ERunState(this);
         normalATKState = new ENormalATKState(this);
+        hitState = new EHitState(this);
         this.stateManager.ChangeState(idleState);
     }
 
@@ -159,6 +161,10 @@ public class LowEnemyController : MonoBehaviour, IDamagable
     public ENormalATKState NormalATKState
     {
         get { return normalATKState; }
+    }
+    public EHitState HitState
+    {
+        get { return hitState; }
     }
     //Target
     public GameObject Target

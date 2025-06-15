@@ -20,7 +20,6 @@ public class DamageManagerEnemy : DamageBase
     public override void LoadComponent()
     {
         base.LoadComponent();
-        LoadStats();
     }
     protected override void LoadController()
     {
@@ -46,6 +45,7 @@ public class DamageManagerEnemy : DamageBase
     public override void TakeDamage(int damage, GameObject enemy)
     {
         base.TakeDamage(damage, enemy);
+        lowEnemyController.StateManager.ChangeState(lowEnemyController.HitState);
         lowEnemyController.HealthBar.UpdateHeathBar(currentHP, maxHP);
         CreateFloatingText(damage);
         lowEnemyController.PhysicsEnemy.KnockBack(enemy);

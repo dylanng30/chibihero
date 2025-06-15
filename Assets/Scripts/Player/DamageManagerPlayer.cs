@@ -44,7 +44,8 @@ public class DamageManagerPlayer : DamageBase
     public override void TakeDamage(int damage, GameObject enemy)
     {
         base.TakeDamage(damage, enemy);
-        
+        playerController.StateManager.ChangeState(playerController.HitState);
+
         // Play hurt sound
         AudioManager.PlayPlayerHurt(transform.position);
         

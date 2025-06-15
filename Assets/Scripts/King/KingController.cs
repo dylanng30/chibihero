@@ -89,7 +89,7 @@ public class KingController : MonoBehaviour, IDamagable
     protected virtual void LoadPhysics()
     {
         if (this.physicsKing != null) return;
-        this.physicsKing = this.GetComponentInChildren<PhysicsKing>();
+        this.physicsKing = this.GetComponent<PhysicsKing>();
     }
     protected virtual void LoadDamageManager()
     {
