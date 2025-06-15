@@ -60,6 +60,14 @@ public class MoveToPlayer : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            // Check if player is invincible before allowing scene transition
+            PlayerController playerController = collision.GetComponentInParent<PlayerController>();
+            if (playerController != null && playerController.DamageManager.IsInvincible)
+            {
+                Debug.Log("Player is invincible, enemy collision ignored!");
+                return;
+            }
+
             GameManager.Instance.ChangeState(GameState.Fighting);
             GameManager.Instance.NextScene(nextScene, this.gameObject);
         }

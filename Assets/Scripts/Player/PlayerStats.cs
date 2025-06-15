@@ -69,9 +69,8 @@ public class PlayerStats : MonoBehaviour
     public void Reset()
     {
         this.currentHP = maxHP;
-        Debug.Log(currentHP);
         this.currentMP = maxMP;
-        Debug.Log(currentMP);
+        Debug.Log($"Player stats reset - HP: {currentHP}/{maxHP}, MP: {currentMP}/{maxMP}");
     }
 
     //HP
