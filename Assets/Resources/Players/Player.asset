@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _faction: 0
   _stats:
-    Health: 250
+    Health: 10000
     Attack: 100
     Armor: 10
     Speed: 10

@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  spriteRenderer: {fileID: 0}
 --- !u!212 &1492930196700896600
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -245,7 +246,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.23041046, y: -0.081040904}
+  m_Offset: {x: -0.46161544, y: -0.17471874}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -256,7 +257,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5954113, y: 0.7298399}
+  m_Size: {x: 1.0578213, y: 1.4114959}
   m_EdgeRadius: 0
 --- !u!58 &8678195772430893252
 CircleCollider2D:
@@ -290,9 +291,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.44447154, y: 0}
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.7444716
 --- !u!1 &2079511569350229440
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,6 +432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHP: 0
   maxHP: 0
+  armor: 0
   isDead: 0
   kingController: {fileID: 0}
   skull: {fileID: 4334585065909733642, guid: a6cd222cc72d6ab4eaaa54a849c42356, type: 3}
