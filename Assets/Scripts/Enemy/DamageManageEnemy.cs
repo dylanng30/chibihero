@@ -39,7 +39,8 @@ public class DamageManagerEnemy : DamageBase
         yield return new WaitUntil(() => lowEnemyController.EnemyStats.MaxHP != 0);
 
         this.maxHP = lowEnemyController.EnemyStats.MaxHP;
-        this.currentHP = maxHP;        
+        this.currentHP = maxHP;       
+        this.armor = lowEnemyController.EnemyStats.Armor;
     }
 
     public override void TakeDamage(int damage, GameObject enemy)

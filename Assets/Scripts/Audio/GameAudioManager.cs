@@ -89,4 +89,17 @@ public class GameAudioManager : MonoBehaviour
     {
         AudioManager.SetMasterVolume(volume);
     }
+
+    public void MuteAllSound()
+    {
+        SetMasterVolume(0f);
+        SetMusicVolume(0f);
+        SetSFXVolume(0f);
+    }
+    public void UnmuteAllSound()
+    {
+        SetMasterVolume(1f);
+        SetMusicVolume(0.5f);
+        SetSFXVolume(1f);
+    }
 }

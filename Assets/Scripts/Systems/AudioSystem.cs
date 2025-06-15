@@ -497,12 +497,12 @@ public class AudioSystem : Singleton<AudioSystem>
     }    
     private void PlayAttackSound(PlayerSoundType attackType)
     {
-        Debug.Log($"PlayAttackSound called with type: {attackType}");
+        //Debug.Log($"PlayAttackSound called with type: {attackType}");
         
         // Stop any previous attack sound and play new one
         if (attackSource.isPlaying)
         {
-            Debug.Log("Stopping previous attack sound");
+            //Debug.Log("Stopping previous attack sound");
             attackSource.Stop();
         }
 
@@ -516,7 +516,7 @@ public class AudioSystem : Singleton<AudioSystem>
         };
 
         AudioClip clip = clipSettings?.clip;
-        Debug.Log($"Inspector clip found: {clip != null}");
+        //Debug.Log($"Inspector clip found: {clip != null}");
 
         string clipName = attackType switch
         {
@@ -530,10 +530,10 @@ public class AudioSystem : Singleton<AudioSystem>
         
         if (clip == null && !string.IsNullOrEmpty(clipName))
         {
-            Debug.Log($"Looking for clip in database/resources: {clipName}");
+            //Debug.Log($"Looking for clip in database/resources: {clipName}");
             clipData = audioDatabase != null ? audioDatabase.GetAudioClip(clipName) : null;
             clip = clipData?.audioClip ?? GetClipFromResources(clipName);
-            Debug.Log($"Database/Resources clip found: {clip != null}");
+            //Debug.Log($"Database/Resources clip found: {clip != null}");
         }
         
         if (clip != null)

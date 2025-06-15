@@ -5,14 +5,19 @@ using UnityEngine;
 public class CheckEnemiesLeftInPlatForm : StaticInstance<CheckEnemiesLeftInPlatForm>
 {
     public List<GameObject> enemiesInPlatform = new List<GameObject>();
+    private bool missionFailed;
     protected override void Awake()
     {
         base.Awake();
+        missionFailed = true;
     }
     private void Update()
     {
         EnemiesToList();
-        CheckAnyEnemiesLeft();
+        Debug.Log(missionFailed);
+        if(missionFailed)
+            CheckAnyEnemiesLeft();
+
         enemiesInPlatform.Clear();
     }
     private void EnemiesToList()
@@ -27,6 +32,9 @@ public class CheckEnemiesLeftInPlatForm : StaticInstance<CheckEnemiesLeftInPlatF
     private void CheckAnyEnemiesLeft()
     {
         if(enemiesInPlatform.Count == 0)
+        {
             GameManager.Instance.CompleteMap(true);
+            missionFailed = false;
+        }                
     }
 }

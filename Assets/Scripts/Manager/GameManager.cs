@@ -80,7 +80,8 @@ public class GameManager : PersistentSingleton<GameManager>
         EXPManager.Instance.Apply();
         
         // Start invincibility when returning to top-down map (respawn scenario)
-        if (previousState == GameState.GameOver)
+        if (previousState == GameState.GameOver ||
+            previousState == GameState.Win)
         {
             PlayerController.Instance.DamageManager.StartInvincibility();
         }
@@ -111,6 +112,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
     public void ChangeStateWithScene(string sceneName)
     {
+        Debug.Log("ChangeStateWithScene: " + sceneName);
         if (sceneName.Contains("TopDown"))
             ChangeState(GameState.Exploring);
         else

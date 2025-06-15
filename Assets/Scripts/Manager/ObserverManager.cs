@@ -32,7 +32,6 @@ public class ObserverManager : Singleton<ObserverManager>
     }
     public void ChangeMap(GameState state)
     {
-        Debug.Log("Change Map");
         foreach (IObserver observer in observers)
         {
             observer.ChangeMap(state);
