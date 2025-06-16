@@ -18,6 +18,7 @@ public class HPManager : MonoBehaviour
         yield return new WaitUntil(() => PlayerController.Instance != null);
         float maxHp = (float) PlayerController.Instance.PlayerStats.MaxHP;
         float currentHp = (float) PlayerController.Instance.PlayerStats.CurrentHP;
+        Debug.Log("Current HP: " + currentHp + " Max HP: " + maxHp);
         float target = currentHp / maxHp;
         hpBar.fillAmount = Mathf.MoveTowards(hpBar.fillAmount, target, deltaSpeed * Time.deltaTime);
     }

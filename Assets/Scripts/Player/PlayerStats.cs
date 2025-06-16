@@ -94,6 +94,9 @@ public class PlayerStats : MonoBehaviour
     public void SetCurrentHP(int currentHp)
     {
         this.currentHP = currentHp;
+        if (currentHP > maxHP)
+            currentHP = maxHP;
+        Debug.Log($"Current HP set to: {currentHP}");
     }
     public void UpgradeMaxHP(int value)
     {

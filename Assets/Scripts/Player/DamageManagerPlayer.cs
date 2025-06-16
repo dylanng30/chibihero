@@ -14,6 +14,8 @@ public class DamageManagerPlayer : DamageBase
     private float invincibilityDuration = 5f; // 5 seconds invincibility after respawn
     private Coroutine invincibilityCoroutine;
 
+    private float time = 10f;
+
     protected override void Awake()
     {
         base.Awake();
@@ -21,6 +23,18 @@ public class DamageManagerPlayer : DamageBase
     protected override void Start()
     {
         base.Start();
+    }
+    private void Update()
+    {
+        if (time > 0)
+        {
+            time -= Time.deltaTime;
+        }
+        else
+        {
+            Heal(10);
+            time = 10f;
+        }
     }
     public override void LoadComponent()
     {
@@ -44,6 +58,8 @@ public class DamageManagerPlayer : DamageBase
         yield return new WaitUntil(() => playerController != null && playerController.PlayerStats != null);
         this.maxHP = playerController.PlayerStats.MaxHP;
         this.currentHP = maxHP;
+        this.currentMP = playerController.PlayerStats.MaxMP;
+        this.maxMP = playerController.PlayerStats.MaxMP;
         this.armor = playerController.PlayerStats.Armor;
     }
 
@@ -62,11 +78,11 @@ public class DamageManagerPlayer : DamageBase
         // Play hurt sound
         AudioManager.PlayPlayerHurt(transform.position);
         
-        CreateFloatingText(damage);
+        CreateFloatingText(damage - armor);
         playerController.PhysicsPlayer.KnockBack(enemy);
-        playerController.PlayerStats.SetCurrentHP(currentHP);
+        playerController.PlayerStats.SetCurrentHP(this.currentHP);
         CheckPlayerDied();
-        Debug.Log($"Player took {damage} damage from {enemy}. Current HP: {currentHP}");
+        Debug.Log($"Player took {damage - armor} damage from {enemy}. Current HP: {currentHP}");
     }
     private void CreateFloatingText(int damage)
     {
@@ -145,7 +161,9 @@ public class DamageManagerPlayer : DamageBase
     public override void Heal(int amount)
     {
         base.Heal(amount);
+        playerController.PlayerStats.SetCurrentHP(currentHP);
     }
+
 
     // Public properties and methods for invincibility system
     public bool IsInvincible
