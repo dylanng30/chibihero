@@ -14,6 +14,9 @@ public class AbilitySkill : MonoBehaviour
 
     [SerializeField] private ObjectPool pool;
 
+
+    [SerializeField] private bool canUseSkill = false;
+
     protected void GetSkill()
     {
         skillTrigger = InputManager.Instance.SkillPressed;
@@ -47,10 +50,16 @@ public class AbilitySkill : MonoBehaviour
         this.pool = GameObject.FindObjectOfType<ObjectPool>().GetComponent<ObjectPool>();
     }
 
+    public void UnlockSkill()
+    {
+        canUseSkill = true;
+        Debug.Log("Skill unlocked: " + canUseSkill);
+    }
+
     public void Skill()
     {
         GetSkillTrigger?.Invoke();
-        if (playerController.PlayerStats.CurrentMP <= 0)
+        if (playerController.PlayerStats.CurrentMP <= 0 || !canUseSkill)
             return;
 
         LoadPool();

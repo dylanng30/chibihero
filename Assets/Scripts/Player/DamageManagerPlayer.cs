@@ -113,7 +113,7 @@ public class DamageManagerPlayer : DamageBase
     private IEnumerator InvincibilityCoroutine()
     {
         isInvincible = true;
-        Debug.Log("Player is now invincible for " + invincibilityDuration + " seconds");
+        //Debug.Log("Player is now invincible for " + invincibilityDuration + " seconds");
         
         // Visual feedback - make player blink
         StartCoroutine(BlinkEffect());
@@ -121,7 +121,7 @@ public class DamageManagerPlayer : DamageBase
         yield return new WaitForSeconds(invincibilityDuration);
         
         isInvincible = false;
-        Debug.Log("Player invincibility ended");
+        //Debug.Log("Player invincibility ended");
     }
 
     private IEnumerator BlinkEffect()

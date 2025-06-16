@@ -77,11 +77,12 @@ public class MineController : MonoBehaviour
             PlayerController playerController = collision.GetComponentInParent<PlayerController>();
             if (playerController != null && playerController.DamageManager.IsInvincible)
             {
-                Debug.Log("Player is invincible, mine collision ignored!");
+                //Debug.Log("Player is invincible, mine collision ignored!");
                 return;
             }
 
             GameManager.Instance.NextScene(mineName);
+            GameManager.Instance.ChangeState(GameState.Exploring);
         }
     }
     public MineState CurrentMineState

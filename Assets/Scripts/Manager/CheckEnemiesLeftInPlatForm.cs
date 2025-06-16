@@ -37,7 +37,7 @@ public class CheckEnemiesLeftInPlatForm : StaticInstance<CheckEnemiesLeftInPlatF
         if(enemiesInPlatform.Count == 0 && !hasCompletedMap)
         {
             hasCompletedMap = true; // Set flag to prevent multiple calls
-            Debug.Log("All enemies defeated - calling CompleteMap(true)");
+            //Debug.Log("All enemies defeated - calling CompleteMap(true)");
             GameManager.Instance.CompleteMap(true);
         }
     }

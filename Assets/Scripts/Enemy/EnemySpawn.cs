@@ -46,8 +46,8 @@ public class EnemySpawn : MonoBehaviour
 
     public void SpawnAtPositions<T>(List<T> positions, GameObject[] prefabs)
     {
-        Debug.Log(positions.Count);
-        Debug.Log(prefabs);
+        //Debug.Log(positions.Count);
+        //Debug.Log(prefabs);
         if (positions == null || prefabs == null || prefabs.Length == 0) return;
 
         foreach (var item in positions)

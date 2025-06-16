@@ -83,18 +83,18 @@ public class GameManager : PersistentSingleton<GameManager>
         if (lastPosition != Vector3.zero)
         {
             // Returning from a fight - use saved position
-            Debug.Log("Setting player to lastPosition: " + lastPosition);
+            //Debug.Log("Setting player to lastPosition: " + lastPosition);
             PlayerController.Instance.transform.position = lastPosition;
         }
         else
         {
             // First time or no saved position - use PlayerSpawn
-            Debug.Log("No lastPosition, finding PlayerSpawn");
+            //Debug.Log("No lastPosition, finding PlayerSpawn");
             GameObject spawnPoint = GameObject.Find("PlayerSpawn");
             if (spawnPoint != null)
             {
                 PlayerController.Instance.transform.position = spawnPoint.transform.position;
-                Debug.Log("Set player to PlayerSpawn: " + spawnPoint.transform.position);
+                //Debug.Log("Set player to PlayerSpawn: " + spawnPoint.transform.position);
             }
         }
         
@@ -158,6 +158,7 @@ public class GameManager : PersistentSingleton<GameManager>
     public void NextScene(string nextScene)
     {
         LevelManager.Instance.LoadScene(nextScene);
+
         ChangeStateWithScene(nextScene);
     }
 
